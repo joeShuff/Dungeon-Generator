@@ -11,7 +11,7 @@ Feel free to contribute to the project and open a pull request.
       height="80">](https://play.google.com/store/apps/details?id=com.joeshuff.dddungeongenerator) 
        [<img src="art/direct-apk-download.png"
       alt="Direct download"
-      height="80">]()
+      height="80">](https://github.com/joeShuff/Dungeon-Generator/releases)
       
 ## Licence
 _D&D Dungeon Generator_ is released under the GNU General Public Licence version 3. (`gpl-3.0`)
