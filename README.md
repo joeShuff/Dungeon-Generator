@@ -1,4 +1,4 @@
-[![](art/app-icon.png "App Icon")]()
+<img src="art/app-icon.png">
 
 # Dungeon-Generator
 
