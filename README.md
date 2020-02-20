@@ -1,5 +1,3 @@
-[<img src="art/app-icon.png">]()
-
 # D&D Dungeon Generator
 
 D&D 5e Dungeon Generator is an app made to compliment and demonstrate an algorithm written for a university project entitled "Generating Dungeons & Dragons dungeons that make visible sense in the context of a narrative"
