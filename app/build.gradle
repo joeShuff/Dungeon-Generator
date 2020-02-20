@@ -1,28 +1,88 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
+gradle.taskGraph.whenReady { taskGraph ->
+    def buildIncreaseOn = ["assembleDevDebug",
+                           "assembleDevRelease",
+                           "assemblePlayStoreDebug",
+                           "assemblePlayStoreRelease"]
+
+    println("Tasks:")
+    taskGraph.allTasks.forEach { task ->
+        println(task.name)
+
+        if (task.name in buildIncreaseOn) {
+            println("Increasing build number")
+            android.autoIncrementBuildNumber()
+        }
+    }
+}
+
+/* ==================== VERSIONING ============================= */
+def versionPropsFile = file('version.properties')
+def versionBuild
+def versionDate = new Date().format("dd MMM yyyy | HH:mm:ss z")
+
+Properties versionProps = new Properties()
+versionProps.load(new FileInputStream(versionPropsFile))
+/* ==============================================================*/
+
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
+
+    versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+
+    ext.autoIncrementBuildNumber = {
+        versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+        versionProps['VERSION_BUILD'] = versionBuild.toString()
+        versionProps['VERSION_DATE'] = new Date().format("dd MMM yyyy | HH:mm:ss z")
+        versionProps.store(versionPropsFile.newWriter(), null)
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.joeshuff.dddungeongenerator"
         minSdkVersion 24
         targetSdkVersion 28
         versionCode 5
+
         versionName "1.0"
+        buildConfigField 'String', 'buildNumber', '"' + String.valueOf(versionBuild) + '"'
+        buildConfigField 'String', 'buildTime', '"' + String.valueOf(versionDate) + '"'
+
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "user"
+
+    productFlavors {
+        dev {
+            dimension "user"
+            applicationIdSuffix ".dev"
+            buildConfigField 'boolean' ,'DEV', 'true'
+        }
+        playStore {
+            dimension "user"
+            buildConfigField 'boolean', 'DEV', 'false'
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
     }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
