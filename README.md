@@ -13,3 +13,7 @@ Feel free to contribute to the project and open a pull request.
       
 ## Licence
 _D&D Dungeon Generator_ is released under the GNU General Public Licence version 3. (`gpl-3.0`)
+
+Some free assets were used to make this app, namely:
+- App Icon (https://www.flaticon.com/free-icon/dungeon_155332)
+- Icons within app (https://material.io/resources/icons)
