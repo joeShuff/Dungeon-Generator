@@ -1,4 +1,4 @@
-<img src="art/app-icon.png">
+[<img src="art/app-icon.png">]()
 
 # Dungeon-Generator
 
@@ -6,4 +6,6 @@ D&D 5e Dungeon Generator is an app made to compliment and demonstrate an algorit
 
 Feel free to contribute to the project and open a pull request.
 
-[![](art/google-play-icon.png "Download On Google Play")](https://play.google.com/store/apps/details?id=com.joeshuff.dddungeongenerator)
+[<img src="art/direct-apk-download.png"
+      alt="Direct download"
+      height="80">](https://github.com/raatmarien/red-moon/releases)
