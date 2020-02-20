@@ -1,20 +1,19 @@
 package com.joeshuff.dddungeongenerator;
 
 import android.net.Uri;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.generator.monsters.Monster;
 import com.joeshuff.dddungeongenerator.screens.ActionAdapter;
-import org.w3c.dom.Text;
 
 public class MonsterActivity extends AppCompatActivity {
 

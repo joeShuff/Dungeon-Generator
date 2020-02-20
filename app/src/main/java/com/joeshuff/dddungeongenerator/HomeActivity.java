@@ -1,13 +1,13 @@
 package com.joeshuff.dddungeongenerator;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.screens.HomeListAdapter;
 

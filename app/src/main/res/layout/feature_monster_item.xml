@@ -74,7 +74,7 @@
                     android:layout_toStartOf="@id/viewMonsterButton"
             />
 
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                     android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="5dp"

@@ -1,20 +1,17 @@
 package com.joeshuff.dddungeongenerator.screens;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.FirebaseTracker;
 import com.joeshuff.dddungeongenerator.GeneratingActivity;
@@ -23,7 +20,6 @@ import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration;
 import org.json.JSONException;
 
-import java.util.Collections;
 import java.util.List;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.PreviousSearchViewHolder> {

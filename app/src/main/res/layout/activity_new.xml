@@ -19,7 +19,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
                     app:helperTextEnabled="true"
                     android:hint="Seed">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/seedInput"
@@ -37,7 +37,7 @@
                         android:imeOptions="actionDone"
                 />
 
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                     android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="16dp"
             />
-            <android.support.v7.widget.AppCompatSeekBar
+            <androidx.appcompat.widget.AppCompatSeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/roomSizeBar"
@@ -59,7 +59,7 @@
                     android:progress="50"
             />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/longerCorridorsSwitch"
@@ -213,7 +213,7 @@
 
     </LinearLayout>
 
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/generateButton"
