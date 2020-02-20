@@ -10,9 +10,8 @@ public class FirebaseTracker {
     public static void EVENT(Context c, String id, String name) {
         try {
             Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
-            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
-            FirebaseAnalytics.getInstance(c).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+            bundle.putString("desc", id);
+            FirebaseAnalytics.getInstance(c).logEvent(name, bundle);
         } catch (Exception e) {
             try {
                 Crashlytics.logException(e);

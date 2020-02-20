@@ -3,6 +3,7 @@ package com.joeshuff.dddungeongenerator.screens;
 import android.content.*;
 import android.graphics.*;
 import android.os.Bundle;
+import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
@@ -99,6 +100,10 @@ public class ResultsFragment extends Fragment {
 
         TextView floorTitle = root.findViewById(R.id.floorCountView).findViewById(R.id.infoPair_key);
         TextView floorValue = root.findViewById(R.id.floorCountView).findViewById(R.id.infoPair_value);
+
+        if (dungeon == null) {
+            return;
+        }
 
         seedTitle.setText("Seed");
         seedValue.setText(dungeon.getSeed());
