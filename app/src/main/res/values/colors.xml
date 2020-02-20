@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--=== THEME COLOURS ===-->
+    <color name="colorPrimary">#253C78</color>
+    <color name="colorTransparentPrimary">#A9253C78</color>
+    <color name="colorPrimaryDark">#1F3263</color>
+    <color name="colorAccent">#00A6ED</color>
+    <color name="colorWhiteAccent">#FAFAFC</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <!--=====================-->
+
+    <!--=== EVERYTHING INBETWEEN ===-->
+    <color name="colorBackgroundGray">#EEEEEE</color>
+    <color name="colorDarkBackgroundGray">#DEE3E9</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorTransparentBlack">#64000000</color>
+    <color name="colorDarkThemeBackground">#333333</color>
+    <!--============================-->
+
+    <!--==== TRAKT COLORS ===-->
+    <color name="traktRed">#ED2225</color>
+    <color name="traktDarkRed">#D11B1B</color>
+    <color name="traktPlayPurple">#8E44AD</color>
+    <color name="traktCollectionGreen">#15A085</color>
+    <color name="traktWatchlistBlue">#019EDF</color>
+    <color name="traktCommentGray">#6F7A83</color>
+    <color name="traktRatingColor">#ed1c24</color>
+    <!--=====================-->
+
+    <!--=== FONT COLOURS ===-->
+    <color name="colorFontWhite">#F9F9F9</color>
+    <color name="colorLightFont">#D1D5DD</color>
+    <color name="colorSlightlyDarkerThanLightFont">#8590A7</color>
+    <color name="colorDarkestFont">#727272</color>
+    <color name="colorErrorFont">#d81a1a</color>
+    <color name="colorTransparentWhite">#A9FFFFFF</color>
+    <color name="colorChargedGreen">#67B139</color>
+    <color name="colorSelectedGreen">#5ec42b</color>
+    <color name="colorLowChargeRed">#C2182B</color>
+    <!--====================-->
+
+    <!--=== DARK THEME ===-->
+    <color name="colorDarkThemeLight">#424250</color>
+    <!--==================-->
+
+
+</resources>

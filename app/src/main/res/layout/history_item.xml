@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/colorWhite"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+>
+
+    <ImageView
+            android:layout_width="40dp"
+            android:layout_height="100dp"
+            android:id="@+id/arrowEnd"
+            android:src="@drawable/round_expand_more_black_48"
+            android:rotation="-90"
+            android:layout_alignParentEnd="true"
+    />
+
+    <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:tooltipText="Delete"
+            android:id="@+id/deleteButton"
+            android:src="@drawable/round_delete_black_48"
+            android:background="?actionBarItemBackground"
+            android:layout_marginStart="5dp"
+            android:scaleType="fitCenter"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/arrowEnd"
+            android:weightSum="2"
+            android:layout_toEndOf="@id/deleteButton"
+            android:orientation="vertical"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/dungeonNameField"
+                android:textSize="25sp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical|start"
+                android:text="Dungeon Name"
+        />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/dungeonTimeGennedField"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical|start"
+                android:text="Time Generated At"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/dungeonSeedField"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:gravity="top|start"
+                android:text="Seed"
+        />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackgroundGray"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentBottom="true"
+    />
+
+</RelativeLayout>

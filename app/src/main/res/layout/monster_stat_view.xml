@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="60dp"
+              android:weightSum="6">
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="STR"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/strengthValue"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="16 (+1)"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="DEX"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/dexValue"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="16"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="CON"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/consValue"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="16"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="INT"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/intelligenceValue"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="16"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="WIS"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/wisdomValue"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="16"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2"
+    >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="CHA"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/charismaValue"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="16"
+        />
+
+    </LinearLayout>
+
+</LinearLayout>

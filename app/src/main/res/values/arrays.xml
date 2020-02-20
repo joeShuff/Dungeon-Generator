@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="fequency_modifier_keys">
+        <item>Reduced</item>
+        <item>Lots</item>
+    </array>
+
+    <array name="depth_keys">
+        <item>Deep</item>
+        <item>Tall</item>
+    </array>
+</resources>
