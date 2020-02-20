@@ -99,7 +99,7 @@ public class DungeonSection  {
                 if (nearest != null) {
                     if (r1.moveAwayFrom(nearest)) {
                         allDone = false;
-//                        System.out.println("Nearest to " + r1.getId() + " is " + nearest.getId());
+//                        Logs.i("Nearest to " + r1.getId() + " is " + nearest.getId());
                     }
                 }
             }

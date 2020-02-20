@@ -76,7 +76,7 @@ public class GeneratingActivity extends AppCompatActivity {
     }
 
     public void setProgressText(String text) {
-        System.out.println(text);
+        Logs.i("GenerationUpdate", text, null);
         runOnUiThread(() -> progressText.setText(text));
     }
 
