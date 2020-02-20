@@ -101,7 +101,7 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorDarkBackgroundGray"
+                    app:tsb_tick_texts_color="@color/colorLightFont"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
@@ -126,7 +126,7 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorDarkBackgroundGray"
+                    app:tsb_tick_texts_color="@color/colorLightFont"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
@@ -151,7 +151,7 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorDarkBackgroundGray"
+                    app:tsb_tick_texts_color="@color/colorLightFont"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
@@ -176,7 +176,7 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorDarkBackgroundGray"
+                    app:tsb_tick_texts_color="@color/colorLightFont"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
