@@ -9,10 +9,10 @@ Feel free to contribute to the project and open a pull request.
 [<img src="art/google-play-icon.png"
       alt="Download from Google Play"
       height="80">](https://play.google.com/store/apps/details?id=com.joeshuff.dddungeongenerator) 
-      <!--[<img src="art/f-droid-download.png"
+      [<img src="art/f-droid-download.png"
       alt="Download from F-Droid"
-      height="80">]()-->
-       <!-- [<img src="art/direct-apk-download.png"
+      height="80">]()
+       [<img src="art/direct-apk-download.png"
       alt="Direct download"
-      height="80">]()-->
+      height="80">]()
       
