@@ -1,7 +1,6 @@
 package com.joeshuff.dddungeongenerator.memory;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Modifier;
 

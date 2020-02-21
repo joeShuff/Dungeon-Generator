@@ -1,19 +1,13 @@
 package com.joeshuff.dddungeongenerator.screens;
 
-import android.app.Activity;
 import android.content.*;
 import android.graphics.*;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Handler;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport;
 import com.joeshuff.dddungeongenerator.ResultsActivity;
@@ -102,6 +100,10 @@ public class ResultsFragment extends Fragment {
 
         TextView floorTitle = root.findViewById(R.id.floorCountView).findViewById(R.id.infoPair_key);
         TextView floorValue = root.findViewById(R.id.floorCountView).findViewById(R.id.infoPair_value);
+
+        if (dungeon == null) {
+            return;
+        }
 
         seedTitle.setText("Seed");
         seedValue.setText(dungeon.getSeed());

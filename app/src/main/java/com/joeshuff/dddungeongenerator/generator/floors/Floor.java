@@ -1,6 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.floors;
 
 import android.graphics.Point;
+import com.joeshuff.dddungeongenerator.Logs;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room;
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate;
@@ -76,7 +77,7 @@ public class Floor {
             }
         }
 
-        System.out.println("Closest room to (" + root.getGlobalStartX() + "," + root.getGlobalStartY() + "; " + root.getWidth() + "x" + root.getHeight() + ") is room " + closestRoom.getId());
+        Logs.i("Floor", "Closest room to (" + root.getGlobalStartX() + "," + root.getGlobalStartY() + "; " + root.getWidth() + "x" + root.getHeight() + ") is room " + closestRoom.getId(), null);
         return closestRoom;
     }
 
@@ -93,7 +94,7 @@ public class Floor {
                     newSectionList.remove(section);
                     newSectionList.remove(comparingSection);
 
-//                    System.out.println("2 sections are overlapping (" + section.me() + ") (" + comparingSection.me() + ")");
+//                    Logs.i("2 sections are overlapping (" + section.me() + ") (" + comparingSection.me() + ")");
 
                     Point topLeft = new Point(
                             Math.min(section.getStartPoint().x, comparingSection.getStartPoint().x),
@@ -117,12 +118,12 @@ public class Floor {
 //                    int width = bottomRight.x - topLeft.x;
 //                    int height = bottomRight.y - topLeft.y;
 
-//                    System.out.println("combined to " + topLeft + " at " + width + "x" + height);
-                    System.out.println("rectangle('position', [" + section.getStartPoint().x + ", " + section.getStartPoint().y + "," + section.getWidth() + "," + section.getHeight() + "], 'edgecolor',[0, 1, 0])");
-                    System.out.println("rectangle('position', [" + comparingSection.getStartPoint().x + ", " + comparingSection.getStartPoint().y + "," + comparingSection.getWidth() + "," + comparingSection.getHeight() + "], 'edgecolor',[0, 1, 0])");
+//                    Logs.i("combined to " + topLeft + " at " + width + "x" + height);
+                    Logs.i("Floor", "rectangle('position', [" + section.getStartPoint().x + ", " + section.getStartPoint().y + "," + section.getWidth() + "," + section.getHeight() + "], 'edgecolor',[0, 1, 0])", null);
+                    Logs.i("Floor", "rectangle('position', [" + comparingSection.getStartPoint().x + ", " + comparingSection.getStartPoint().y + "," + comparingSection.getWidth() + "," + comparingSection.getHeight() + "], 'edgecolor',[0, 1, 0])", null);
 
                     DungeonSection newSection = new DungeonSection(section.getId(), dungeon, this, width, height, topLeft);
-                    System.out.println("rectangle('position', [" + newSection.getStartPoint().x + ", " + newSection.getStartPoint().y + "," + newSection.getWidth() + "," + newSection.getHeight() + "], 'edgecolor',[1, 0, 0])");
+                    Logs.i("Floor", "rectangle('position', [" + newSection.getStartPoint().x + ", " + newSection.getStartPoint().y + "," + newSection.getWidth() + "," + newSection.getHeight() + "], 'edgecolor',[1, 0, 0])", null);
 
                     newSectionList.add(newSection);
                     allClear = false;

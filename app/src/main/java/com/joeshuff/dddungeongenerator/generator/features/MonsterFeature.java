@@ -1,5 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.features;
 
+import com.joeshuff.dddungeongenerator.Logs;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Modifier;
 import com.joeshuff.dddungeongenerator.generator.monsters.Bestiary;
@@ -33,7 +34,7 @@ public class MonsterFeature implements RoomFeature {
                 if (selectedMonster != null) {
                     isBoss = true;
                 } else {
-                    System.out.println("EMPTY BOSS MONSTER");
+                    Logs.i("MonsterFeature", "EMPTY BOSS MONSTER", null);
                 }
             }
         }
@@ -43,7 +44,7 @@ public class MonsterFeature implements RoomFeature {
         selectedMonster = Bestiary.getMonster(rnd, modifier, false);
 
         if (selectedMonster == null) {
-            System.out.println("EMPTY MONSTER");
+            Logs.i("MonsterFeature", "EMPTY MONSTER", null);
         }
     }
 

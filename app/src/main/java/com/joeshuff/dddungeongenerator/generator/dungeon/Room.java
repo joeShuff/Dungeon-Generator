@@ -1,6 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon;
 
 import android.graphics.Point;
+import com.joeshuff.dddungeongenerator.Logs;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection;
 import com.joeshuff.dddungeongenerator.generator.models.Rectangle;
@@ -207,7 +208,7 @@ public class Room  {
                 }
 
                 if (thisMovement.getTimesMade() > 5) {
-                    System.out.println("Rejecting " + getId() + " because it's bouncing");
+                    Logs.i("Room", "Rejecting " + getId() + " because it's bouncing", null);
                     isRejected = true;
                     return false;
                 }
