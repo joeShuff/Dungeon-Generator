@@ -54,8 +54,8 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.licences) {
-            startActivity(new Intent(this, SRDActivity.class));
+        if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
         }
 
         return false;
