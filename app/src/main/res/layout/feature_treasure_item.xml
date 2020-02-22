@@ -17,7 +17,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
         />
 
         <ImageView
@@ -27,6 +27,7 @@
                 android:id="@+id/triangleIcon"
                 android:src="@drawable/round_expand_more_black_48"
                 android:scaleType="center"
+                android:tint="@color/colorFontRegular"
                 android:padding="10dp"
         />
 
@@ -39,6 +40,7 @@
                 android:textSize="20sp"
                 android:paddingStart="16dp"
                 android:id="@+id/barText"
+                android:textColor="@color/colorFontRegular"
         />
     </RelativeLayout>
 
@@ -53,7 +55,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
         />
@@ -64,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:textColor="@color/colorFontRegular"
                 android:layout_marginStart="16dp"
                 android:text="Treasure Description"
         />

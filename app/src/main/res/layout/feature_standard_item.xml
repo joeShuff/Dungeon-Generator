@@ -17,7 +17,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
         />
 
         <ImageView
@@ -25,6 +25,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/triangleIcon"
+                android:tint="@color/colorFontRegular"
                 android:src="@drawable/round_expand_more_black_48"
                 android:scaleType="center"
                 android:padding="10dp"
@@ -36,6 +37,7 @@
                 android:text="Room"
                 android:gravity="center_vertical|start"
                 android:layout_toStartOf="@id/triangleIcon"
+                android:textColor="@color/colorFontRegular"
                 android:textSize="20sp"
                 android:paddingStart="16dp"
                 android:id="@+id/barText"
@@ -54,7 +56,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
         />
@@ -63,11 +65,13 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorFontRegular"
                 android:text="Stairs Description" />
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/description"
+                android:textColor="@color/colorFontRegular"
                 android:text="Linked" />
 
     </com.github.aakira.expandablelayout.ExpandableLinearLayout>

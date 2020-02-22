@@ -37,7 +37,7 @@
                 android:layout_height="2dp"
                 android:id="@+id/ddSrd_seperator"
                 app:layout_constraintTop_toBottomOf="@id/ddSrd_title"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"/>
@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ddSrd_text"
                 android:text="@string/srd_text"
+                android:textColor="@color/colorFontRegular"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/ddSrd_seperator"
                 android:layout_margin="8dp"/>
@@ -73,7 +74,7 @@
                     android:id="@+id/ddSrd_viewDocIcon"
                     android:src="@drawable/ic_insert_drive_file"
                     android:padding="10dp"
-                    android:tint="@color/colorDarkestFont"
+                    android:tint="@color/colorTintColor"
             />
             <!-- ==== -->
 
@@ -86,6 +87,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="16dp"
                     android:textSize="18sp"
+                    android:textColor="@color/colorTintColor"
             />
             <!-- ==== -->
 

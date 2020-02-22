@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:src="@drawable/baseline_grid_off_black_48"
-                android:tint="@color/colorDarkBackgroundGray"
+                android:tint="@color/colorFontRegular"
                 android:scaleType="fitCenter"
                 android:padding="5dp"
         />
@@ -41,6 +41,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:gravity="center"
+                android:textColor="@color/colorFontRegular"
                 android:text="No Previous Dungeons"
         />
 

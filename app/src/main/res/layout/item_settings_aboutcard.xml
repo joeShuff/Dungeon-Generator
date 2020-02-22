@@ -37,7 +37,7 @@
                 android:layout_height="2dp"
                 android:id="@+id/aboutApp_seperator"
                 app:layout_constraintTop_toBottomOf="@id/aboutApp_title"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"/>
@@ -50,6 +50,7 @@
                 android:id="@+id/aboutApp_text"
                 android:text="@string/lorem_ipsum"
                 android:textSize="14sp"
+                android:textColor="@color/colorFontRegular"
                 app:layout_constraintTop_toBottomOf="@id/aboutApp_seperator"
                 android:layout_margin="8dp"/>
         <!-- ==== -->
@@ -73,7 +74,7 @@
                     android:id="@+id/aboutApp_viewPaperIcon"
                     android:src="@drawable/ic_insert_drive_file"
                     android:padding="10dp"
-                    android:tint="@color/colorDarkestFont"
+                    android:tint="@color/colorTintColor"
             />
             <!-- ==== -->
 
@@ -86,6 +87,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="16dp"
                     android:textSize="18sp"
+                    android:textColor="@color/colorTintColor"
             />
             <!-- ==== -->
 

@@ -17,7 +17,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
         />
 
         <ImageView
@@ -27,6 +27,7 @@
                 android:id="@+id/triangleIcon"
                 android:src="@drawable/round_expand_more_black_48"
                 android:scaleType="center"
+                android:tint="@color/colorFontRegular"
                 android:padding="10dp"
         />
 
@@ -36,6 +37,7 @@
                 android:text="Stairs"
                 android:gravity="center_vertical|start"
                 android:layout_toStartOf="@id/triangleIcon"
+                android:textColor="@color/colorFontRegular"
                 android:textSize="20sp"
                 android:paddingStart="16dp"
                 android:id="@+id/barText"
@@ -54,7 +56,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
         />
@@ -64,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/stairsDescription"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/colorFontRegular"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="5dp"
                 android:text="Stairs Desc" />
@@ -73,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Stairs Direction: "
+                android:textColor="@color/colorFontRegular"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="16dp"
@@ -95,6 +99,7 @@
                         android:id="@+id/targetRoomId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorFontRegular"
                         android:text="Destination Room: "
                         android:gravity="center_vertical"
                         android:layout_weight="1"
@@ -104,6 +109,7 @@
                         android:id="@+id/targetFloorId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorFontRegular"
                         android:text="Destination Floor: "
                         android:gravity="center_vertical"
                         android:layout_weight="1"

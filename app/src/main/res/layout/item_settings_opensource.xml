@@ -37,7 +37,7 @@
                 android:layout_height="2dp"
                 android:id="@+id/openSource_seperator"
                 app:layout_constraintTop_toBottomOf="@id/openSource_title"
-                android:background="@color/colorBackgroundGray"
+                android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"/>
@@ -50,6 +50,7 @@
                 android:id="@+id/openSource_text"
                 android:text="@string/open_source_text"
                 android:textSize="14sp"
+                android:textColor="@color/colorFontRegular"
                 app:layout_constraintTop_toBottomOf="@id/openSource_seperator"
                 android:layout_margin="8dp"/>
         <!-- ==== -->
@@ -73,7 +74,7 @@
                     android:id="@+id/openSource_viewCodeIcon"
                     android:src="@drawable/ic_octicons_mark_github"
                     android:padding="10dp"
-                    android:tint="@color/colorDarkestFont"
+                    android:tint="@color/colorTintColor"
             />
             <!-- ==== -->
 
@@ -86,6 +87,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="16dp"
                     android:textSize="18sp"
+                    android:textColor="@color/colorTintColor"
             />
             <!-- ==== -->
 

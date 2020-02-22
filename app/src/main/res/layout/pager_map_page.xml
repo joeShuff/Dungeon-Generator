@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgroundGray"
+        android:background="@color/colorCardBackground"
         tools:context="com.joeshuff.dddungeongenerator.ResultsActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -26,7 +26,7 @@
                     android:layout_marginTop="5dp"
                     android:text="Floor Selection"
                     android:textSize="15sp"
-                    android:textColor="@color/colorDarkestFont"
+                    android:textColor="@color/colorFontTitle"
             />
 
             <com.warkiz.tickseekbar.TickSeekBar
@@ -46,7 +46,7 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_tick_texts_color="@color/colorBlack"
                     app:tsb_tick_texts_size="13sp"
-                    app:tsb_track_background_color="@color/colorDarkBackgroundGray"
+                    app:tsb_track_background_color="@color/colorFontRegular"
                     app:tsb_track_background_size="2dp"
                     app:tsb_track_progress_color="@color/colorPrimary"
                     app:tsb_track_progress_size="3dp"/>
@@ -93,7 +93,7 @@
                     android:id="@+id/clickOnARoom"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="16dp"
-                    android:textColor="@color/colorDarkestFont"
+                    android:textColor="@color/colorFontRegular"
                     android:text="Click on a Room for more information"
             />
             <!--=======================-->
@@ -114,7 +114,7 @@
                         android:id="@+id/roomTitle"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="16dp"
-                        android:textColor="@color/colorDarkestFont"
+                        android:textColor="@color/colorFontTitle"
                         android:text="Room -"
                 />
 
@@ -126,7 +126,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:textColor="@color/colorSlightlyDarkerThanLightFont"
+                        android:textColor="@color/colorFontRegular"
                         android:text="Room Detail"
                 />
 
@@ -153,7 +153,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:src="@drawable/baseline_grid_off_black_48"
-                            android:tint="@color/colorDarkBackgroundGray"
+                            android:tint="@color/colorFontRegular"
                             android:scaleType="fitCenter"
                             android:padding="5dp"
                     />
@@ -166,6 +166,7 @@
                             android:paddingBottom="10dp"
                             android:paddingStart="25dp"
                             android:paddingEnd="25dp"
+                            android:textColor="@color/colorFontRegular"
                             android:gravity="center"
                             android:text="No Room Features"
                     />

@@ -26,6 +26,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     app:helperText="Leave empty for random seed"
+                    app:helperTextTextColor="@color/colorFontTitle"
                     app:helperTextEnabled="true"
                     android:hint="Seed">
 
@@ -35,6 +36,7 @@
                         android:id="@+id/seedInput"
                         android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:textColor="@color/colorFontRegular"
                 />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -42,7 +44,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorDarkestFont"
+                    android:textColor="@color/colorFontTitle"
                     android:text="Room Size"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="16dp"
@@ -67,6 +69,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="2dp"
                     android:text="Longer Corridors?"
+                    android:textColor="@color/colorFontTitle"
                     android:textSize="18sp"
             />
             <TextView
@@ -74,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/longerCorridorsStatus"
                     android:textSize="13sp"
-                    android:textColor="@color/colorSlightlyDarkerThanLightFont"
+                    android:textColor="@color/colorFontRegular"
                     android:text="The shortest corridors will be prioritised"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
@@ -83,7 +86,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorFontTitle"
                     android:text="Monster Frequency"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="16dp"
@@ -101,14 +104,14 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorLightFont"
+                    app:tsb_tick_texts_color="@color/colorFontRegular"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorFontTitle"
                     android:text="Treasure Frequency"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="16dp"
@@ -126,14 +129,14 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorLightFont"
+                    app:tsb_tick_texts_color="@color/colorFontRegular"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorFontTitle"
                     android:text="Trap Frequency"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="16dp"
@@ -151,14 +154,14 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorLightFont"
+                    app:tsb_tick_texts_color="@color/colorFontRegular"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorFontTitle"
                     android:text="Dungeon Depth"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="16dp"
@@ -176,7 +179,7 @@
                     app:tsb_show_tick_texts="above"
                     app:tsb_track_progress_color="@color/colorAccent"
                     app:tsb_thumb_color="@color/colorAccent"
-                    app:tsb_tick_texts_color="@color/colorLightFont"
+                    app:tsb_tick_texts_color="@color/colorFontRegular"
                     android:layout_marginBottom="16dp"
                     app:tsb_ticks_count="2" />
 
@@ -197,7 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Scroll Down"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorFontTitle"
                 android:textSize="15sp"
                 android:layout_gravity="center"
         />
@@ -206,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:src="@drawable/round_expand_more_black_48"
-                android:tint="@color/colorBlack"
+                android:tint="@color/colorFontTitle"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
         />
