@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   android:orientation="vertical"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   app:cardBackgroundColor="@color/colorCardBackground"
+                                   app:cardElevation="5dp"
+                                   android:layout_marginTop="8dp"
+                                   app:cardCornerRadius="0dp"
+                                   android:layout_marginBottom="16dp"
+                                   android:paddingBottom="8dp"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- TITLE -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buildInfo_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Build Information"
+                android:textSize="25sp"
+                android:textColor="@color/colorFontTitle"
+                android:padding="8dp"
+                android:textStyle="bold"
+        />
+        <!-- ===== -->
+
+        <!-- SEPERATOR -->
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/buildInfo_seperator"
+                app:layout_constraintTop_toBottomOf="@id/buildInfo_title"
+                android:background="@color/colorBackgroundGray"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"/>
+        <!-- ========= -->
+
+        <!-- ITEMS -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buildInfo_list"
+                app:layout_constraintTop_toBottomOf="@id/buildInfo_seperator"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+            <!-- VERSION -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_versionItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_versionTitle"
+                        android:text="Version"
+                        android:textColor="@color/colorDarkestFont"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_versionValue"
+                        android:text="Version"
+                        android:textColor="@color/colorSlightlyDarkerThanLightFont"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ======= -->
+
+            <!-- BUILD NUMBER -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_buildNumberItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildNumberTitle"
+                        android:text="Build Number"
+                        android:textColor="@color/colorDarkestFont"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildNumberValue"
+                        android:text="Build No"
+                        android:textColor="@color/colorSlightlyDarkerThanLightFont"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ============ -->
+
+            <!-- BUILD DATE -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_buildDateItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildDateTitle"
+                        android:text="Build Date"
+                        android:textColor="@color/colorDarkestFont"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildDateValue"
+                        android:text="Build Date"
+                        android:textColor="@color/colorSlightlyDarkerThanLightFont"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ========== -->
+        </LinearLayout>
+        <!-- ===== -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

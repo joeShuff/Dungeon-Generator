@@ -9,7 +9,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".SettingsActivity">
+                android:name=".SettingsActivity"
+                android:theme="@style/DarkAppTheme">
         </activity>
         <activity android:name=".NewDungeonActivity">
         </activity>

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.joeshuff.dddungeongenerator.util.openUrl
 
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.item_settings_build_info.*
 import kotlinx.android.synthetic.main.item_settings_opensource.*
 import kotlinx.android.synthetic.main.item_settings_srd.*
 
@@ -19,6 +20,10 @@ class SettingsActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Settings"
+
+        buildInfo_buildDateValue.text = BuildConfig.buildTime
+        buildInfo_versionValue.text = BuildConfig.VERSION_NAME
+        buildInfo_buildNumberValue.text = BuildConfig.buildNumber
 
         openSource_viewCode.setOnClickListener {
             "https://github.com/joeShuff/Dungeon-Generator".openUrl(this)

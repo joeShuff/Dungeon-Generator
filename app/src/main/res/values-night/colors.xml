@@ -18,10 +18,10 @@
     <color name="colorDarkThemeBackground">#333333</color>
     <!--============================-->
 
-    <color name="colorCardBackground">#FFFFFF</color>
+    <color name="colorCardBackground">#4A4A4A</color>
 
     <!--=== FONT COLOURS ===-->
-    <color name="colorFontTitle">#121212</color>
+    <color name="colorFontTitle">#EFEFEF</color>
     <color name="colorFontWhite">#F9F9F9</color>
     <color name="colorLightFont">#D1D5DD</color>
     <color name="colorSlightlyDarkerThanLightFont">#8590A7</color>
