@@ -20,10 +20,10 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/aboutApp_title"
+                android:id="@+id/theme_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="About this App"
+                android:text="Theme"
                 android:textSize="25sp"
                 android:textColor="@color/colorFontTitle"
                 android:padding="@dimen/small_margin"
@@ -35,32 +35,20 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:id="@+id/aboutApp_seperator"
-                app:layout_constraintTop_toBottomOf="@id/aboutApp_title"
+                android:id="@+id/theme_seperator"
+                app:layout_constraintTop_toBottomOf="@id/theme_title"
                 android:background="@color/colorSeparatorColor"
                 android:layout_marginStart="@dimen/small_margin"
                 android:layout_marginEnd="@dimen/small_margin"
                 android:layout_marginBottom="@dimen/small_margin"/>
         <!-- ========= -->
 
-        <!-- TEXT -->
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/aboutApp_text"
-                android:text="@string/about_text"
-                android:textSize="14sp"
-                android:textColor="@color/colorFontRegular"
-                app:layout_constraintTop_toBottomOf="@id/aboutApp_seperator"
-                android:layout_margin="@dimen/small_margin"/>
-        <!-- ==== -->
-
         <!-- View Document -->
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/aboutApp_viewPaper"
-                app:layout_constraintTop_toBottomOf="@id/aboutApp_text"
+                android:id="@+id/theme_chooseTheme"
+                app:layout_constraintTop_toBottomOf="@id/theme_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="@dimen/small_margin"
                 android:clickable="true"
@@ -68,13 +56,14 @@
                 android:orientation="horizontal">
 
             <!-- ICON -->
-            <ImageView
-                    android:layout_width="60dp"
+            <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:id="@+id/aboutApp_viewPaperIcon"
-                    android:src="@drawable/ic_insert_drive_file"
-                    android:padding="10dp"
-                    android:tint="@color/colorTintColor"
+                    android:id="@+id/theme_chooseAction"
+                    android:gravity="center"
+                    android:text="@string/theme_action"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:textColor="@color/colorFontTitle"
             />
             <!-- ==== -->
 
@@ -82,10 +71,10 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/aboutApp_viewPaperText"
-                    android:text="View Paper"
-                    android:gravity="center_vertical"
-                    android:paddingStart="16dp"
+                    android:id="@+id/theme_chosenTheme"
+                    android:text="@string/theme_follow_system_value"
+                    android:gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/default_margin"
                     android:textSize="18sp"
                     android:textColor="@color/colorTintColor"
             />

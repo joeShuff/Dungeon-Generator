@@ -11,6 +11,9 @@
     <color name="colorBlack">#000000</color>
     <!--=====================-->
 
+    <color name="tabLayoutBackgroundColor">@color/colorPrimary</color>
+    <color name="itemBackgroundColor">#FFFFFF</color>
+    <color name="screenBackgroundColor">#FAFAFA</color>
     <color name="colorCardBackground">#FFFFFF</color>
     <color name="colorSeparatorColor">#A2A2A2</color>
     <color name="colorTintColor">#5A5A5A</color>
@@ -26,5 +29,4 @@
     <color name="colorChargedGreen">#67B139</color>
     <color name="colorSelectedGreen">#5ec42b</color>
     <color name="colorLowChargeRed">#C2182B</color>
-
 </resources>

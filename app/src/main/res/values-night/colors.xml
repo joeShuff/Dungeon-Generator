@@ -10,6 +10,9 @@
     <color name="colorBlack">#000000</color>
     <!--=====================-->
 
+    <color name="tabLayoutBackgroundColor">@color/screenBackgroundColor</color>
+    <color name="itemBackgroundColor">#000000</color>
+    <color name="screenBackgroundColor">#050505</color>
     <color name="colorCardBackground">#1D1D1D</color>
     <color name="colorSeparatorColor">#818181</color>
     <color name="colorTintColor">#5A5A5A</color>

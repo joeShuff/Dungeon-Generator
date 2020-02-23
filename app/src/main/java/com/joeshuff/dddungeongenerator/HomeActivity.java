@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.screens.HomeListAdapter;
+import com.joeshuff.dddungeongenerator.util.AppPreferences;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -17,6 +19,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        AppPreferences.INSTANCE.init(getApplicationContext());
+        AppCompatDelegate.setDefaultNightMode(AppPreferences.INSTANCE.getDarkThemeMode());
 
         doUpdate();
     }
@@ -35,7 +40,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         doUpdate();
     }
 

@@ -3,6 +3,13 @@
     <string name="title_activity_settings">Settings</string>
     <string name="open_source_text">This app is open source! Check out the code below.</string>
     <string name="srd_text">Dungeons and Dragons System Reference Document</string>
+    <string name="theme_action">Choose Theme</string>
+    <string name="privacy_text">@string/lorem_ipsum</string>
+    <string name="about_text">@string/lorem_ipsum</string>
+    <string name="theme_light_value">Light</string>
+    <string name="theme_dark_value">Dark</string>
+    <string name="theme_follow_system_value">Use system default</string>
+    <string name="theme_battery_saver">Set by Battery Saver</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu ultrices nisi. Aenean dictum lacus sed metus pharetra aliquam. Donec id lobortis eros. Integer et ullamcorper quam. Sed felis nibh, maximus sodales condimentum id, scelerisque nec urna. Phasellus cursus tellus id odio efficitur, ut venenatis enim consequat. Mauris fermentum pretium massa nec consequat. Nunc facilisis eros at ultricies convallis. Morbi non sem lacinia, pulvinar sem vel, pharetra sem. Cras mauris lacus, placerat et rutrum volutpat, faucibus in sapien.
 
         Morbi a est quam. Nulla accumsan faucibus pellentesque. Praesent tristique commodo neque. Cras commodo vel risus eu rhoncus. Mauris lobortis faucibus tortor, eget pretium nunc. Nunc a sem eu lacus faucibus vehicula. Maecenas at tincidunt nunc. Duis ut lacinia enim. Suspendisse potenti. Integer faucibus magna ligula, vitae aliquam odio ullamcorper sit amet. Nunc pellentesque ullamcorper viverra. Duis turpis dui, pharetra sed lacinia vitae, congue non risus. Nulla vestibulum arcu neque, sed aliquet ante iaculis nec. </string>

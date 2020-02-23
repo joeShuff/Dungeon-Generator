@@ -6,10 +6,10 @@
                                    android:layout_height="wrap_content"
                                    app:cardBackgroundColor="@color/colorCardBackground"
                                    app:cardElevation="5dp"
-                                   android:layout_marginTop="8dp"
+                                   android:layout_marginTop="@dimen/small_margin"
                                    app:cardCornerRadius="0dp"
                                    android:layout_marginBottom="16dp"
-                                   android:paddingBottom="8dp"
+                                   android:paddingBottom="@dimen/small_margin"
 >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +26,7 @@
                 android:text="Build Information"
                 android:textSize="25sp"
                 android:textColor="@color/colorFontTitle"
-                android:padding="8dp"
+                android:padding="@dimen/small_margin"
                 android:textStyle="bold"
         />
         <!-- ===== -->
@@ -38,9 +38,9 @@
                 android:id="@+id/buildInfo_seperator"
                 app:layout_constraintTop_toBottomOf="@id/buildInfo_title"
                 android:background="@color/colorSeparatorColor"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"/>
         <!-- ========= -->
 
         <!-- ITEMS -->
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/buildInfo_list"
                 app:layout_constraintTop_toBottomOf="@id/buildInfo_seperator"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/small_margin"
                 android:orientation="vertical">
 
             <!-- VERSION -->
@@ -69,7 +69,7 @@
                         android:text="Version"
                         android:textColor="@color/colorFontSubtitle"
                         android:textSize="16sp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/small_margin"
                         android:textStyle="bold"
                 />
                 <!-- ===== -->
@@ -82,7 +82,7 @@
                         android:text="Version"
                         android:textColor="@color/colorFontRegular"
                         android:textSize="14sp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/small_margin"
                 />
                 <!-- ===== -->
             </LinearLayout>
@@ -105,7 +105,7 @@
                         android:text="Build Number"
                         android:textColor="@color/colorFontSubtitle"
                         android:textSize="16sp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/small_margin"
                         android:textStyle="bold"
                 />
                 <!-- ===== -->
@@ -118,7 +118,7 @@
                         android:text="Build No"
                         android:textColor="@color/colorFontRegular"
                         android:textSize="14sp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/small_margin"
                 />
                 <!-- ===== -->
             </LinearLayout>
@@ -141,7 +141,7 @@
                         android:text="Build Date"
                         android:textColor="@color/colorFontSubtitle"
                         android:textSize="16sp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/small_margin"
                         android:textStyle="bold"
                 />
                 <!-- ===== -->
@@ -154,7 +154,45 @@
                         android:text="Build Date"
                         android:textColor="@color/colorFontRegular"
                         android:textSize="14sp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="@dimen/small_margin"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ========== -->
+
+            <!-- INSTALLATION REF -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_installationItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_installationTitle"
+                        android:text="Installation Reference"
+                        android:textColor="@color/colorFontSubtitle"
+                        android:textSize="16sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_installationValue"
+                        android:text="Installation"
+                        android:textColor="@color/colorFontRegular"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/small_margin"
                 />
                 <!-- ===== -->
             </LinearLayout>

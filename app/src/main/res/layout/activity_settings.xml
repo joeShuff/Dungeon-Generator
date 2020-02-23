@@ -19,6 +19,14 @@
             <include layout="@layout/item_settings_aboutcard"/>
             <!-- ========== -->
 
+            <!-- THEME CARD -->
+            <include layout="@layout/item_settings_theme"/>
+            <!-- ========== -->
+
+            <!-- PRIVACY CARD -->
+            <include layout="@layout/item_settings_privacycard"/>
+            <!-- ============ -->
+
             <!-- OPEN SOURCE -->
             <include layout="@layout/item_settings_opensource"/>
             <!-- =========== -->
