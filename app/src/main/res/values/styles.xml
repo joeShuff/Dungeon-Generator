@@ -15,9 +15,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AlertDialogCustom" parent="Base.AlertDialog.AppCompat.Light">
-        <item name="buttonBarPositiveButtonStyle">@color/colorTransparentPrimary</item>
-        <item name="buttonBarNegativeButtonStyle">@color/colorTransparentPrimary</item>
-    </style>
-
 </resources>

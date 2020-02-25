@@ -52,6 +52,7 @@
                 android:layout_marginBottom="25dp"
                 android:layout_gravity="center"
                 android:textSize="20sp"
+                android:textColor="@color/colorWhite"
                 android:text="New Dungeon"
                 android:onClick="genNewClicked"
         />
