@@ -123,6 +123,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:id="@+id/viewTargetRoom"
+                    android:textColor="@color/colorWhite"
                     android:layout_alignParentEnd="true"
                     android:text="GoTo"
                     app:cornerRadius="5dp"

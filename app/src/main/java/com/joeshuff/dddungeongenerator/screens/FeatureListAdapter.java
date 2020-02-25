@@ -18,7 +18,7 @@ import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
-import com.joeshuff.dddungeongenerator.FirebaseTracker;
+import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.joeshuff.dddungeongenerator.MonsterActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.features.*;

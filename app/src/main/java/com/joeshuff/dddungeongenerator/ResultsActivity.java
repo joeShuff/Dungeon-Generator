@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -29,8 +30,6 @@ public class ResultsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(GeneratingActivity.roomFeatureAdapter).create();
-
-//        generatedDungeon = gson.fromJson(getIntent().getStringExtra("dungeon"), Dungeon.class);
         generatedDungeon = gson.fromJson(MemoryController.getFromSharedPreferences(getApplicationContext(), "RECENT_DUNGEON"), Dungeon.class);
 
         getSupportActionBar().setTitle(generatedDungeon.name);
@@ -60,6 +59,8 @@ public class ResultsActivity extends AppCompatActivity {
     private void loadUI() {
         ViewPager pager = findViewById(R.id.resultsPager);
         TabLayout tabs = findViewById(R.id.resultsTab);
+
+        tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.tabLayoutBackgroundColor));
 
         pager.setAdapter(new ResultsFragment.ResultFragmentPagerAdapter(this, generatedDungeon));
         tabs.setupWithViewPager(pager);

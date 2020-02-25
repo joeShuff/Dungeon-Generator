@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.util;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class FirebaseTracker {
 
-    public static void EVENT(Context c, String id, String name) {
+    public static void EVENT(Context c, String name, String desc) {
         try {
             Bundle bundle = new Bundle();
-            bundle.putString("desc", id);
+            bundle.putString("desc", desc);
             FirebaseAnalytics.getInstance(c).logEvent(name, bundle);
         } catch (Exception e) {
             try {

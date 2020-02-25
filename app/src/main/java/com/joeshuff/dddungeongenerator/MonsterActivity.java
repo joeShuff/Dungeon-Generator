@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.generator.monsters.Monster;
 import com.joeshuff.dddungeongenerator.screens.ActionAdapter;
+import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 
 public class MonsterActivity extends AppCompatActivity {
 

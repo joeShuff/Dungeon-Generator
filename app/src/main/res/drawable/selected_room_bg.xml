@@ -4,7 +4,7 @@
     <solid android:color="@color/colorSelectedGreen"/>
     <stroke
             android:width="5dp"
-            android:color="#000000"/>
+            android:color="@color/colorRoomTrim"/>
     <padding
             android:bottom="5dp"
             android:left="5dp"

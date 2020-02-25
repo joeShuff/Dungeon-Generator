@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -202,7 +203,7 @@ public class ResultsFragment extends Fragment {
         Canvas canvas = new Canvas(corridorMap);
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLACK);
+        paint.setColor(ContextCompat.getColor(getActivity(), R.color.colorCorridor));
 
         for (List<Point> corr : dungeon.getDungeonFloorAtLevel(level).getAllCorridors()) {
             for (Point p : corr) {
@@ -309,7 +310,6 @@ public class ResultsFragment extends Fragment {
     }
 
     public static class ResultFragmentPagerAdapter extends FragmentStatePagerAdapter {
-
         Dungeon dungeon;
         Context c;
 

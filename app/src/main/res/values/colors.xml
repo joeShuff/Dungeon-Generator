@@ -11,11 +11,16 @@
     <color name="colorBlack">#000000</color>
     <!--=====================-->
 
+    <color name="colorRoomBackground">#888888</color>
+    <color name="colorRoomTrim">#000000</color>
+    <color name="colorCorridor">#000000</color>
+
+    <color name="mapBackgroundColor">@color/colorWhite</color>
     <color name="tabLayoutBackgroundColor">@color/colorPrimary</color>
     <color name="itemBackgroundColor">#FFFFFF</color>
-    <color name="screenBackgroundColor">#FAFAFA</color>
+    <color name="screenBackgroundColor">#EEEEEE</color>
     <color name="colorCardBackground">#FFFFFF</color>
-    <color name="colorSeparatorColor">#A2A2A2</color>
+    <color name="colorSeparatorColor">#EEEEEE</color>
     <color name="colorTintColor">#5A5A5A</color>
 
     <!--=== FONT COLOURS ===-->
