@@ -10,14 +10,14 @@
     <color name="colorBlack">#000000</color>
     <!--=====================-->
 
-    <color name="colorRoomBackground">#E7E7E7</color>
-    <color name="colorRoomTrim">#919191</color>
-    <color name="colorCorridor">#FFFFFF</color>
-
+    <color name="colorRoomBackground">#808080</color>
+    <color name="colorRoomTrim">#585858</color>
+    <color name="colorCorridor">#B1B1B1</color>
+J
     <color name="mapBackgroundColor">@color/colorBlack</color>
     <color name="tabLayoutBackgroundColor">@color/screenBackgroundColor</color>
-    <color name="itemBackgroundColor">#000000</color>
-    <color name="screenBackgroundColor">#1D1D1D</color>
+    <color name="itemBackgroundColor">#1D1D1D</color>
+    <color name="screenBackgroundColor">#000000</color>
     <color name="colorCardBackground">#1D1D1D</color>
     <color name="colorSeparatorColor">#1D1D1D</color>
     <color name="colorTintColor">#5A5A5A</color>

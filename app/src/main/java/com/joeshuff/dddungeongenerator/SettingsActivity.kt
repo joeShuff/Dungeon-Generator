@@ -1,7 +1,6 @@
 package com.joeshuff.dddungeongenerator
 
 import android.os.Bundle
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -13,14 +12,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.joeshuff.dddungeongenerator.util.AppPreferences
 import com.joeshuff.dddungeongenerator.util.openUrl
 
-import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.item_settings_build_info.*
 import kotlinx.android.synthetic.main.item_settings_opensource.*
 import kotlinx.android.synthetic.main.item_settings_srd.*
 import kotlinx.android.synthetic.main.item_settings_theme.*
-import android.content.DialogInterface
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.item_settings_aboutcard.*
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -51,15 +49,23 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         ddSrd_viewDocument.setOnClickListener {
-            startActivity(Intent(this, SRDActivity::class.java))
+            val srdAct = Intent(this, PDFActivity::class.java)
+            srdAct.putExtra(PDFActivity.filenameKey, "SRD.pdf")
+            srdAct.putExtra(PDFActivity.titleNameKey, "Licences")
+            startActivity(srdAct)
+        }
+
+        aboutApp_viewPaper.setOnClickListener {
+            val paperActivity = Intent(this, PDFActivity::class.java)
+            paperActivity.putExtra(PDFActivity.filenameKey, "paper.pdf")
+            paperActivity.putExtra(PDFActivity.titleNameKey, "Research Paper")
+            startActivity(paperActivity)
         }
 
         buildInfo_installationItem.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Install Reference", AppPreferences.installReference)
             clipboard.setPrimaryClip(clip)
-
-            AppCompatDelegate.MODE_NIGHT_NO
 
             Toast.makeText(this, "Copied Install Reference", Toast.LENGTH_LONG).show()
         }
