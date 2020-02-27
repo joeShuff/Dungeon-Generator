@@ -23,7 +23,7 @@
                 android:id="@+id/theme_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Theme"
+                android:text="@string/theme_title"
                 android:textSize="25sp"
                 android:textColor="@color/colorFontTitle"
                 android:padding="@dimen/small_margin"

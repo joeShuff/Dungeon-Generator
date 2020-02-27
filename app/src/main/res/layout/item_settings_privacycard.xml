@@ -23,7 +23,7 @@
                 android:id="@+id/privacy_title"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="Privacy"
+                android:text="@string/privacy_title"
                 android:textSize="25sp"
                 android:textColor="@color/colorFontTitle"
                 android:padding="@dimen/small_margin"
