@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
@@ -23,6 +25,8 @@ public class GeneratingActivity extends AppCompatActivity {
 
     transient TextView progressText;
 
+    transient Trace myTrace;
+
     transient static RuntimeTypeAdapterFactory<RoomFeature> roomFeatureAdapter =
             RuntimeTypeAdapterFactory.of(RoomFeature.class, "type")
                     .registerSubtype(TreasureFeature.class, "Treasure")
@@ -39,6 +43,8 @@ public class GeneratingActivity extends AppCompatActivity {
 
         progressText = findViewById(R.id.progressText);
 
+        myTrace = FirebasePerformance.getInstance().newTrace("generate_dungeon");
+
         startGenerating();
     }
 
@@ -52,6 +58,8 @@ public class GeneratingActivity extends AppCompatActivity {
         dungeon.setLongCorridors(instructions.isLongCorridors());
         dungeon.setLinearProgression(instructions.isLoops());
         dungeon.setUserModifier(instructions.getUserModifier());
+
+        if (myTrace != null) myTrace.start();
 
         new Thread(() -> dungeon.generate()).start();
 
@@ -70,6 +78,8 @@ public class GeneratingActivity extends AppCompatActivity {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+        if (myTrace != null) myTrace.stop();
 
         startActivity(results);
         finish();
@@ -92,7 +102,7 @@ public class GeneratingActivity extends AppCompatActivity {
         super.onResume();
 
         if (leftMidGeneration) {
-            Toast.makeText(this, "You left wtf", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You interrupted generation.", Toast.LENGTH_LONG).show();
         }
     }
 
