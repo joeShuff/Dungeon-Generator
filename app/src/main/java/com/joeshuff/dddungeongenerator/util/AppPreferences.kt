@@ -11,6 +11,7 @@ object AppPreferences {
 
     private const val dark_theme_type_storage = "dark_theme_key"
     private const val installReferenceKey = "install_reference_key"
+    private const val pdfIsDarkKey = "pdf_dark_mode_key"
 
     private lateinit var preferences: SharedPreferences
     private lateinit var gson: Gson
@@ -29,6 +30,10 @@ object AppPreferences {
         operation(editor)
         editor.apply()
     }
+
+    var pdfIsDark: Boolean
+        get() = preferences.getBoolean(pdfIsDarkKey, false)
+        set(value) = preferences.edit { it.putBoolean(pdfIsDarkKey, value) }
 
     var darkThemeMode: Int
         get() = preferences.getInt(dark_theme_type_storage, if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY else AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)

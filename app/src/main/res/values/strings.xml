@@ -28,6 +28,7 @@
     <string name="build_number">Build Number</string>
     <string name="build_date">Build Date</string>
     <string name="build_installation_ref">Installation Reference</string>
+    <string name="pdf_theme_toggle">Toggle Theme</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu ultrices nisi. Aenean dictum lacus sed metus pharetra aliquam. Donec id lobortis eros. Integer et ullamcorper quam. Sed felis nibh, maximus sodales condimentum id, scelerisque nec urna. Phasellus cursus tellus id odio efficitur, ut venenatis enim consequat. Mauris fermentum pretium massa nec consequat. Nunc facilisis eros at ultricies convallis. Morbi non sem lacinia, pulvinar sem vel, pharetra sem. Cras mauris lacus, placerat et rutrum volutpat, faucibus in sapien.
 
         Morbi a est quam. Nulla accumsan faucibus pellentesque. Praesent tristique commodo neque. Cras commodo vel risus eu rhoncus. Mauris lobortis faucibus tortor, eget pretium nunc. Nunc a sem eu lacus faucibus vehicula. Maecenas at tincidunt nunc. Duis ut lacinia enim. Suspendisse potenti. Integer faucibus magna ligula, vitae aliquam odio ullamcorper sit amet. Nunc pellentesque ullamcorper viverra. Duis turpis dui, pharetra sed lacinia vitae, congue non risus. Nulla vestibulum arcu neque, sed aliquet ante iaculis nec. </string>

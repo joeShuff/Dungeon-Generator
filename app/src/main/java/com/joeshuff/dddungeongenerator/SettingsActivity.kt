@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.item_settings_srd.*
 import kotlinx.android.synthetic.main.item_settings_theme.*
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import com.joeshuff.dddungeongenerator.pdfviewing.PDFActivity
+import com.joeshuff.dddungeongenerator.pdfviewing.PaperActivity
+import com.joeshuff.dddungeongenerator.pdfviewing.SRDActivity
 import kotlinx.android.synthetic.main.item_settings_aboutcard.*
 
 
@@ -49,16 +52,12 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         ddSrd_viewDocument.setOnClickListener {
-            val srdAct = Intent(this, PDFActivity::class.java)
-            srdAct.putExtra(PDFActivity.filenameKey, "SRD.pdf")
-            srdAct.putExtra(PDFActivity.titleNameKey, "Licences")
+            val srdAct = Intent(this, SRDActivity::class.java)
             startActivity(srdAct)
         }
 
         aboutApp_viewPaper.setOnClickListener {
-            val paperActivity = Intent(this, PDFActivity::class.java)
-            paperActivity.putExtra(PDFActivity.filenameKey, "paper.pdf")
-            paperActivity.putExtra(PDFActivity.titleNameKey, "Research Paper")
+            val paperActivity = Intent(this, PaperActivity::class.java)
             startActivity(paperActivity)
         }
 
