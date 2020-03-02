@@ -1,7 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.floors;
 
 import android.graphics.Point;
-import com.joeshuff.dddungeongenerator.Logs;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room;
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate;

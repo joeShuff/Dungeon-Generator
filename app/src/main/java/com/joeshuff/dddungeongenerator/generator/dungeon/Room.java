@@ -1,12 +1,11 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon;
 
 import android.graphics.Point;
-import com.joeshuff.dddungeongenerator.Logs;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection;
 import com.joeshuff.dddungeongenerator.generator.models.Rectangle;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

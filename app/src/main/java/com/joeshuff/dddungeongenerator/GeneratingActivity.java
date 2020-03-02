@@ -1,7 +1,6 @@
 package com.joeshuff.dddungeongenerator;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,14 +9,12 @@ import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.generator.models.RuntimeTypeAdapterFactory;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration;
-
-import java.io.IOException;
+import com.joeshuff.dddungeongenerator.util.Logs;
 
 public class GeneratingActivity extends AppCompatActivity {
 
