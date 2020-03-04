@@ -193,6 +193,8 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             arrowView.setRotation(0f);
 
+            expandableLinearLayout.setExpanded(false);
+
 //            if (position != -1) expandableLinearLayout.setExpanded(expandState.get(position));
 
             expandableLinearLayout.setInRecyclerView(true);
@@ -216,8 +218,6 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if (position != -1) expandState.put(position, false);
                 }
             });
-
-
         }
 
         public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
