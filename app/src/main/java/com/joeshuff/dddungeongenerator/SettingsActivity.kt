@@ -21,10 +21,16 @@ import androidx.appcompat.app.AlertDialog
 import com.joeshuff.dddungeongenerator.pdfviewing.PDFActivity
 import com.joeshuff.dddungeongenerator.pdfviewing.PaperActivity
 import com.joeshuff.dddungeongenerator.pdfviewing.SRDActivity
+import com.joeshuff.dddungeongenerator.util.Logs
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.item_settings_aboutcard.*
+import java.lang.Exception
 
 
 class SettingsActivity : AppCompatActivity() {
+
+    val disposables = arrayListOf<Disposable>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,25 @@ class SettingsActivity : AppCompatActivity() {
         theme_chosenTheme.text = getString(THEME_TYPE.values().first { it.systemId == AppPreferences.darkThemeMode }.textResourceId)
 
         setupClickListeners()
+
+        subscribe()
+    }
+
+    private fun subscribe() {
+        disposables.add(AppPreferences.themeChangeLiveData
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {newValue ->
+                try {
+                    theme_chosenTheme.text = getString(THEME_TYPE.values().firstOrNull { it.systemId == newValue }?.textResourceId ?: R.string.theme_not_found)
+                } catch (e: Exception) {
+                    Logs.e("SettingsActivity", "Unable to update the theme textview", e)
+                }
+            })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.forEach { it.dispose() }
     }
 
     private fun setupClickListeners() {

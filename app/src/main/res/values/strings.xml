@@ -15,6 +15,7 @@
     <string name="theme_action">Choose Theme</string>
     <string name="theme_light_value">Light</string>
     <string name="theme_dark_value">Dark</string>
+    <string name="theme_not_found">-</string>
     <string name="theme_follow_system_value">Use system default</string>
     <string name="theme_battery_saver">Set by Battery Saver</string>
     <string name="open_source_title">Open Source</string>

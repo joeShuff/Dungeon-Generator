@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import io.reactivex.subjects.PublishSubject
 import java.util.*
 
 object AppPreferences {
@@ -15,6 +18,8 @@ object AppPreferences {
 
     private lateinit var preferences: SharedPreferences
     private lateinit var gson: Gson
+
+    var themeChangeLiveData = PublishSubject.create<Int>()
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences("dungeongeneratorpreferences", Context.MODE_PRIVATE)
@@ -40,6 +45,7 @@ object AppPreferences {
         set(value) {
             preferences.edit { it.putInt(dark_theme_type_storage, value) }
             AppCompatDelegate.setDefaultNightMode(value)
+            themeChangeLiveData.onNext(value)
         }
 
     var installReference: String
