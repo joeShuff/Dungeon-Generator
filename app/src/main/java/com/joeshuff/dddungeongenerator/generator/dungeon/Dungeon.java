@@ -1,9 +1,8 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon;
 
 import android.graphics.Point;
-import com.crashlytics.android.Crashlytics;
 import com.joeshuff.dddungeongenerator.GeneratingActivity;
-import com.joeshuff.dddungeongenerator.Logs;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import com.joeshuff.dddungeongenerator.generator.features.RoomFeature;
 import com.joeshuff.dddungeongenerator.generator.features.StairsFeature;
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection;

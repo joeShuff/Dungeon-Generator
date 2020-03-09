@@ -1,7 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.monsters;
 
 import com.google.gson.annotations.SerializedName;
-import com.joeshuff.dddungeongenerator.Logs;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import org.json.JSONObject;
 
 import java.util.HashMap;

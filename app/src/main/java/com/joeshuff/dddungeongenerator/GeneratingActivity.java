@@ -1,27 +1,28 @@
 package com.joeshuff.dddungeongenerator;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.generator.models.RuntimeTypeAdapterFactory;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration;
-
-import java.io.IOException;
+import com.joeshuff.dddungeongenerator.util.Logs;
 
 public class GeneratingActivity extends AppCompatActivity {
 
     transient boolean leftMidGeneration = false;
 
     transient TextView progressText;
+
+    transient Trace myTrace;
 
     transient static RuntimeTypeAdapterFactory<RoomFeature> roomFeatureAdapter =
             RuntimeTypeAdapterFactory.of(RoomFeature.class, "type")
@@ -39,6 +40,8 @@ public class GeneratingActivity extends AppCompatActivity {
 
         progressText = findViewById(R.id.progressText);
 
+        myTrace = FirebasePerformance.getInstance().newTrace("generate_dungeon");
+
         startGenerating();
     }
 
@@ -52,6 +55,8 @@ public class GeneratingActivity extends AppCompatActivity {
         dungeon.setLongCorridors(instructions.isLongCorridors());
         dungeon.setLinearProgression(instructions.isLoops());
         dungeon.setUserModifier(instructions.getUserModifier());
+
+        if (myTrace != null) myTrace.start();
 
         new Thread(() -> dungeon.generate()).start();
 
@@ -70,6 +75,8 @@ public class GeneratingActivity extends AppCompatActivity {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
+        if (myTrace != null) myTrace.stop();
 
         startActivity(results);
         finish();
@@ -92,7 +99,7 @@ public class GeneratingActivity extends AppCompatActivity {
         super.onResume();
 
         if (leftMidGeneration) {
-            Toast.makeText(this, "You left wtf", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You interrupted generation.", Toast.LENGTH_LONG).show();
         }
     }
 

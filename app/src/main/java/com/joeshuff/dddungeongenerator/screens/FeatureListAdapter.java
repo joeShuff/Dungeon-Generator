@@ -18,7 +18,7 @@ import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
-import com.joeshuff.dddungeongenerator.FirebaseTracker;
+import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.joeshuff.dddungeongenerator.MonsterActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.features.*;
@@ -193,6 +193,8 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             arrowView.setRotation(0f);
 
+            expandableLinearLayout.setExpanded(false);
+
 //            if (position != -1) expandableLinearLayout.setExpanded(expandState.get(position));
 
             expandableLinearLayout.setInRecyclerView(true);
@@ -216,8 +218,6 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if (position != -1) expandState.put(position, false);
                 }
             });
-
-
         }
 
         public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {

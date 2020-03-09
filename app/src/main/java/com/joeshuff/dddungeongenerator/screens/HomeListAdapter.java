@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
-import com.joeshuff.dddungeongenerator.FirebaseTracker;
+import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.joeshuff.dddungeongenerator.GeneratingActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
@@ -55,7 +55,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.Previo
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
-
                     FirebaseTracker.EVENT(c, "MemoryDelete", "Deleted:" + memoryGeneration.getGeneratedAt());
 
                     try {
@@ -73,7 +72,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.Previo
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder((new ContextThemeWrapper(c, R.style.AlertDialogCustom)));
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setMessage("Are you sure you want to delete this dungeon?")
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener)

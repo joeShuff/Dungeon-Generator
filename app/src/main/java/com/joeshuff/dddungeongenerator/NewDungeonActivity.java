@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration;
+import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.warkiz.tickseekbar.TickSeekBar;
 import org.json.JSONException;
 

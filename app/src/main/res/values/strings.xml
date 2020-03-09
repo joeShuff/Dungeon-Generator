@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">D&amp;D Dungeon Generator</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="privacy_title">Privacy</string>
+    <string name="privacy_text">No data generated in this app is stored online and no personal information is gathered. This app uses Google analytics, Firebase Crashlytics and Firebase Performance to track user engagement and identify issues with the app so that we can improve the app in the future.</string>
+    <string name="about_title">About this App</string>
+    <string name="about_text">D&amp;D 5e Dungeon Generator was created to showcase an algorithm I wrote for a University
+        final year project for the degree of Computer Science. The title of the project was “Generating Dungeons &amp;
+        Dragons dungeons that make visible sense in the context of a narrative”. Due to the limited time to write this
+        algorithm and implement it/the app, there are some limitations to the dungeons. Whilst some limitations may be
+        implemented in the future, I cannot guarantee that as all work is done in my spare time.\n\nIf you would like to read the paper I wrote, see it below.
+    </string>
+    <string name="about_action">View Paper</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_action">Choose Theme</string>
+    <string name="theme_light_value">Light</string>
+    <string name="theme_dark_value">Dark</string>
+    <string name="theme_not_found">-</string>
+    <string name="theme_follow_system_value">Use system default</string>
+    <string name="theme_battery_saver">Set by Battery Saver</string>
+    <string name="open_source_title">Open Source</string>
+    <string name="open_source_text">The app is open source! Check out the code below and make some changes yourself!</string>
+    <string name="open_source_action">View Code</string>
+    <string name="srd_title">Systems Reference Document</string>
+    <string name="srd_text">Dungeons and Dragons System Reference Document</string>
+    <string name="srd_action">View Licences</string>
+    <string name="build_title">Build Information</string>
+    <string name="build_version">Version</string>
+    <string name="build_number">Build Number</string>
+    <string name="build_date">Build Date</string>
+    <string name="build_installation_ref">Installation Reference</string>
+    <string name="pdf_theme_toggle">Toggle Theme</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu ultrices nisi. Aenean dictum lacus sed metus pharetra aliquam. Donec id lobortis eros. Integer et ullamcorper quam. Sed felis nibh, maximus sodales condimentum id, scelerisque nec urna. Phasellus cursus tellus id odio efficitur, ut venenatis enim consequat. Mauris fermentum pretium massa nec consequat. Nunc facilisis eros at ultricies convallis. Morbi non sem lacinia, pulvinar sem vel, pharetra sem. Cras mauris lacus, placerat et rutrum volutpat, faucibus in sapien.
+
+        Morbi a est quam. Nulla accumsan faucibus pellentesque. Praesent tristique commodo neque. Cras commodo vel risus eu rhoncus. Mauris lobortis faucibus tortor, eget pretium nunc. Nunc a sem eu lacus faucibus vehicula. Maecenas at tincidunt nunc. Duis ut lacinia enim. Suspendisse potenti. Integer faucibus magna ligula, vitae aliquam odio ullamcorper sit amet. Nunc pellentesque ullamcorper viverra. Duis turpis dui, pharetra sed lacinia vitae, congue non risus. Nulla vestibulum arcu neque, sed aliquet ante iaculis nec. </string>
 </resources>

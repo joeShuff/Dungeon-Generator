@@ -1,6 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.features;
 
-import com.joeshuff.dddungeongenerator.Logs;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Modifier;
 import com.joeshuff.dddungeongenerator.generator.monsters.Bestiary;

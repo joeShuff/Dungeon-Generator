@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@color/colorWhite"
+                android:background="@color/itemBackgroundColor"
                 android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
 >
@@ -13,6 +13,7 @@
             android:id="@+id/arrowEnd"
             android:src="@drawable/round_expand_more_black_48"
             android:rotation="-90"
+            android:tint="@color/colorTintColor"
             android:layout_alignParentEnd="true"
     />
 
@@ -21,6 +22,7 @@
             android:layout_height="match_parent"
             android:tooltipText="Delete"
             android:id="@+id/deleteButton"
+            android:tint="@color/colorTintColor"
             android:src="@drawable/round_delete_black_48"
             android:background="?actionBarItemBackground"
             android:layout_marginStart="5dp"
@@ -42,6 +44,7 @@
                 android:layout_weight="1"
                 android:id="@+id/dungeonNameField"
                 android:textSize="25sp"
+                android:textColor="@color/colorFontTitle"
                 android:layout_marginStart="16dp"
                 android:gravity="center_vertical|start"
                 android:text="Dungeon Name"
@@ -60,6 +63,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:id="@+id/dungeonTimeGennedField"
+                android:textColor="@color/colorFontRegular"
                 android:textSize="16sp"
                 android:layout_marginStart="16dp"
                 android:gravity="center_vertical|start"
@@ -70,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:textColor="@color/colorFontRegular"
                 android:id="@+id/dungeonSeedField"
                 android:textSize="16sp"
                 android:layout_marginStart="16dp"
@@ -84,7 +89,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/colorBackgroundGray"
+        android:background="@color/colorSeparatorColor"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_alignParentBottom="true"

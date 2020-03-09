@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.util;
 
 import android.util.Log;
 import com.crashlytics.android.Crashlytics;

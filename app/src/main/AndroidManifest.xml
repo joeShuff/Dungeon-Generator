@@ -7,7 +7,11 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/DarkAppTheme">
+        <activity
+                android:name=".SettingsActivity"
+                android:theme="@style/DarkAppTheme">
+        </activity>
         <activity android:name=".NewDungeonActivity">
         </activity>
         <activity android:name=".GeneratingActivity">
@@ -19,14 +23,14 @@
                 android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".MonsterActivity">
         </activity>
-        <activity android:name=".SRDActivity">
-        </activity>
+        <activity android:name=".pdfviewing.PDFActivity"/>
+        <activity android:name=".pdfviewing.PaperActivity"/>
+        <activity android:name=".pdfviewing.SRDActivity"/>
     </application>
 
 </manifest>
