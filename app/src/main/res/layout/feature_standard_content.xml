@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/itemBackgroundColor"
+        android:orientation="vertical">
+
+    <!-- SEPARATOR -->
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorSeparatorColor"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+    />
+    <!-- ========= -->
+
+    <!-- TEXT -->
+    <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorFontRegular"
+            android:paddingStart="@dimen/default_margin"
+            android:paddingEnd="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:text="Stairs Description" />
+    <!-- ==== -->
+</LinearLayout>

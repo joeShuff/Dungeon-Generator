@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:id="@+id/featureItemTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:foreground="?attr/selectableItemBackground"
+        android:background="@color/itemBackgroundColor">
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorSeparatorColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <ImageView
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/triangleIcon"
+                android:src="@drawable/round_expand_more_black_48"
+                android:scaleType="center"
+                android:tint="@color/colorFontRegular"
+                android:padding="10dp"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Stairs"
+                android:gravity="center_vertical|start"
+                android:layout_toStartOf="@id/triangleIcon"
+                android:textColor="@color/colorFontRegular"
+                android:textSize="20sp"
+                android:paddingStart="16dp"
+                android:id="@+id/barText"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

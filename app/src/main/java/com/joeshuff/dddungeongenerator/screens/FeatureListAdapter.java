@@ -7,21 +7,24 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
-import com.github.aakira.expandablelayout.ExpandableLinearLayout;
-import com.github.aakira.expandablelayout.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.joeshuff.dddungeongenerator.MonsterActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.features.*;
+import com.skydoves.expandablelayout.ExpandableLayout;
+import com.skydoves.expandablelayout.OnExpandListener;
 
 import java.util.List;
 
@@ -59,22 +62,15 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         switch (i) {
             case 0:
-                return new StairsFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_stairs_item, viewGroup, false));
-
+                return new StairsFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
             case 1:
-                return new MonsterFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_monster_item, viewGroup, false));
-
+                return new MonsterFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
             case 2:
-                return new TrapFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_trap_item, viewGroup, false));
-
+                return new TrapFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
             case 3:
-                return new TreasureFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_treasure_item, viewGroup, false));
-
-            case 4:
-                return new FeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_standard_item, viewGroup, false));
-
+                return new TreasureFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
             default:
-                return new FeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_standard_item, viewGroup, false));
+                return new FeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false), R.layout.feature_standard_content);
         }
     }
 
@@ -175,8 +171,8 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public static class FeatureViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout tabTitle;
-        ExpandableLinearLayout expandableLinearLayout;
+        ConstraintLayout tabTitle;
+        ExpandableLayout expandableLayout;
         ImageView arrowView;
 
         int position = -1;
@@ -185,34 +181,38 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.position = position;
         }
 
-        public FeatureViewHolder(@NonNull View itemView) {
+        public FeatureViewHolder(@NonNull View itemView, @LayoutRes Integer resource) {
             super(itemView);
-            tabTitle = itemView.findViewById(R.id.tabTitle);
-            expandableLinearLayout = itemView.findViewById(R.id.expandableLayout);
+            expandableLayout = itemView.findViewById(R.id.featureItemExpandableLayout);
+            tabTitle = expandableLayout.parentLayout.findViewById(R.id.featureItemTitleBar);
             arrowView = itemView.findViewById(R.id.triangleIcon);
-
             arrowView.setRotation(0f);
 
-            expandableLinearLayout.setExpanded(false);
-
-//            if (position != -1) expandableLinearLayout.setExpanded(expandState.get(position));
-
-            expandableLinearLayout.setInRecyclerView(true);
-            expandableLinearLayout.setDuration(300);
-            expandableLinearLayout.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
+            expandableLayout.setSecondLayoutResource(resource);
 
             tabTitle.setOnClickListener(e -> {
-                expandableLinearLayout.toggle();
+                if (expandableLayout.isExpanded()) {
+                    expandableLayout.collapse();
+                } else {
+                    expandableLayout.expand();
+                }
             });
 
-            expandableLinearLayout.setListener(new ExpandableLayoutListenerAdapter() {
+            expandableLayout.setOnExpandListener(new OnExpandListener() {
                 @Override
+                public void onExpand(boolean b) {
+                    if (b) {
+                        onPreOpen();
+                    } else {
+                        onPreClose();
+                    }
+                }
+
                 public void onPreOpen() {
                     createRotateAnimator(arrowView, 0f, 180f).start();
                     if (position != -1) expandState.put(position, true);
                 }
 
-                @Override
                 public void onPreClose() {
                     createRotateAnimator(arrowView, 180f, 0f).start();
                     if (position != -1) expandState.put(position, false);
@@ -220,10 +220,15 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
         }
 
+        public void setTitle(String title) {
+            TextView titleView = tabTitle.findViewById(R.id.barText);
+            titleView.setText(title);
+        }
+
         public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
             ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
             animator.setDuration(300);
-            animator.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
+            animator.setInterpolator(new LinearInterpolator());
             return animator;
         }
     }
@@ -239,7 +244,7 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         MaterialButton gotoButton;
 
         public StairsFeatureViewHolder(@NonNull View itemView) {
-            super(itemView);
+            super(itemView, R.layout.feature_stairs_content);
 
             stairsDesc = itemView.findViewById(R.id.stairsDescription);
             stairsDirection = itemView.findViewById(R.id.stairsDirection);
@@ -259,7 +264,7 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView bossTextView;
 
         public MonsterFeatureViewHolder(@NonNull View itemView) {
-            super(itemView);
+            super(itemView, R.layout.feature_monster_content);
 
             monsterType = itemView.findViewById(R.id.monsterType);
             monsterCount = itemView.findViewById(R.id.monsterCount);
@@ -273,7 +278,7 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView treasureText;
 
         public TreasureFeatureViewHolder(@NonNull View itemView) {
-            super(itemView);
+            super(itemView, R.layout.feature_treasure_content);
 
             treasureText = itemView.findViewById(R.id.treasureDescription);
         }
@@ -284,7 +289,7 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView trapDesc;
 
         public TrapFeatureViewHolder(@NonNull View itemView) {
-            super(itemView);
+            super(itemView, R.layout.feature_trap_content);
 
             trapDesc = itemView.findViewById(R.id.trapDescription);
         }
