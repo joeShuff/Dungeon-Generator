@@ -1,17 +1,13 @@
 package com.joeshuff.dddungeongenerator.screens;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,16 +15,17 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
-import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.joeshuff.dddungeongenerator.MonsterActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.features.*;
+import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import com.skydoves.expandablelayout.ExpandableLayout;
 import com.skydoves.expandablelayout.OnExpandListener;
 
 import java.util.List;
 
-public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.FeatureViewHolder> {
 
     List<RoomFeature> roomFeatures;
     private static SparseBooleanArray expandState = new SparseBooleanArray();
@@ -59,109 +56,24 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public FeatureViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         switch (i) {
             case 0:
-                return new StairsFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
+                return new StairsFeatureViewHolder(viewGroup);
             case 1:
-                return new MonsterFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
+                return new MonsterFeatureViewHolder(viewGroup);
             case 2:
-                return new TrapFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
+                return new TrapFeatureViewHolder(viewGroup);
             case 3:
-                return new TreasureFeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false));
+                return new TreasureFeatureViewHolder(viewGroup);
             default:
-                return new FeatureViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feature_item, viewGroup, false), R.layout.feature_standard_content);
+                return new FeatureViewHolder(viewGroup);
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        int type = viewHolder.getItemViewType();
-
-        ((FeatureViewHolder) viewHolder).setPosition(i);
-
-        if (type == 0) { //Stairs
-            StairsFeature stairs = (StairsFeature) roomFeatures.get(i);
-            StairsFeatureViewHolder stairsFeatureViewHolder = (StairsFeatureViewHolder) viewHolder;
-
-            loadStairsView(stairs, stairsFeatureViewHolder);
-
-            return;
-        }
-
-        if (type == 1) { //Monster
-            MonsterFeature monster = (MonsterFeature) roomFeatures.get(i);
-            MonsterFeatureViewHolder viewHolderMonster = (MonsterFeatureViewHolder) viewHolder;
-
-            loadMonsterView(monster, viewHolderMonster);
-
-            return;
-        }
-
-        if (type == 2) { //Trap
-            TrapFeature trapFeature = (TrapFeature) roomFeatures.get(i);
-            TrapFeatureViewHolder trapFeatureViewHolder = (TrapFeatureViewHolder) viewHolder;
-
-            loadTrapView(trapFeature, trapFeatureViewHolder);
-
-            return;
-        }
-
-        if (type == 3) { //Treasure
-            TreasureFeature treasureFeature = (TreasureFeature) roomFeatures.get(i);
-            TreasureFeatureViewHolder treasureFeatureViewHolder = (TreasureFeatureViewHolder) viewHolder;
-
-            loadTreasureView(treasureFeature, treasureFeatureViewHolder);
-
-            return;
-        }
-
-        loadFeatureView(roomFeatures.get(i), (FeatureViewHolder) viewHolder);
-    }
-
-    private void loadFeatureView(RoomFeature roomFeature, FeatureViewHolder featureViewHolder) {
-
-    }
-
-    private void loadStairsView(StairsFeature stairsFeature, StairsFeatureViewHolder stairsFeatureViewHolder) {
-        stairsFeatureViewHolder.stairsDesc.setText(stairsFeature.getFeatureDescription());
-        stairsFeatureViewHolder.stairsDirection.setText("Direction: " + stairsFeature.getDirection());
-        stairsFeatureViewHolder.destRoom.setText("Destination Room: " + stairsFeature.getConnectedRoomId());
-        stairsFeatureViewHolder.destFloor.setText("Destination Floor: " + stairsFeature.getConnectedFloorId());
-
-        stairsFeatureViewHolder.gotoButton.setOnClickListener(e -> {
-            Intent changeFloor = new Intent("goto-room");
-            changeFloor.putExtra("room", stairsFeature.getConnectedRoomId());
-            changeFloor.putExtra("floor", stairsFeature.getConnectedFloorId());
-
-            FirebaseTracker.EVENT(stairsFeatureViewHolder.itemView.getContext(), "FeatureInteract", "GOTO ROOM");
-
-            LocalBroadcastManager.getInstance(stairsFeatureViewHolder.itemView.getContext()).sendBroadcast(changeFloor);
-        });
-    }
-
-    private void loadMonsterView(MonsterFeature monsterFeature, MonsterFeatureViewHolder monsterFeatureViewHolder) {
-        monsterFeatureViewHolder.monsterType.setText("Monster Type: " + monsterFeature.getSelectedMonster().getName());
-        monsterFeatureViewHolder.monsterCount.setText("Monster Count: " + monsterFeature.getSize());
-
-        monsterFeatureViewHolder.viewMonsterButton.setOnClickListener(e -> {
-
-            FirebaseTracker.EVENT(context, "FeatureInteract", "VIEW MONSTER");
-
-            Intent showMonster = new Intent(monsterFeatureViewHolder.itemView.getContext(), MonsterActivity.class);
-            showMonster.putExtra("monster", new Gson().toJson(monsterFeature.getSelectedMonster()));
-            monsterFeatureViewHolder.itemView.getContext().startActivity(showMonster);
-        });
-
-        monsterFeatureViewHolder.bossTextView.setVisibility(monsterFeature.isBoss() ?  View.VISIBLE : View.GONE);
-    }
-
-    private void loadTrapView(TrapFeature trapFeature, TrapFeatureViewHolder trapFeatureViewHolder) {
-        trapFeatureViewHolder.trapDesc.setText(trapFeature.getFeatureDescription());
-    }
-
-    private void loadTreasureView(TreasureFeature treasureFeature, TreasureFeatureViewHolder treasureFeatureViewHolder) {
-        treasureFeatureViewHolder.treasureText.setText(treasureFeature.getFeatureDescription());
+    public void onBindViewHolder(@NonNull FeatureViewHolder viewHolder, int i) {
+        viewHolder.bind(roomFeatures.get(i));
     }
 
     @Override
@@ -181,26 +93,27 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.position = position;
         }
 
-        public FeatureViewHolder(@NonNull View itemView, @LayoutRes Integer resource) {
-            super(itemView);
+        public FeatureViewHolder(@NonNull ViewGroup parent) {
+            this(parent, R.layout.feature_standard_content);
+        }
+
+        public FeatureViewHolder(@NonNull ViewGroup parent, @LayoutRes Integer resource) {
+            this(parent, resource, "No Feature");
+        }
+
+        public FeatureViewHolder(@NonNull ViewGroup parent, @LayoutRes Integer resource, String title) {
+            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.feature_item, parent, false));
             expandableLayout = itemView.findViewById(R.id.featureItemExpandableLayout);
-            tabTitle = expandableLayout.parentLayout.findViewById(R.id.featureItemTitleBar);
-            arrowView = itemView.findViewById(R.id.triangleIcon);
-            arrowView.setRotation(0f);
+
+            tabTitle = (ConstraintLayout) expandableLayout.getParentLayout();
+            arrowView = tabTitle.findViewById(R.id.triangleIcon);
 
             expandableLayout.setSecondLayoutResource(resource);
-
-            tabTitle.setOnClickListener(e -> {
-                if (expandableLayout.isExpanded()) {
-                    expandableLayout.collapse();
-                } else {
-                    expandableLayout.expand();
-                }
-            });
 
             expandableLayout.setOnExpandListener(new OnExpandListener() {
                 @Override
                 public void onExpand(boolean b) {
+                    Logs.i("EXPAND", "Expanded: " + b, null);
                     if (b) {
                         onPreOpen();
                     } else {
@@ -209,32 +122,34 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
 
                 public void onPreOpen() {
-                    createRotateAnimator(arrowView, 0f, 180f).start();
+                    arrowView.animate().rotation(180f).setDuration(300).start();
                     if (position != -1) expandState.put(position, true);
                 }
 
                 public void onPreClose() {
-                    createRotateAnimator(arrowView, 180f, 0f).start();
+                    arrowView.animate().rotation(0f).setDuration(300).start();
                     if (position != -1) expandState.put(position, false);
                 }
             });
+
+            expandableLayout.parentLayout.setOnClickListener(e -> {
+                if (expandableLayout.isExpanded()) {
+                    expandableLayout.collapse();
+                } else {
+                    expandableLayout.expand();
+                }
+            });
+
+            TextView titleText = expandableLayout.getParentLayout().findViewById(R.id.barText);
+            titleText.setText(title);
         }
 
-        public void setTitle(String title) {
-            TextView titleView = tabTitle.findViewById(R.id.barText);
-            titleView.setText(title);
-        }
+        public void bind(RoomFeature feature) {
 
-        public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
-            ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
-            animator.setDuration(300);
-            animator.setInterpolator(new LinearInterpolator());
-            return animator;
         }
     }
 
     public static class StairsFeatureViewHolder extends FeatureViewHolder {
-
         TextView stairsDesc;
         TextView stairsDirection;
 
@@ -243,8 +158,8 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         MaterialButton gotoButton;
 
-        public StairsFeatureViewHolder(@NonNull View itemView) {
-            super(itemView, R.layout.feature_stairs_content);
+        public StairsFeatureViewHolder(@NonNull ViewGroup parent) {
+            super(parent, R.layout.feature_stairs_content, "Stairs");
 
             stairsDesc = itemView.findViewById(R.id.stairsDescription);
             stairsDirection = itemView.findViewById(R.id.stairsDirection);
@@ -253,6 +168,30 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             destFloor = itemView.findViewById(R.id.targetFloorId);
 
             gotoButton = itemView.findViewById(R.id.viewTargetRoom);
+        }
+
+        @Override
+        public void bind(RoomFeature feature) {
+            super.bind(feature);
+
+            if (feature instanceof StairsFeature) {
+                StairsFeature stairsFeature = (StairsFeature) feature;
+
+                stairsDesc.setText(stairsFeature.getFeatureDescription());
+                stairsDirection.setText("Direction: " + stairsFeature.getDirection());
+                destRoom.setText("Destination Room: " + stairsFeature.getConnectedRoomId());
+                destFloor.setText("Destination Floor: " + stairsFeature.getConnectedFloorId());
+
+                gotoButton.setOnClickListener(e -> {
+                    Intent changeFloor = new Intent("goto-room");
+                    changeFloor.putExtra("room", stairsFeature.getConnectedRoomId());
+                    changeFloor.putExtra("floor", stairsFeature.getConnectedFloorId());
+
+                    FirebaseTracker.EVENT(itemView.getContext(), "FeatureInteract", "GOTO ROOM");
+
+                    LocalBroadcastManager.getInstance(itemView.getContext()).sendBroadcast(changeFloor);
+                });
+            }
         }
     }
 
@@ -263,13 +202,36 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         MaterialButton viewMonsterButton;
         TextView bossTextView;
 
-        public MonsterFeatureViewHolder(@NonNull View itemView) {
-            super(itemView, R.layout.feature_monster_content);
+        public MonsterFeatureViewHolder(@NonNull ViewGroup parent) {
+            super(parent, R.layout.feature_monster_content, "Monster");
 
             monsterType = itemView.findViewById(R.id.monsterType);
             monsterCount = itemView.findViewById(R.id.monsterCount);
             viewMonsterButton = itemView.findViewById(R.id.viewMonsterButton);
             bossTextView = itemView.findViewById(R.id.monsterBossText);
+        }
+
+        @Override
+        public void bind(RoomFeature feature) {
+            super.bind(feature);
+
+            if (feature instanceof MonsterFeature) {
+                MonsterFeature monsterFeature = (MonsterFeature) feature;
+
+                monsterType.setText("Monster Type: " + monsterFeature.getSelectedMonster().getName());
+                monsterCount.setText("Monster Count: " + monsterFeature.getSize());
+
+                viewMonsterButton.setOnClickListener(e -> {
+
+                    FirebaseTracker.EVENT(itemView.getContext(), "FeatureInteract", "VIEW MONSTER");
+
+                    Intent showMonster = new Intent(itemView.getContext(), MonsterActivity.class);
+                    showMonster.putExtra("monster", new Gson().toJson(monsterFeature.getSelectedMonster()));
+                    itemView.getContext().startActivity(showMonster);
+                });
+
+                bossTextView.setVisibility(monsterFeature.isBoss() ?  View.VISIBLE : View.GONE);
+            }
         }
     }
 
@@ -277,10 +239,21 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         TextView treasureText;
 
-        public TreasureFeatureViewHolder(@NonNull View itemView) {
-            super(itemView, R.layout.feature_treasure_content);
+        public TreasureFeatureViewHolder(@NonNull ViewGroup parent) {
+            super(parent, R.layout.feature_treasure_content, "Treasure");
 
             treasureText = itemView.findViewById(R.id.treasureDescription);
+        }
+
+        @Override
+        public void bind(RoomFeature feature) {
+            super.bind(feature);
+
+            if (feature instanceof TreasureFeature) {
+                TreasureFeature treasureFeature = (TreasureFeature) feature;
+
+                treasureText.setText(treasureFeature.getFeatureDescription());
+            }
         }
     }
 
@@ -288,10 +261,21 @@ public class FeatureListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         TextView trapDesc;
 
-        public TrapFeatureViewHolder(@NonNull View itemView) {
-            super(itemView, R.layout.feature_trap_content);
+        public TrapFeatureViewHolder(@NonNull ViewGroup parent) {
+            super(parent, R.layout.feature_trap_content, "Trap");
 
             trapDesc = itemView.findViewById(R.id.trapDescription);
+        }
+
+        @Override
+        public void bind(RoomFeature feature) {
+            super.bind(feature);
+
+            if (feature instanceof TrapFeature) {
+                TrapFeature trapFeature = (TrapFeature) feature;
+
+                trapDesc.setText(trapFeature.getFeatureDescription());
+            }
         }
     }
 }
