@@ -240,9 +240,9 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
         TextView treasureText;
 
         public TreasureFeatureViewHolder(@NonNull ViewGroup parent) {
-            super(parent, R.layout.feature_treasure_content, "Treasure");
+            super(parent, R.layout.feature_trap_content, "Treasure");
 
-            treasureText = itemView.findViewById(R.id.treasureDescription);
+            treasureText = itemView.findViewById(R.id.trapDescription);
         }
 
         @Override
@@ -251,8 +251,7 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
 
             if (feature instanceof TreasureFeature) {
                 TreasureFeature treasureFeature = (TreasureFeature) feature;
-
-                treasureText.setText(treasureFeature.getFeatureDescription());
+                treasureText.setText(treasureFeature.getFeatureDescription().trim());
             }
         }
     }
@@ -263,7 +262,6 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
 
         public TrapFeatureViewHolder(@NonNull ViewGroup parent) {
             super(parent, R.layout.feature_trap_content, "Trap");
-
             trapDesc = itemView.findViewById(R.id.trapDescription);
         }
 
@@ -273,8 +271,7 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
 
             if (feature instanceof TrapFeature) {
                 TrapFeature trapFeature = (TrapFeature) feature;
-
-                trapDesc.setText(trapFeature.getFeatureDescription());
+                trapDesc.setText(trapFeature.getFeatureDescription().trim());
             }
         }
     }

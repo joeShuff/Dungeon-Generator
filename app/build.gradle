@@ -115,7 +115,7 @@ dependencies {
     implementation 'com.otaliastudios:zoomlayout:1.6.0'
     implementation 'com.github.warkiz.tickseekbar:tickseekbar:0.1.4'
 
-    implementation 'com.github.joeShuff:ExpandableLayout:1.0.4.2'
+    implementation 'com.github.joeShuff:ExpandableLayout:1.0.4.4'
 
     implementation 'androidx.browser:browser:1.0.0'
 
