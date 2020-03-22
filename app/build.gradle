@@ -55,9 +55,8 @@ android {
         applicationId "com.joeshuff.dddungeongenerator"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 5
-
-        versionName "1.0"
+        versionCode 6
+        versionName "1.1"
         buildConfigField 'String', 'buildNumber', '"' + String.valueOf(versionBuild) + '"'
         buildConfigField 'String', 'buildTime', '"' + String.valueOf(versionDate) + '"'
 
@@ -114,6 +113,8 @@ dependencies {
 
     implementation 'com.otaliastudios:zoomlayout:1.6.0'
     implementation 'com.github.warkiz.tickseekbar:tickseekbar:0.1.4'
+
+//    implementation 'com.github.joeShuff:EmptyRecyclerView:1.0.3' //TODO: JUST ADDING THIS CAUSED ISSUES, HAVE TO LOOK AT THE LIBRARY
 
     implementation 'androidx.browser:browser:1.0.0'
 
