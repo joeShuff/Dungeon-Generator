@@ -6,7 +6,7 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -19,9 +19,6 @@ import com.joeshuff.dddungeongenerator.MonsterActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
-import com.joeshuff.dddungeongenerator.util.Logs;
-import com.skydoves.expandablelayout.ExpandableLayout;
-import com.skydoves.expandablelayout.OnExpandListener;
 
 import java.util.List;
 
@@ -84,8 +81,6 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
     public static class FeatureViewHolder extends RecyclerView.ViewHolder {
 
         ConstraintLayout tabTitle;
-        ExpandableLayout expandableLayout;
-        ImageView arrowView;
 
         int position = -1;
 
@@ -103,44 +98,14 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
 
         public FeatureViewHolder(@NonNull ViewGroup parent, @LayoutRes Integer resource, String title) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.feature_item, parent, false));
-            expandableLayout = itemView.findViewById(R.id.featureItemExpandableLayout);
 
-            tabTitle = (ConstraintLayout) expandableLayout.getParentLayout();
-            arrowView = tabTitle.findViewById(R.id.triangleIcon);
+            tabTitle = itemView.findViewById(R.id.title_bar);
+            View content = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
 
-            expandableLayout.setSecondLayoutResource(resource);
+            RelativeLayout contentContainer = itemView.findViewById(R.id.feature_content);
+            contentContainer.addView(content);
 
-            expandableLayout.setOnExpandListener(new OnExpandListener() {
-                @Override
-                public void onExpand(boolean b) {
-                    Logs.i("EXPAND", "Expanded: " + b, null);
-                    if (b) {
-                        onPreOpen();
-                    } else {
-                        onPreClose();
-                    }
-                }
-
-                public void onPreOpen() {
-                    arrowView.animate().rotation(180f).setDuration(300).start();
-                    if (position != -1) expandState.put(position, true);
-                }
-
-                public void onPreClose() {
-                    arrowView.animate().rotation(0f).setDuration(300).start();
-                    if (position != -1) expandState.put(position, false);
-                }
-            });
-
-            expandableLayout.parentLayout.setOnClickListener(e -> {
-                if (expandableLayout.isExpanded()) {
-                    expandableLayout.collapse();
-                } else {
-                    expandableLayout.expand();
-                }
-            });
-
-            TextView titleText = expandableLayout.getParentLayout().findViewById(R.id.barText);
+            TextView titleText = tabTitle.findViewById(R.id.barText);
             titleText.setText(title);
         }
 
