@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.screens.create;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.joeshuff.dddungeongenerator.R;
+import com.joeshuff.dddungeongenerator.screens.viewdungeon.ResultsActivity;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.generator.models.RuntimeTypeAdapterFactory;
@@ -24,7 +26,7 @@ public class GeneratingActivity extends AppCompatActivity {
 
     transient Trace myTrace;
 
-    transient static RuntimeTypeAdapterFactory<RoomFeature> roomFeatureAdapter =
+    public transient static RuntimeTypeAdapterFactory<RoomFeature> roomFeatureAdapter =
             RuntimeTypeAdapterFactory.of(RoomFeature.class, "type")
                     .registerSubtype(TreasureFeature.class, "Treasure")
                     .registerSubtype(MonsterFeature.class, "Monster")

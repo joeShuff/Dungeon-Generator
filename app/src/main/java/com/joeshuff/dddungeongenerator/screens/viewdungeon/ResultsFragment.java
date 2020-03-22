@@ -1,9 +1,8 @@
-package com.joeshuff.dddungeongenerator.screens;
+package com.joeshuff.dddungeongenerator.screens.viewdungeon;
 
 import android.content.*;
 import android.graphics.*;
 import android.os.Bundle;
-import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -22,7 +21,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport;
-import com.joeshuff.dddungeongenerator.ResultsActivity;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room;
 import com.joeshuff.dddungeongenerator.generator.floors.Floor;

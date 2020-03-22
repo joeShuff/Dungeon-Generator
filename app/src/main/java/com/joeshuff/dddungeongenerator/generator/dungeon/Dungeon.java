@@ -1,7 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon;
 
 import android.graphics.Point;
-import com.joeshuff.dddungeongenerator.GeneratingActivity;
+import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity;
 import com.joeshuff.dddungeongenerator.util.Logs;
 import com.joeshuff.dddungeongenerator.generator.features.RoomFeature;
 import com.joeshuff.dddungeongenerator.generator.features.StairsFeature;

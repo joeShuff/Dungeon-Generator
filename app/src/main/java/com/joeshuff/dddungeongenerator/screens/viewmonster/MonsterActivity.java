@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.screens.viewmonster;
 
 import android.net.Uri;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -12,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.gson.Gson;
+import com.joeshuff.dddungeongenerator.R;
+import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport;
 import com.joeshuff.dddungeongenerator.generator.monsters.Monster;
-import com.joeshuff.dddungeongenerator.screens.ActionAdapter;
+import com.joeshuff.dddungeongenerator.screens.viewmonster.ActionAdapter;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 
 public class MonsterActivity extends AppCompatActivity {

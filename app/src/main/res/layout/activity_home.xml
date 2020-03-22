@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/screenBackgroundColor"
-        tools:context="com.joeshuff.dddungeongenerator.HomeActivity">
+        tools:context="com.joeshuff.dddungeongenerator.screens.home.HomeActivity">
 
     <com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
             android:layout_width="match_parent"

@@ -151,7 +151,7 @@ public class MinSpanningTree {
 
         @Override
         public int compareTo(Edge o) {
-            return (int) (getDistance() - o.getDistance());
+            return Double.compare(getDistance(), o.getDistance());
         }
 
         @Override

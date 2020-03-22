@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.screens.create;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,10 @@ import androidx.appcompat.widget.SwitchCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration;
+import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 import com.warkiz.tickseekbar.TickSeekBar;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.screens.viewdungeon;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +14,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
-import com.joeshuff.dddungeongenerator.screens.ResultsFragment;
+import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity;
+import com.joeshuff.dddungeongenerator.screens.home.HomeActivity;
+import com.joeshuff.dddungeongenerator.screens.viewdungeon.ResultsFragment;
 
 public class ResultsActivity extends AppCompatActivity {
 
