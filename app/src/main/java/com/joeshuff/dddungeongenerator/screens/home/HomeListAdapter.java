@@ -1,9 +1,8 @@
-package com.joeshuff.dddungeongenerator.screens;
+package com.joeshuff.dddungeongenerator.screens.home;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
-import com.joeshuff.dddungeongenerator.GeneratingActivity;
+import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration;

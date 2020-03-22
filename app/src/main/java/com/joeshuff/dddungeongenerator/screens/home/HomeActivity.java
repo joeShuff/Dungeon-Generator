@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator;
+package com.joeshuff.dddungeongenerator.screens.home;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.joeshuff.dddungeongenerator.screens.create.NewDungeonActivity;
+import com.joeshuff.dddungeongenerator.R;
+import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport;
+import com.joeshuff.dddungeongenerator.screens.settings.SettingsActivity;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
-import com.joeshuff.dddungeongenerator.screens.HomeListAdapter;
 import com.joeshuff.dddungeongenerator.util.AppPreferences;
 
 public class HomeActivity extends AppCompatActivity {

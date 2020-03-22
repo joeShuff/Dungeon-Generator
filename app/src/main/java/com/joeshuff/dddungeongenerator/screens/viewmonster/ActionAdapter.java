@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator.screens;
+package com.joeshuff.dddungeongenerator.screens.viewmonster;
 
 import android.text.Html;
 import android.view.LayoutInflater;

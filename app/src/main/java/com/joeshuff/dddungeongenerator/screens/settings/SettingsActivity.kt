@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator
+package com.joeshuff.dddungeongenerator.screens.settings
 
 import android.os.Bundle
 import android.content.ClipData
@@ -18,9 +18,11 @@ import kotlinx.android.synthetic.main.item_settings_srd.*
 import kotlinx.android.synthetic.main.item_settings_theme.*
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
-import com.joeshuff.dddungeongenerator.pdfviewing.PDFActivity
+import com.joeshuff.dddungeongenerator.BuildConfig
+import com.joeshuff.dddungeongenerator.R
 import com.joeshuff.dddungeongenerator.pdfviewing.PaperActivity
 import com.joeshuff.dddungeongenerator.pdfviewing.SRDActivity
+import com.joeshuff.dddungeongenerator.screens.home.HomeActivity
 import com.joeshuff.dddungeongenerator.util.Logs
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

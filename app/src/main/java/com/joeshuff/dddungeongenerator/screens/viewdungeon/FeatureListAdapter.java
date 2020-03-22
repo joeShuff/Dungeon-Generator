@@ -1,4 +1,4 @@
-package com.joeshuff.dddungeongenerator.screens;
+package com.joeshuff.dddungeongenerator.screens.viewdungeon;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
-import com.joeshuff.dddungeongenerator.MonsterActivity;
+import com.joeshuff.dddungeongenerator.screens.viewmonster.MonsterActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.generator.features.*;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
