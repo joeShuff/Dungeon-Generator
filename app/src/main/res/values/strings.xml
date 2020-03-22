@@ -19,7 +19,7 @@
     <string name="theme_follow_system_value">Use system default</string>
     <string name="theme_battery_saver">Set by Battery Saver</string>
     <string name="open_source_title">Open Source</string>
-    <string name="open_source_text">The app is open source! Check out the code below and make some changes yourself!</string>
+    <string name="open_source_text">The app is open source!\nThis means a few things, If you would simply like to keep up to date on what changes are coming soon you can see these in the main page.\nYou can also create an issue to request some changes/additions, and you can make changes yourself! It also means you can just read the source code to see how the algorithm works!</string>
     <string name="open_source_action">View Code</string>
     <string name="srd_title">Systems Reference Document</string>
     <string name="srd_text">Dungeons and Dragons System Reference Document</string>

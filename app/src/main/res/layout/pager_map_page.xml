@@ -105,8 +105,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:background="@color/screenBackgroundColor"
-                    android:id="@+id/room_description_title"
-            >
+                    android:id="@+id/room_description_title">
 
                 <TextView
                         android:layout_width="match_parent"
@@ -138,7 +137,6 @@
                         android:orientation="vertical"
                         android:layout_marginTop="5dp"
                         android:nestedScrollingEnabled="true"
-                        android:layout_marginBottom="16dp"
                 >
 
                 </com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport>
@@ -175,6 +173,5 @@
             </LinearLayout>
             <!--==================-->
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
