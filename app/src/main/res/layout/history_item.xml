@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/itemBackgroundColor"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:minHeight="100dp"
+                                                   android:background="@color/itemBackgroundColor"
+                                                   android:foreground="?attr/selectableItemBackground"
+                                                   android:clickable="true"
 >
 
     <ImageView
             android:layout_width="40dp"
-            android:layout_height="100dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/arrowEnd"
             android:src="@drawable/round_expand_more_black_48"
             android:rotation="-90"
@@ -19,7 +24,10 @@
 
     <ImageButton
             android:layout_width="30dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:tooltipText="Delete"
             android:id="@+id/deleteButton"
             android:tint="@color/colorTintColor"
@@ -30,9 +38,12 @@
     />
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@id/arrowEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/deleteButton"
+            app:layout_constraintEnd_toStartOf="@id/arrowEnd"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:weightSum="2"
             android:layout_toEndOf="@id/deleteButton"
             android:orientation="vertical"
@@ -40,22 +51,24 @@
 
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/dungeonNameField"
                 android:textSize="25sp"
                 android:textColor="@color/colorFontTitle"
                 android:layout_marginStart="16dp"
                 android:gravity="center_vertical|start"
-                android:text="Dungeon Name"
+                android:text="Dungeon Name\nhsdhahshas\njdasdj"
         />
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:weightSum="2"
+            android:layout_marginTop="@dimen/small_margin"
             android:orientation="vertical"
+            android:layout_marginBottom="@dimen/small_margin"
     >
 
         <TextView
@@ -92,7 +105,7 @@
         android:background="@color/colorSeparatorColor"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
     />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
