@@ -44,6 +44,8 @@
             app:layout_constraintEnd_toStartOf="@id/arrowEnd"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
             android:weightSum="2"
             android:layout_toEndOf="@id/deleteButton"
             android:orientation="vertical"
@@ -68,7 +70,6 @@
             android:weightSum="2"
             android:layout_marginTop="@dimen/small_margin"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/small_margin"
     >
 
         <TextView
