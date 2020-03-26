@@ -117,13 +117,12 @@ public class NameGenerator {
             "Skulls",
             "Souls",
             "Horrors"
-
     );
 
     public static String generateName(Dungeon dungeon) {
         Random rnd = dungeon.getRnd();
 
-        List<String> live = new ArrayList<>();
+        ArrayList<String> live = new ArrayList<>();
         live.addAll(baseSetLiv);
         live.addAll(dungeon.getDungeonCreator().livingNames);
 
@@ -147,7 +146,7 @@ public class NameGenerator {
             }
 
             if (skel.contains("{liv}")) {
-                skel =skel.replaceFirst("\\{liv\\}", live.get(rnd.nextInt(live.size())));
+                skel = skel.replaceFirst("\\{liv\\}", live.get(rnd.nextInt(live.size())));
             }
         }
 
