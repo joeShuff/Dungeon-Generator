@@ -1,6 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.monsters;
 
 import com.google.gson.annotations.SerializedName;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -97,7 +98,7 @@ public class Monster {
 	        languages = jsonObject.getString("languages");
 	        challengeRating = jsonObject.getString("challenge_rating");
         } catch (Exception e) {
-            System.out.println("Problem loading " + jsonObject.toString());
+            Logs.i("Monster", "Problem loading " + jsonObject.toString(), null);
         }
     }
 

@@ -1,8 +1,8 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon;
 
 import android.graphics.Point;
-import com.crashlytics.android.Crashlytics;
-import com.joeshuff.dddungeongenerator.GeneratingActivity;
+import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity;
+import com.joeshuff.dddungeongenerator.util.Logs;
 import com.joeshuff.dddungeongenerator.generator.features.RoomFeature;
 import com.joeshuff.dddungeongenerator.generator.features.StairsFeature;
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection;
@@ -97,8 +97,7 @@ public class Dungeon {
 
 		this.seed = seed;
         rnd = new Random(stringToSeed(numberseed));
-		System.out.println("seed is : " + seed);
-		Crashlytics.log("Seed is " + seed);
+		Logs.i("Dungeon", "seed is : " + seed, null);
 	}
 
 	public static long stringToSeed(String s) {
@@ -244,7 +243,7 @@ public class Dungeon {
         activity.setProgressText("Generating Rooms...");
 
 		for (int i = 0; i < dungeonFloors.size(); i ++) {
-			System.out.println("generating rooms for floor " + i);
+			Logs.i("Dungeon", "generating rooms for floor " + i, null);
 			dungeonFloors.get(i).branchOut();
 		}
 	}

@@ -2,7 +2,7 @@ package com.joeshuff.dddungeongenerator.generator.models;
 
 import android.graphics.Point;
 
-public class Rectangle extends android.support.constraint.solver.widgets.Rectangle {
+public class Rectangle extends androidx.constraintlayout.solver.widgets.Rectangle {
 
     public Rectangle() {
         super();

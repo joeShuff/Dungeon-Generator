@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   android:orientation="vertical"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   app:cardBackgroundColor="@color/colorCardBackground"
+                                   app:cardElevation="5dp"
+                                   android:layout_marginTop="@dimen/small_margin"
+                                   app:cardCornerRadius="0dp"
+                                   android:layout_marginBottom="16dp"
+                                   android:paddingBottom="@dimen/small_margin"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- TITLE -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buildInfo_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/build_title"
+                android:textSize="25sp"
+                android:textColor="@color/colorFontTitle"
+                android:padding="@dimen/small_margin"
+                android:textStyle="bold"
+        />
+        <!-- ===== -->
+
+        <!-- SEPERATOR -->
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/buildInfo_seperator"
+                app:layout_constraintTop_toBottomOf="@id/buildInfo_title"
+                android:background="@color/colorSeparatorColor"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"/>
+        <!-- ========= -->
+
+        <!-- ITEMS -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/buildInfo_list"
+                app:layout_constraintTop_toBottomOf="@id/buildInfo_seperator"
+                android:layout_marginTop="@dimen/small_margin"
+                android:orientation="vertical">
+
+            <!-- VERSION -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_versionItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_versionTitle"
+                        android:text="@string/build_version"
+                        android:textColor="@color/colorFontSubtitle"
+                        android:textSize="16sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_versionValue"
+                        android:text="Version"
+                        android:textColor="@color/colorFontRegular"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ======= -->
+
+            <!-- BUILD NUMBER -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_buildNumberItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildNumberTitle"
+                        android:text="@string/build_number"
+                        android:textColor="@color/colorFontSubtitle"
+                        android:textSize="16sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildNumberValue"
+                        android:text="Build No"
+                        android:textColor="@color/colorFontRegular"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ============ -->
+
+            <!-- BUILD DATE -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_buildDateItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildDateTitle"
+                        android:text="@string/build_date"
+                        android:textColor="@color/colorFontSubtitle"
+                        android:textSize="16sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_buildDateValue"
+                        android:text="Build Date"
+                        android:textColor="@color/colorFontRegular"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ========== -->
+
+            <!-- INSTALLATION REF -->
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:id="@+id/buildInfo_installationItem">
+
+                <!-- TITLE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_installationTitle"
+                        android:text="@string/build_installation_ref"
+                        android:textColor="@color/colorFontSubtitle"
+                        android:textSize="16sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                        android:textStyle="bold"
+                />
+                <!-- ===== -->
+
+                <!-- VALUE -->
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/buildInfo_installationValue"
+                        android:text="Installation"
+                        android:textColor="@color/colorFontRegular"
+                        android:textSize="14sp"
+                        android:layout_marginStart="@dimen/small_margin"
+                />
+                <!-- ===== -->
+            </LinearLayout>
+            <!-- ========== -->
+        </LinearLayout>
+        <!-- ===== -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

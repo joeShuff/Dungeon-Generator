@@ -4,30 +4,33 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@drawable/app_icon"
+            android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:roundIcon="@drawable/app_icon"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".NewDungeonActivity">
+            android:theme="@style/DarkAppTheme">
+        <activity
+                android:name=".screens.settings.SettingsActivity"
+                android:theme="@style/DarkAppTheme">
         </activity>
-        <activity android:name=".GeneratingActivity">
+        <activity android:name=".screens.create.NewDungeonActivity">
         </activity>
-        <activity android:name=".ResultsActivity">
+        <activity android:name=".screens.create.GeneratingActivity">
+        </activity>
+        <activity android:name=".screens.viewdungeon.ResultsActivity">
         </activity>
         <activity
-                android:name=".HomeActivity"
+                android:name=".screens.home.HomeActivity"
                 android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MonsterActivity">
+        <activity android:name=".screens.viewmonster.MonsterActivity">
         </activity>
-        <activity android:name=".SRDActivity">
-        </activity>
+        <activity android:name=".pdfviewing.PDFActivity"/>
+        <activity android:name=".pdfviewing.PaperActivity"/>
+        <activity android:name=".pdfviewing.SRDActivity"/>
     </application>
 
 </manifest>

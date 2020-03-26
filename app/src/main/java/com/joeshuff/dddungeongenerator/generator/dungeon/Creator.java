@@ -1,5 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon;
 
+import androidx.annotation.Nullable;
 import com.joeshuff.dddungeongenerator.generator.monsters.MonsterClass;
 
 import java.io.Serializable;
@@ -12,27 +13,27 @@ public class Creator {
 
     public enum CREATOR  {
 
-        BEHOLDER("Beholder", new Modifier()),
-        CULT("A Cult or Religious Group", new Modifier()),
-        DWARVES("Dwarves", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.FEY)), "Dwarves", "Dwarf"),
-        ELVES("Elves (including drow)", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.FEY)), "Sprite", "Sprites", "Faun", "Fauns", "Leprechauns", "Leprechaun"),
-        GIANTS("Giants", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.GIANT)), "Storm Giant", "Hill Giant", "Cyclops"),
-        HOBGOBLINS("Hobgoblins", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID)), "Hobgoblins"),
-        HUMANS("Humans", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID))),
-        KUO_TOA("Kuo-toa", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID))),
-        LICH("Lich", new Modifier()),
-        MIND_FLAYERS("Mind flayers", new Modifier()),
-        YUAN_TI("Yuan-ti", new Modifier()),
-        NO_CREATOR("No creator (natural caverns)", new Modifier());
+        BEHOLDER("Beholder", new Modifier(), null),
+        CULT("A Cult or Religious Group", new Modifier(), null),
+        DWARVES("Dwarves", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.FEY)), Arrays.asList("Dwarves", "Dwarf")),
+        ELVES("Elves (including drow)", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.FEY)), Arrays.asList("Sprite", "Sprites", "Faun", "Fauns", "Leprechauns", "Leprechaun")),
+        GIANTS("Giants", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.GIANT)), Arrays.asList("Storm Giant", "Hill Giant", "Cyclops")),
+        HOBGOBLINS("Hobgoblins", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID)), Arrays.asList("Hobgoblins")),
+        HUMANS("Humans", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID)), null),
+        KUO_TOA("Kuo-toa", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID)), null),
+        LICH("Lich", new Modifier(), null),
+        MIND_FLAYERS("Mind flayers", new Modifier(), null),
+        YUAN_TI("Yuan-ti", new Modifier(), null),
+        NO_CREATOR("No creator (natural caverns)", new Modifier(), null);
 
         String description;
 
         Modifier modifier;
 
-        List<String> livingNames = new ArrayList<>();
+        ArrayList<String> livingNames = new ArrayList<>();
 
-        CREATOR(String description, Modifier modifier, String... names) {
-            livingNames.addAll(Arrays.asList(names));
+        CREATOR(String description, Modifier modifier, @Nullable List<String> names) {
+            if (names != null) livingNames.addAll(names);
             this.description = description;
             this.modifier = modifier;
         }
@@ -110,7 +111,7 @@ public class Creator {
         if (d20_2 <= 2) selectedClass = "Bard";
         if (d20_2 <= 1) selectedClass = "Barbarian";
 
-        selected.livingNames.add(selectedClass);
+        if (!selected.livingNames.contains(selectedClass)) selected.livingNames.add(selectedClass);
 
         return selectedAlignment + " " + selectedClass;
     }
