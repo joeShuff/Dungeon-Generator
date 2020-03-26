@@ -11,9 +11,11 @@ Feel free to contribute to the project and open a pull request.
       alt="Direct download"
       height="80">](https://github.com/joeShuff/Dungeon-Generator/releases)
       
+## Short Term Planned Future Additions      
+- Convert the algorithm to Kotlin so that I can lower the min-sdk to 18(ish)
+- Convert the rest of the app to Kotlin for future Joe
+- Add support for different algorithm versions, so that dungeons generated in older versions don't change.
+- Save created dungeons so that they don't have to get generated **every time** you choose it from the list.
+
 ## Licence
 _D&D Dungeon Generator_ is released under the GNU General Public Licence version 3. (`gpl-3.0`)
-
-Some free assets were used to make this app, namely:
-- App Icon (https://www.flaticon.com/free-icon/dungeon_155332)
-- Icons within app (https://material.io/resources/icons)
