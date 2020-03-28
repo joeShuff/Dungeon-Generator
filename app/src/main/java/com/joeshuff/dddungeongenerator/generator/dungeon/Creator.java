@@ -38,19 +38,27 @@ public class Creator {
             this.modifier = modifier;
         }
 
-        String extraDesc = "";
-
-        public String getDescription() {
-            return description  + " " + extraDesc;
-        }
-
         public Modifier getModifier() {
             return modifier;
         }
     }
 
-    public static CREATOR generateCreator(Random rnd) {
+    public CREATOR creatorType;
+
+    public CULT_TYPE cultType;
+
+    String extraDesc = "";
+
+    String humanClass = "";
+
+    public String getDescription() {
+        return creatorType.description  + " " + extraDesc;
+    }
+
+    public static Creator generateCreator(Random rnd) {
         int d20 = rnd.nextInt(20) + 1;
+
+        Creator newcreator = new Creator();
 
         CREATOR selected = CREATOR.NO_CREATOR;
 
@@ -67,21 +75,24 @@ public class Creator {
         if (d20 <= 4) selected = CREATOR.CULT;
         if (d20 <= 1) selected = CREATOR.BEHOLDER;
 
+        newcreator.creatorType = selected;
+
         CULT_TYPE cult = CULT_TYPE.EMPTY;
 
         if (selected == CREATOR.HUMANS) {
-            selected.extraDesc = "(" + getHumanDetails(selected, rnd) + ")";
+            newcreator.extraDesc = "(" + getHumanDetails(newcreator, rnd) + ")";
         } else if (selected == CREATOR.CULT) {
             cult = getCultType(rnd);
-            selected.extraDesc = "(" + cult.name + ")";
+            newcreator.extraDesc = "(" + cult.name + ")";
         }
 
+        newcreator.cultType = cult;
         selected.modifier = Modifier.combineModifiers(Arrays.asList(selected.modifier, cult.modifier), false);
         
-        return selected;
+        return newcreator;
     }
     
-    private static String getHumanDetails(CREATOR selected, Random rnd) {
+    private static String getHumanDetails(Creator selected, Random rnd) {
         int d20_1 = rnd.nextInt(20) + 1;
         int d20_2 = rnd.nextInt(20) + 1;
         
@@ -111,7 +122,7 @@ public class Creator {
         if (d20_2 <= 2) selectedClass = "Bard";
         if (d20_2 <= 1) selectedClass = "Barbarian";
 
-        if (!selected.livingNames.contains(selectedClass)) selected.livingNames.add(selectedClass);
+        selected.humanClass = selectedClass;
 
         return selectedAlignment + " " + selectedClass;
     }
@@ -145,8 +156,8 @@ public class Creator {
         WORSHIPERS_OF_NEUTRAL("Worshipers of a neutral deity", new Modifier().setPreferredMonsters(Arrays.asList(MonsterClass.MONSTER_CLASS.HUMANOID)))
         ;
 
-        String name;
-        Modifier modifier;
+        final String name;
+        final Modifier modifier;
 
         CULT_TYPE(String name, Modifier modifier) {
             this.name = name;

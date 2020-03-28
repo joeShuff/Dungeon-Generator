@@ -5,6 +5,7 @@
     <color name="colorPrimary">#253C78</color>
     <color name="colorTransparentPrimary">#A9253C78</color>
     <color name="colorPrimaryDark">#1F3263</color>
+    <color name="colorPrimaryLight">#4A6BC6</color>
     <color name="colorAccent">#00A6ED</color>
     <color name="colorWhiteAccent">#FAFAFC</color>
     <color name="colorWhite">#FFFFFF</color>

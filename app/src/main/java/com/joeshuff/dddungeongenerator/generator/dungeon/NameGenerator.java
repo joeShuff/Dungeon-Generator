@@ -124,7 +124,11 @@ public class NameGenerator {
 
         ArrayList<String> live = new ArrayList<>();
         live.addAll(baseSetLiv);
-        live.addAll(dungeon.getDungeonCreator().livingNames);
+        live.addAll(dungeon.getDungeonCreator().creatorType.livingNames);
+
+        if (dungeon.getDungeonCreator().creatorType == Creator.CREATOR.HUMANS) {
+            live.add(dungeon.getDungeonCreator().humanClass);
+        }
 
         String skel = skeletons.get(rnd.nextInt(skeletons.size()));
 

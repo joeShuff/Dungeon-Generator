@@ -27,7 +27,7 @@ public class Dungeon {
 
 	Environment.ENVIRONMENT_TYPE selectedEnvironment;
 
-	Creator.CREATOR dungeonCreator;
+	Creator dungeonCreator;
 
 	Purpose.PURPOSE dungeonPurpose;
 
@@ -73,7 +73,7 @@ public class Dungeon {
 	public String getDungeonDescription() {
         String description = "You find yourself in a dungeon " + getSelectedEnvironment().getDescription().toLowerCase() + ".\n";
 
-        if (getDungeonCreator() == Creator.CREATOR.NO_CREATOR) {
+        if (getDungeonCreator().creatorType == Creator.CREATOR.NO_CREATOR) {
             description = description + "You discover that this dungeon is naturally formed.";
         } else {
             description = description + "This dungeon seems to be created by " + getDungeonCreator().getDescription() + "\n";
@@ -127,7 +127,7 @@ public class Dungeon {
 		return selectedEnvironment;
 	}
 
-	public Creator.CREATOR getDungeonCreator() {
+	public Creator getDungeonCreator() {
 		return dungeonCreator;
 	}
 
@@ -149,9 +149,9 @@ public class Dungeon {
 
 		List<Modifier> modifiers = new ArrayList<>();
 		modifiers.add(userModifier);
-		modifiers.addAll(Arrays.asList(selectedEnvironment.getModifier(), dungeonCreator.getModifier()));
+		modifiers.addAll(Arrays.asList(selectedEnvironment.getModifier(), dungeonCreator.creatorType.getModifier()));
 
-		if (dungeonCreator != Creator.CREATOR.NO_CREATOR) {
+		if (dungeonCreator.creatorType != Creator.CREATOR.NO_CREATOR) {
 			dungeonPurpose = Purpose.getPurpose(rnd);
 			modifiers.add(dungeonPurpose.getModifier());
 
