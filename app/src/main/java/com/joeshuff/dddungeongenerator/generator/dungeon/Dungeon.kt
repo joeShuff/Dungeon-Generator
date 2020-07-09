@@ -89,7 +89,7 @@ class Dungeon {
                 description += "You discover that this dungeon is naturally formed."
             } else {
                 dungeonPurpose?.let { purpose ->
-                    description += "This dungeon seems to be created by ${creator.description} \n"
+                    description += "This dungeon seems to be created by ${creator.getDescription()} \n"
                     description += "They created this dungeon as a ${purpose.title.toLowerCase()}\n ${purpose.getDescription()} \n"
                 }
             }
