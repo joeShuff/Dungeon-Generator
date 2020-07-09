@@ -316,4 +316,6 @@ class Dungeon {
     fun getDungeonFloors(): List<Floor> {
         return dungeonFloors
     }
+
+    fun getDungeonCreator() = dungeonCreator
 }
