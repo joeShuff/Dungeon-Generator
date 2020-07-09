@@ -78,7 +78,11 @@ class Dungeon {
     }
 
     fun getDungeonDescription(): String {
-        var description = "You find yourself in a dungeon ${selectedEnvironment!!.getDescription().toLowerCase()} .\n"
+        var description = ""
+
+        selectedEnvironment?.let {
+            description += "You find yourself in a dungeon ${it.description.toLowerCase()} .\n"
+        }
 
         dungeonCreator?.let {creator ->
             if (creator.creatorType == Creator.CREATOR.NO_CREATOR) {
@@ -126,23 +130,26 @@ class Dungeon {
     }
 
     fun generateAttributes() {
-        selectedEnvironment = Environment.generateEnvironmentType(rnd)
-        dungeonCreator = Creator.generateCreator(rnd)
+        rnd?.let {randomness ->
+            selectedEnvironment = Environment.generateEnvironmentType(randomness)
+            dungeonCreator = Creator.generateCreator(randomness)
 
-        val modifiers: MutableList<Modifier> = ArrayList()
-        modifiers.add(userModifier)
+            val modifiers: MutableList<Modifier> = ArrayList()
+            modifiers.add(userModifier)
 
-        selectedEnvironment?.modifier?.let { modifiers.add(it) }
-        dungeonCreator?.creatorType?.modifier?.let { modifiers.add(it) }
+            selectedEnvironment?.modifier?.let { modifiers.add(it) }
+            dungeonCreator?.creatorType?.modifier?.let { modifiers.add(it) }
 
-        if (dungeonCreator?.creatorType != Creator.CREATOR.NO_CREATOR) {
-            dungeonPurpose = Purpose.getPurpose(rnd)
-            dungeonPurpose?.modifier?.let { modifiers.add(it) }
-            dungeonHistory = History.getHistory(rnd)
-            dungeonHistory?.modifier?.let { modifiers.add(it) }
+            if (dungeonCreator?.creatorType != Creator.CREATOR.NO_CREATOR) {
+                dungeonPurpose = Purpose.getPurpose(randomness)
+                dungeonPurpose?.modifier?.let { modifiers.add(it) }
+                dungeonHistory = History.getHistory(randomness)
+                dungeonHistory?.modifier?.let { modifiers.add(it) }
+            }
+
+            globalModifier = Modifier.combineModifiers(modifiers, true)
         }
 
-        globalModifier = Modifier.combineModifiers(modifiers, true)
         name = NameGenerator.generateName(this)
     }
 
