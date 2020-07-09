@@ -294,7 +294,7 @@ class Dungeon {
         val stairsToDecide: MutableList<StairsFeature> = ArrayList()
         getDungeonFloors().forEach { floor ->
             floor.allRooms.forEach { room ->
-                room.featureList.forEach { feature ->
+                room.getFeatureList().forEach { feature ->
                     if (feature is StairsFeature) {
                         stairsToDecide.add(feature)
                     }
