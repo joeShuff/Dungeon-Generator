@@ -90,7 +90,7 @@ class Dungeon {
             } else {
                 dungeonPurpose?.let { purpose ->
                     description += "This dungeon seems to be created by ${creator.getDescription()} \n"
-                    description += "They created this dungeon as a ${purpose.title.toLowerCase()}\n ${purpose.getDescription()} \n"
+                    description += "They created this dungeon as a ${purpose.title.toLowerCase()}\n ${purpose.description} \n"
                 }
             }
         }
