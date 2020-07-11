@@ -40,7 +40,7 @@ class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myR
     var rnd: Random? = null
 
     @Transient
-    private var floorTarget: Floor? = null
+    private lateinit var floorTarget: Floor
 
     @Transient
     private lateinit var connectedRoom: Room
@@ -77,15 +77,17 @@ class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myR
         this.floorTarget = floorTarget
     }
 
-    fun getConnectedRoom(): Room {
+    fun getConnectedRoom(): Room? {
         if (!this::connectedRoom.isInitialized) {
             val myRoomCentre = Point(
                     myRoom.globalStartX + myRoom.width / 2,
                     myRoom.globalStartY + myRoom.height / 2
             )
 
-            connectedRoom = floorTarget!!.getRoomClosestTo(myRoom)
-            connectedFloorId = floorTarget!!.level
+            val gennedConnectedRoom = floorTarget.getRoomClosestTo(myRoom) ?: return null
+
+            connectedRoom = gennedConnectedRoom
+            connectedFloorId = floorTarget.level
             connectedRoomId = connectedRoom.id
 
             var otherRoomDesc = ""
