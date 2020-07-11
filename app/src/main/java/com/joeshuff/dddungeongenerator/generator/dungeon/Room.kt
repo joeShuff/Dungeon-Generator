@@ -112,14 +112,14 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
         val description: MutableList<String> = ArrayList()
 
         for (feature in getFeatureList()) {
-            description.add(featureIntros[Random().nextInt(featureIntros.size)].toString() + feature.featureDescription)
+            description.add(featureIntros[Random().nextInt(featureIntros.size)].toString() + feature.getFeatureDescription())
         }
 
         return description
     }
 
-    fun connectRoomTo(room: Room, connection: String?, direction: DIRECTION) {
-        val newStairs = StairsFeature(direction.opposite(), connection, room.id, room.thisSection.floor.level)
+    fun connectRoomTo(room: Room, connection: String, direction: DIRECTION) {
+        val newStairs = StairsFeature("", Modifier(), this, direction.opposite(), connection, room.id, room.thisSection.floor.level)
         featureList.add(newStairs)
     }
 
@@ -324,6 +324,8 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
 
         if (stairChance <= chanceOfStairFeature) {
             val stairsFeature = StairsFeature(String.format("%.0f", stairChance * 10.0.pow(16.0)), modifier, this)
+            stairsFeature.generateType()
+
             featureList.add(stairsFeature)
             stairsFeature.setFloorTarget(thisSection.floor.newFloor(stairsFeature.direction.elevation, this))
         }
