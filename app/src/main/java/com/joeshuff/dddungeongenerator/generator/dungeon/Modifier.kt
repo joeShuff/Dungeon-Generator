@@ -29,9 +29,9 @@ class Modifier {
 
     var stairChanceModifier = 0.0
 
-    private var preferredMonsters: MutableList<MONSTER_CLASS> = ArrayList()
+    private var preferredMonsters: ArrayList<MONSTER_CLASS> = ArrayList()
 
-    private var blockedMonsters: MutableList<MONSTER_CLASS> = ArrayList()
+    private var blockedMonsters: ArrayList<MONSTER_CLASS> = ArrayList()
 
     fun loadDefaults() {
         monsterChanceModifier = 1.0
@@ -112,8 +112,9 @@ class Modifier {
         return mapCoveragePercentage / 100.0
     }
 
-    val triangulationAdditionChange: Double
-        get() = triangulationAdditionChance / 100.0
+    fun getTriangulationAdditionChange(): Double {
+        return triangulationAdditionChance / 100.0
+    }
 
     fun getTrapMagicalChance(): Double {
         return trapMagicalChance / 100.0

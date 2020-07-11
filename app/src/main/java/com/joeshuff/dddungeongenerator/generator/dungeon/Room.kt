@@ -72,10 +72,10 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
 
     private var timesShifted = 0
 
-    private var featureList: MutableList<RoomFeature> = ArrayList()
+    private var featureList: ArrayList<RoomFeature> = ArrayList()
 
     @Transient
-    var movementHistory: MutableList<Movement> = ArrayList()
+    var movementHistory: ArrayList<Movement> = ArrayList()
 
     init {
         sectionStartX = thisSection.startPoint.x
@@ -109,7 +109,7 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
     }
 
     fun getRoomDescription(): List<String> {
-        val description: MutableList<String> = ArrayList()
+        val description: ArrayList<String> = ArrayList()
 
         for (feature in getFeatureList()) {
             description.add(featureIntros[Random().nextInt(featureIntros.size)].toString() + feature.getFeatureDescription())

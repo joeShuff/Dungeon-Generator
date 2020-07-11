@@ -48,10 +48,10 @@ class Dungeon {
     private var userModifier = Modifier()
 
     @Transient
-    var rnd: Random? = null //SEED THIS IF YOU WANT THE SAME RESULTS
+    lateinit var rnd: Random
 
     private var seed = ""
-    private var dungeonFloors: MutableList<Floor> = ArrayList()
+    private var dungeonFloors: ArrayList<Floor> = ArrayList()
 
     //Generation all complete
     @Transient
@@ -63,8 +63,10 @@ class Dungeon {
     @Transient
     var activity: GeneratingActivity? = null
 
-    constructor(c: GeneratingActivity?, startX: Int, startY: Int, endX: Int, endY: Int) {
+    constructor(c: GeneratingActivity?, startX: Int, startY: Int, endX: Int, endY: Int, seed: String) {
         activity = c
+
+        setSeed(seed)
 
         this.startX = startX
         this.startY = startY
@@ -134,7 +136,7 @@ class Dungeon {
             selectedEnvironment = Environment.generateEnvironmentType(randomness)
             dungeonCreator = Creator.generateCreator(randomness)
 
-            val modifiers: MutableList<Modifier> = ArrayList()
+            val modifiers: ArrayList<Modifier> = ArrayList()
             modifiers.add(userModifier)
 
             selectedEnvironment?.modifier?.let { modifiers.add(it) }
@@ -291,7 +293,7 @@ class Dungeon {
 
     fun complete() {
         allCompleted = true
-        val stairsToDecide: MutableList<StairsFeature> = ArrayList()
+        val stairsToDecide: ArrayList<StairsFeature> = ArrayList()
         getDungeonFloors().forEach { floor ->
             floor.allRooms.forEach { room ->
                 room.getFeatureList().forEach { feature ->
@@ -318,4 +320,6 @@ class Dungeon {
     }
 
     fun getDungeonCreator() = dungeonCreator
+
+    fun getGlobalModifier() = globalModifier
 }
