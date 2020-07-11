@@ -302,7 +302,7 @@ class Dungeon {
             }
         }
 
-        for (sf in stairsToDecide) sf.connectedRoom //The get initialises the connection, not best practice but dismissable for now
+        for (sf in stairsToDecide) sf.getConnectedRoom() //The get initialises the connection, not best practice but dismissable for now
         activity?.runOnUiThread { activity?.onCompleted() }
     }
 
