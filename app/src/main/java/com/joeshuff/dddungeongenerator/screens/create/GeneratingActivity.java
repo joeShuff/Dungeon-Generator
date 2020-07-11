@@ -48,11 +48,10 @@ public class GeneratingActivity extends AppCompatActivity {
     }
 
     private void startGenerating() {
-        dungeon = new Dungeon(this, 0, 0, 800, 800);
-
         MemoryGeneration instructions = new Gson().fromJson(getIntent().getStringExtra("instructions"), MemoryGeneration.class);
 
-        dungeon.setSeed(instructions.getSeed());
+        dungeon = new Dungeon(this, 0, 0, 800, 800, instructions.getSeed());
+
         dungeon.setRoomSize(instructions.getRoomSize());
         dungeon.setLongCorridors(instructions.isLongCorridors());
         dungeon.setLinearProgression(instructions.isLoops());
