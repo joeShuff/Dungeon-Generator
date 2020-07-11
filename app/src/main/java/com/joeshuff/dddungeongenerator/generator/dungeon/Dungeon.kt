@@ -36,8 +36,8 @@ class Dungeon {
     private var startY = 0
     private var endX = 0
     private var endY = 0
-    private var width = 0
-    private var height = 0
+    var width = 0
+    var height = 0
 
     private var selectedEnvironment: ENVIRONMENT_TYPE? = null
     private var dungeonCreator: Creator? = null
