@@ -151,7 +151,7 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
     }
 
     fun pathFind() {
-        corridors = PathFinding.findPaths(this, rooms, finalConnections)
+        corridors = PathFinding(this, rooms, finalConnections).findPaths()
     }
 
     fun finalise() {
