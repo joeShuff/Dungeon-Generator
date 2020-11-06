@@ -35,7 +35,7 @@ public class ResultsActivity extends AppCompatActivity {
         Gson gson = new GsonBuilder().registerTypeAdapterFactory(GeneratingActivity.roomFeatureAdapter).create();
         generatedDungeon = gson.fromJson(MemoryController.getFromSharedPreferences(getApplicationContext(), "RECENT_DUNGEON"), Dungeon.class);
 
-        getSupportActionBar().setTitle(generatedDungeon.name);
+        getSupportActionBar().setTitle(generatedDungeon.getName());
 
         loadUI();
     }

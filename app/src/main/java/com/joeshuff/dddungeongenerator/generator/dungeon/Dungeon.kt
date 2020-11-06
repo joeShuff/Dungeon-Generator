@@ -30,7 +30,8 @@ class Dungeon {
         }
     }
 
-    private var name: String = ""
+    var name: String = ""
+        private set
 
     private var startX = 0
     private var startY = 0
@@ -39,10 +40,17 @@ class Dungeon {
     var width = 0
     var height = 0
 
-    private var selectedEnvironment: ENVIRONMENT_TYPE? = null
-    private var dungeonCreator: Creator? = null
-    private var dungeonPurpose: PURPOSE? = null
-    private var dungeonHistory: HISTORY? = null
+    var selectedEnvironment: ENVIRONMENT_TYPE? = null
+        private set
+
+    var dungeonCreator: Creator? = null
+        private set
+
+    var dungeonPurpose: PURPOSE? = null
+        private set
+
+    var dungeonHistory: HISTORY? = null
+        private set
 
     private var globalModifier = Modifier()
     private var userModifier = Modifier()
@@ -62,6 +70,8 @@ class Dungeon {
 
     @Transient
     var activity: GeneratingActivity? = null
+
+    constructor(): this(null, 0, 0, 0, 0, "")
 
     constructor(c: GeneratingActivity?, startX: Int, startY: Int, endX: Int, endY: Int, seed: String) {
         activity = c
@@ -318,8 +328,6 @@ class Dungeon {
     fun getDungeonFloors(): List<Floor> {
         return dungeonFloors
     }
-
-    fun getDungeonCreator() = dungeonCreator
 
     fun getGlobalModifier() = globalModifier
 }

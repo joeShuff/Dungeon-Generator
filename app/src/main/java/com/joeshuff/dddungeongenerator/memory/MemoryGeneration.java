@@ -113,6 +113,6 @@ public class MemoryGeneration implements Comparable<MemoryGeneration> {
         test.setSeed(getSeed());
 
         test.generateAttributes();
-        return test.name;
+        return test.getName();
     }
 }
