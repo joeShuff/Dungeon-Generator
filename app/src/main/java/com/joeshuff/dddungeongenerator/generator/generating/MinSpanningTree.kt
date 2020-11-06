@@ -1,6 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.generating
 
 import android.graphics.Point
+import com.joeshuff.dddungeongenerator.util.Logs
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -70,7 +71,6 @@ object MinSpanningTree {
         return false
     }
 
-    @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
     private fun addingCausesLoop(points: List<Point>, tree: List<Edge>, newEdge: Edge): Boolean {
         val tempTree: MutableList<Edge> = ArrayList()
         tempTree.addAll(tree)
@@ -80,9 +80,18 @@ object MinSpanningTree {
         val adjacent: Array<ArrayList<Int>> = Array(points.size) {ArrayList<Int>()}
 
         for (e in tempTree) {
+
+            val startIndex = points.indexOf(e.start)
+            val endIndex = points.indexOf(e.end)
+
             points.forEachIndexed { index, point ->
-                if (point === e.start && !(adjacent[index] as ArrayList<Int>).contains(e.end)) adjacent[index].add(points.indexOf(e.end))
-                if (point === e.end && !(adjacent[index] as ArrayList<Int>).contains(e.start)) adjacent[index].add(points.indexOf(e.start))
+                if (point === e.start && endIndex !in adjacent[index]) {
+                    adjacent[index].add(endIndex)
+                }
+
+                if (point === e.end && startIndex !in adjacent[index]) {
+                    adjacent[index].add(startIndex)
+                }
             }
         }
 

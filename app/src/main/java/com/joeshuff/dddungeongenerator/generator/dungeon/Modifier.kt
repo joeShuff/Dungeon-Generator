@@ -6,28 +6,38 @@ import kotlin.math.ceil
 
 class Modifier {
     var monsterChanceModifier = 0.0
+        private set
 
     var monsterAverageGroupSize = 0 //default 3
+        private set
 
     var trapChanceModifier = 0.0
+        private set
 
     var trapMagicalChance = 0 //default 50
+        private set
 
     var treasureChanceModifier = 0.0
+        private set
 
     var mapCoveragePercentage = 0 //default 65
+        private set
 
     var triangulationAdditionChance = 0 //default 15
+        private set
 
     var bossChanceModifier = 0.0
+        private set
 
     /**
      * This is the chance of, when a stair feature is generated, those stairs going up. The change of them going down
      * is 100 - this
      */
     var growthChanceUp = 0.0 //default 0.5
+        private set
 
     var stairChanceModifier = 0.0
+        private set
 
     private var preferredMonsters: ArrayList<MONSTER_CLASS> = ArrayList()
 

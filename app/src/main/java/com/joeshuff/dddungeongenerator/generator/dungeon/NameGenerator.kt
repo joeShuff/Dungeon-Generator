@@ -117,7 +117,7 @@ object NameGenerator {
         val live = ArrayList<String>()
         live.addAll(baseSetLiv)
 
-        dungeon.getDungeonCreator()?.let {
+        dungeon.dungeonCreator?.let {
             it.creatorType?.livingNames?.let { live.addAll(it) }
 
             if (it.creatorType === Creator.CREATOR.HUMANS) {
