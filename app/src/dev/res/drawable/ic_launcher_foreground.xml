@@ -1,0 +1,45 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="146.54002"
+    android:viewportHeight="146.54002">
+  <group android:translateX="43.27001"
+      android:translateY="43.27001">
+    <path
+        android:pathData="M59,50.5h-2v-47c0,-0.6 -0.4,-1 -1,-1h-8c-0.6,0 -1,0.4 -1,1v7h-2v-5c0,-0.6 -0.4,-1 -1,-1h-6c-0.6,0 -1,0.4 -1,1v5h-2v-7c0,-0.6 -0.4,-1 -1,-1h-8c-0.6,0 -1,0.4 -1,1v7h-2v-5c0,-0.6 -0.4,-1 -1,-1h-6c-0.6,0 -1,0.4 -1,1v5h-2v-7c0,-0.6 -0.4,-1 -1,-1H4c-0.6,0 -1,0.4 -1,1v47H1c-0.6,0 -1,0.4 -1,1v5c0,0.6 0.4,1 1,1h58c0.6,0 1,-0.4 1,-1v-5C60,50.9 59.6,50.5 59,50.5zM5,38.5h7v-2H5v-17h11v-2H5v-13h6v6H8v2h4h4c0.6,0 1,-0.4 1,-1v-5h4v4h-2v2h3h4c0.6,0 1,-0.4 1,-1v-7h6v6h-3v2h4h4c0.6,0 1,-0.4 1,-1v-5h4v4h-2v2h3h4h4v-2h-3v-6h6v15h-3v2h3v15h-7v2h7v12H44v-18c0,-3.4 -2.6,-6 -6,-6H22c-3.4,0 -6,2.6 -6,6v18H5V38.5zM18,48.5h5v-2h-5v-9h5v-2h-5v-3c0,-2.2 1.8,-4 4,-4h7v19h2v-19h7c2.2,0 4,1.8 4,4v1h-5v2h5v9h-5v2h5v4H18V48.5zM58,55.5H2v-3h2h52h2V55.5z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M33,40.5h2v2h-2z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M25,40.5h2v2h-2z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M19,17.5h4v2h-4z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M37,19.5h12v2h-12z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M8,27.5h6v2h-6z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M46,27.5h6v2h-6z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M47,44.5h4v2h-4z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+    <path
+        android:pathData="M9,44.5h4v2h-4z"
+        android:fillColor="#ffffff"
+        android:fillAlpha="1"/>
+  </group>
+</vector>
