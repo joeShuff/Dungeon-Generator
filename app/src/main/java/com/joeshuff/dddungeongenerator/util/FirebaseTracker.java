@@ -2,8 +2,8 @@ package com.joeshuff.dddungeongenerator.util;
 
 import android.content.Context;
 import android.os.Bundle;
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 public class FirebaseTracker {
 
@@ -14,7 +14,7 @@ public class FirebaseTracker {
             FirebaseAnalytics.getInstance(c).logEvent(name, bundle);
         } catch (Exception e) {
             try {
-                Crashlytics.logException(e);
+                FirebaseCrashlytics.getInstance().recordException(e);
             } catch (Exception e2){e2.printStackTrace();}
         }
     }
