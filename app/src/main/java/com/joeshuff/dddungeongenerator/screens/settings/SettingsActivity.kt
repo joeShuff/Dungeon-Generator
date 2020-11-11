@@ -127,7 +127,7 @@ class SettingsActivity : AppCompatActivity() {
         alert.show()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item?.itemId == android.R.id.home) {
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
