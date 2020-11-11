@@ -31,7 +31,7 @@ open class PDFActivity : AppCompatActivity() {
 
             try {
                 pdfView
-                        .fromStream(applicationContext.assets.open(intent.getStringExtra(filenameKey)))
+                        .fromStream(applicationContext.assets.open(intent.getStringExtra(filenameKey)?: ""))
                         .spacing(4)
                         .nightMode(pdfIsDark)
                         .load()
