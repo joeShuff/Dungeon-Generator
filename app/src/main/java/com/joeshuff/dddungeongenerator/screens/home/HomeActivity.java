@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.joeshuff.dddungeongenerator.screens.create.NewDungeonActivity;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport;
@@ -25,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
 
         AppPreferences.INSTANCE.init(getApplicationContext());
         AppCompatDelegate.setDefaultNightMode(AppPreferences.INSTANCE.getDarkThemeMode());
+
+        FirebaseCrashlytics.getInstance().setUserId(AppPreferences.INSTANCE.getInstallReference());
 
         doUpdate();
     }
