@@ -88,6 +88,10 @@ public class Dungeon {
 	}
 
 	public void setSeed(String seed) {
+		if (seed == null) {
+			seed = "";
+		}
+
 		String numberseed = "";
 
 		for (char c : seed.toCharArray()) {

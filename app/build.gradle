@@ -59,9 +59,9 @@ android {
     defaultConfig {
         applicationId "com.joeshuff.dddungeongenerator"
         minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 11
-        versionName "2.1"
+        targetSdkVersion 29
+        versionCode 14
+        versionName "2.2"
         buildConfigField 'String', 'buildNumber', '"' + String.valueOf(versionBuild) + '"'
         buildConfigField 'String', 'buildTime', '"' + String.valueOf(versionDate) + '"'
 
@@ -70,8 +70,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
