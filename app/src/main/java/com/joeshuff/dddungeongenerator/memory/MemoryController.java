@@ -61,7 +61,10 @@ public class MemoryController {
         for (int i = 0; i < stored.length(); i ++) {
             try {
                 MemoryGeneration found = new GsonBuilder().create().fromJson(stored.getString(i), MemoryGeneration.class);
-                rememberedGenerations.add(found);
+
+                if (found.getSeed() != null) {
+                    rememberedGenerations.add(found);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
