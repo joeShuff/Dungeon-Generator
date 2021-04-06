@@ -18,3 +18,7 @@ inline fun <T> tryOrNull(f: () -> T) =
         } catch (_: Exception) {
             null
         }
+
+fun <T> List<T>.ifNotEmpty(f: (List<T>) -> Unit) {
+    if (isNotEmpty()) f.invoke(this)
+}

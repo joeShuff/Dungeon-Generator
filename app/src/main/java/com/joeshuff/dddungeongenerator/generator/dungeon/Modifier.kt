@@ -1,6 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon
 
 import com.joeshuff.dddungeongenerator.generator.monsters.MonsterClass.MONSTER_CLASS
+import com.joeshuff.dddungeongenerator.util.ifNotEmpty
 import java.util.*
 import kotlin.math.ceil
 
@@ -142,27 +143,27 @@ class Modifier {
         fun combineModifiers(modifiers: List<Modifier>, defaults: Boolean): Modifier {
             val finalModifier = Modifier()
             if (defaults) finalModifier.loadDefaults()
-            val averageMonsterChance = modifiers.filter { it.monsterChanceModifier > 0.0 }.map { it.monsterChanceModifier }.average()
-            val averageMonsterAmount = modifiers.filter { it.monsterAverageGroupSize > 0 }.map { it.monsterAverageGroupSize }.average()
-            val averageTrapModifier = modifiers.filter { it.trapChanceModifier > 0 }.map { it.trapChanceModifier }.average()
-            val averageTrapMagicalChance = modifiers.filter { it.trapMagicalChance > 0 }.map { it.trapMagicalChance }.average()
-            val averageTreasureChanceModifier = modifiers.filter { it.treasureChanceModifier > 0 }.map { it.treasureChanceModifier }.average()
-            val averageMapCoveragePercentage = modifiers.filter { it.mapCoveragePercentage > 0 }.map { it.mapCoveragePercentage }.average()
-            val averageTriangulationPercentage = modifiers.filter { it.triangulationAdditionChance > 0 }.map { it.triangulationAdditionChance }.average()
-            val averageBossChanceModifier = modifiers.filter { it.bossChanceModifier > 0 }.map { it.bossChanceModifier }.average()
-            val averageGrowthUpChance = modifiers.filter { it.growthChanceUp > 0 }.map { it.growthChanceUp }.average()
-            val averageStairsChangeModifier = modifiers.filter { it.stairChanceModifier > 0 }.map { it.stairChanceModifier }.average()
+            val monsterChances = modifiers.filter { it.monsterChanceModifier > 0.0 }.map { it.monsterChanceModifier }
+            val monsterAmounts = modifiers.filter { it.monsterAverageGroupSize > 0 }.map { it.monsterAverageGroupSize }
+            val trapChances = modifiers.filter { it.trapChanceModifier > 0 }.map { it.trapChanceModifier }
+            val trapMagicalChances = modifiers.filter { it.trapMagicalChance > 0 }.map { it.trapMagicalChance }
+            val treasureChances = modifiers.filter { it.treasureChanceModifier > 0 }.map { it.treasureChanceModifier }
+            val mapCoverages = modifiers.filter { it.mapCoveragePercentage > 0 }.map { it.mapCoveragePercentage }
+            val triangulationAdditions = modifiers.filter { it.triangulationAdditionChance > 0 }.map { it.triangulationAdditionChance }
+            val bossChances = modifiers.filter { it.bossChanceModifier > 0 }.map { it.bossChanceModifier }
+            val growthChances = modifiers.filter { it.growthChanceUp > 0 }.map { it.growthChanceUp }
+            val stairChances = modifiers.filter { it.stairChanceModifier > 0 }.map { it.stairChanceModifier }
 
-            finalModifier.monsterChanceModifier = averageMonsterChance
-            finalModifier.monsterAverageGroupSize = ceil(averageMonsterAmount).toInt()
-            finalModifier.trapChanceModifier = averageTrapModifier
-            finalModifier.trapMagicalChance = ceil(averageTrapMagicalChance).toInt()
-            finalModifier.treasureChanceModifier = averageTreasureChanceModifier
-            finalModifier.mapCoveragePercentage = ceil(averageMapCoveragePercentage).toInt()
-            finalModifier.triangulationAdditionChance = ceil(averageTriangulationPercentage).toInt()
-            finalModifier.bossChanceModifier = averageBossChanceModifier
-            finalModifier.growthChanceUp = averageGrowthUpChance
-            finalModifier.stairChanceModifier = averageStairsChangeModifier
+            monsterChances.ifNotEmpty { finalModifier.monsterChanceModifier = it.average() }
+            monsterAmounts.ifNotEmpty { finalModifier.monsterAverageGroupSize = ceil(it.average()).toInt() }
+            trapChances.ifNotEmpty { finalModifier.trapChanceModifier = it.average() }
+            trapMagicalChances.ifNotEmpty { finalModifier.trapMagicalChance = ceil(it.average()).toInt() }
+            treasureChances.ifNotEmpty { finalModifier.treasureChanceModifier = it.average() }
+            mapCoverages.ifNotEmpty { finalModifier.mapCoveragePercentage = ceil(it.average()).toInt() }
+            triangulationAdditions.ifNotEmpty { finalModifier.triangulationAdditionChance = ceil(it.average()).toInt() }
+            bossChances.ifNotEmpty { finalModifier.bossChanceModifier = it.average() }
+            growthChances.ifNotEmpty { finalModifier.growthChanceUp = it.average() }
+            stairChances.ifNotEmpty { finalModifier.stairChanceModifier = it.average() }
 
             modifiers.forEach { modifier: Modifier -> finalModifier.preferredMonsters.addAll(modifier.getPreferredMonsters()) }
             modifiers.forEach { modifier: Modifier -> finalModifier.blockedMonsters.addAll(modifier.getBlockedMonsters()) }

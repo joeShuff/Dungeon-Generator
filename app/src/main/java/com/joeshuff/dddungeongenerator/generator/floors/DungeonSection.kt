@@ -44,7 +44,7 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
             coverage = 0
 
             rooms.forEach { r ->
-                coverage += r.area * 1.5f.toInt()
+                coverage += (r.area * 1.5f).toInt()
             }
 
             rooms.add(Room(this, rooms.size + 1, mainDungeon.rnd, mainDungeon.getGlobalModifier()))
