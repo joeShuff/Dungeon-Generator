@@ -221,9 +221,13 @@ class Dungeon {
 
     private fun branchOut() {
         activity?.setProgressText("Generating Rooms...")
-        getDungeonFloors().forEach {
-            Logs.i("Dungeon", "generating rooms for floor ${it.level}", null)
-            it.branchOut()
+        var i: Int = 0
+
+        while (i < getDungeonFloors().size) {
+            val thisFloor = getDungeonFloors()[i]
+            Logs.i("Dungeon", "generating rooms for floor ${thisFloor.level}", null)
+            thisFloor.branchOut()
+            i ++
         }
     }
 
