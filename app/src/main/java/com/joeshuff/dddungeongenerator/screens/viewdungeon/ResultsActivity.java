@@ -19,7 +19,6 @@ import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon;
 import com.joeshuff.dddungeongenerator.memory.MemoryController;
 import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity;
 import com.joeshuff.dddungeongenerator.screens.home.HomeActivity;
-import com.joeshuff.dddungeongenerator.screens.viewdungeon.ResultsFragment;
 
 public class ResultsActivity extends AppCompatActivity {
 

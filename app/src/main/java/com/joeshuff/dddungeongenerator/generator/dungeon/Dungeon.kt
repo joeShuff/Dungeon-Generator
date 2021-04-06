@@ -114,15 +114,15 @@ class Dungeon {
         userModifier = modifier
     }
 
-    fun setSeed(seed: String) {
+    fun setSeed(seed: String?) {
         var numberseed = ""
-        for (c in seed.toCharArray()) {
+        for (c in (seed?: "").toCharArray()) {
             val cVal = c.toInt()
             numberseed += cVal
         }
-        this.seed = seed
+        this.seed = seed?: ""
         rnd = Random(stringToSeed(numberseed))
-        Logs.i("Dungeon", "seed is : $seed", null)
+        Logs.i("Dungeon", "seed is : ${this.seed}", null)
     }
 
     fun setRoomSize(percentage: Int) {
