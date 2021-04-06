@@ -86,7 +86,9 @@ class Dungeon {
         width = endX - startX
         height = endY - startY
 
-        Bestiary.launchBestiary(c)
+        c?.let {
+            Bestiary.launchBestiary(it)
+        }
     }
 
     fun getDungeonDescription(): String {
