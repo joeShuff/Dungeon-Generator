@@ -7,7 +7,7 @@ import com.joeshuff.dddungeongenerator.R
 
 fun String.openUrl(activity: Activity) {
     val builder = CustomTabsIntent.Builder()
-    builder.setToolbarColor(activity.resources.getColor(R.color.colorPrimary))
+    builder.setToolbarColor(activity.getColor(R.color.colorPrimary))
     val customTabsIntent = builder.build()
     customTabsIntent.launchUrl(activity, Uri.parse(this))
 }

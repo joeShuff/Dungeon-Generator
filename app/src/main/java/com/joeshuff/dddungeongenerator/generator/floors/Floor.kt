@@ -59,7 +59,7 @@ class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: 
 
         val closestRoom = closest?: allRooms.firstOrNull()
 
-        Logs.i("Floor", "Closest room to (" + root.globalStartX + "," + root.globalStartY + "; " + root.width + "x" + root.height + ") is room " + closestRoom?.id?: "NONE", null)
+        Logs.i("Floor", "Closest room to (" + root.globalStartX + "," + root.globalStartY + "; " + root.width + "x" + root.height + ") is room " + closestRoom?.id?:"NONE", null)
         return closestRoom
     }
 

@@ -30,9 +30,6 @@ class PathFinding(
     </Point> */
     fun aStarPath(section: DungeonSection, start: Point, destination: Point): List<Point> {
         val emptyList: List<Point> = ArrayList()
-        if (destination == null) {
-            return emptyList
-        }
 
         if (destination == start) {
             return emptyList

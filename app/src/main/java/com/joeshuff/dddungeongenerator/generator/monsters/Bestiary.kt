@@ -17,8 +17,7 @@ class Bestiary {
         var bossSize = listOf("large", "gargantuan", "huge")
 
         private fun loadJSONFromAsset(c: Context): String? {
-            var json: String? = null
-            json = try {
+            return try {
                 val inputstream = c.assets.open("monsters.json")
                 val size = inputstream.available()
                 val buffer = ByteArray(size)
@@ -27,9 +26,8 @@ class Bestiary {
                 String(buffer, Charsets.UTF_8)
             } catch (ex: IOException) {
                 ex.printStackTrace()
-                return null
+                null
             }
-            return json
         }
 
         fun launchBestiary(c: Context) {
