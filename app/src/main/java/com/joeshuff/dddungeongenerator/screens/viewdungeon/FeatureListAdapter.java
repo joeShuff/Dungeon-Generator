@@ -187,7 +187,6 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
                 monsterCount.setText("Monster Count: " + monsterFeature.getSize());
 
                 viewMonsterButton.setOnClickListener(e -> {
-
                     FirebaseTracker.EVENT(itemView.getContext(), "FeatureInteract", "VIEW MONSTER");
 
                     Intent showMonster = new Intent(itemView.getContext(), MonsterActivity.class);

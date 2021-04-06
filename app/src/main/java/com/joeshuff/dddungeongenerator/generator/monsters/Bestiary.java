@@ -58,8 +58,8 @@ public class Bestiary {
 		List<String> res = new ArrayList<>();
 
 		for (Monster m : monsterList) {
-			if (res.contains(m.type)) continue;
-			res.add(m.type);
+			if (res.contains(m.getType())) continue;
+			res.add(m.getType());
 		}
 
 		return res;
@@ -67,14 +67,14 @@ public class Bestiary {
 
 	public static Monster getBoss(Random rnd, Modifier modifier, boolean ignorePreferences) {
 		//A boss is defined as a monster of size
-		List<String> preferredTypes = modifier.getPreferredMonsters().stream().map(monster_class -> monster_class.type).collect(Collectors.toList());
+		List<String> preferredTypes = modifier.getPreferredMonsters().stream().map(monster_class -> monster_class.getType()).collect(Collectors.toList());
 
 		if (preferredTypes.isEmpty() || ignorePreferences) {
 			preferredTypes.clear();
-			preferredTypes.addAll(Arrays.stream(MonsterClass.MONSTER_CLASS.values()).map(monster_class -> monster_class.type).collect(Collectors.toList()));
+			preferredTypes.addAll(Arrays.stream(MonsterClass.MONSTER_CLASS.values()).map(monster_class -> monster_class.getType()).collect(Collectors.toList()));
 		}
 
-		List<String> ignoreTypes = modifier.getBlockedMonsters().stream().map(monster_class -> monster_class.type).collect(Collectors.toList());
+		List<String> ignoreTypes = modifier.getBlockedMonsters().stream().map(monster_class -> monster_class.getType()).collect(Collectors.toList());
 
 		List<Monster> gargantuanPreferred = monsterList.stream()
 				.filter(monster -> monster.getSize().equalsIgnoreCase("gargantuan") &&
@@ -107,14 +107,14 @@ public class Bestiary {
 
 	public static Monster getMonster(Random rnd, Modifier modifier, boolean ignorePreferred) {
 		//A boss is defined as a monster of size
-		List<String> preferredTypes = modifier.getPreferredMonsters().stream().map(monster_class -> monster_class.type).collect(Collectors.toList());
+		List<String> preferredTypes = modifier.getPreferredMonsters().stream().map(monster_class -> monster_class.getType()).collect(Collectors.toList());
 
 		if (preferredTypes.isEmpty() || ignorePreferred) {
 			preferredTypes.clear();
-			preferredTypes.addAll(Arrays.stream(MonsterClass.MONSTER_CLASS.values()).map(monster_class -> monster_class.type).collect(Collectors.toList()));
+			preferredTypes.addAll(Arrays.stream(MonsterClass.MONSTER_CLASS.values()).map(monster_class -> monster_class.getType()).collect(Collectors.toList()));
 		}
 
-		List<String> ignoreTypes = modifier.getBlockedMonsters().stream().map(monster_class -> monster_class.type).collect(Collectors.toList());
+		List<String> ignoreTypes = modifier.getBlockedMonsters().stream().map(monster_class -> monster_class.getType()).collect(Collectors.toList());
 
 		List<Monster> tinyPreferred = monsterList.stream()
 				.filter(monster -> monster.getSize().equalsIgnoreCase("tiny") &&

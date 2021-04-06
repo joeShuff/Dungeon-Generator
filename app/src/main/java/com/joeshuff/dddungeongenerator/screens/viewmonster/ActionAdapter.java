@@ -31,7 +31,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ActionView
     @Override
     public void onBindViewHolder(@NonNull ActionViewHolder actionViewHolder, int i) {
         Action a = actions.get(i);
-        actionViewHolder.text.setText(Html.fromHtml("<b><i>" + a.name + "</i></b>    " + a.desc));
+        actionViewHolder.text.setText(Html.fromHtml("<b><i>" + a.getName() + "</i></b>    " + a.getDesc()));
     }
 
     @Override

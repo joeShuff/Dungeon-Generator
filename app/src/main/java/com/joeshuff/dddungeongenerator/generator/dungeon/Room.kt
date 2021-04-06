@@ -153,7 +153,7 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
 
         val intersection = room.meWithBorder().intersection(meWithBorder())
 
-        if (intersection.isEmpty) return false
+        if (intersection.isEmpty()) return false
         if (diff.x == 0 && diff.y == 0) return false
 
         var xOverlap = intersection.width

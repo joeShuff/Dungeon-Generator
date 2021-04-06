@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.joeshuff.dddungeongenerator.R;
 import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport;
 import com.joeshuff.dddungeongenerator.generator.monsters.Monster;
-import com.joeshuff.dddungeongenerator.screens.viewmonster.ActionAdapter;
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker;
 
 public class MonsterActivity extends AppCompatActivity {
@@ -45,7 +44,7 @@ public class MonsterActivity extends AppCompatActivity {
 
     private void loadMonsterDetails() {
         ((TextView) findViewById(R.id.topDesc)).setText(displayingMonster.getSize() + " " + displayingMonster.getType() +", " +
-                                                        displayingMonster.getAlignment());
+                displayingMonster.getAlignment());
 
         ((TextView) findViewById(R.id.armorClass)).setText(Html.fromHtml("<b>Armor Class</b>    " + displayingMonster.getArmorClass()));
         ((TextView) findViewById(R.id.hitpoints)).setText(Html.fromHtml("<b>Hit Points</b>    " + displayingMonster.getHitPoints()));

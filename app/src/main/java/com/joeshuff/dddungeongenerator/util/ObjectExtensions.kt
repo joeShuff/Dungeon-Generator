@@ -11,3 +11,10 @@ fun String.openUrl(activity: Activity) {
     val customTabsIntent = builder.build()
     customTabsIntent.launchUrl(activity, Uri.parse(this))
 }
+
+inline fun <T> tryOrNull(f: () -> T) =
+        try {
+            f()
+        } catch (_: Exception) {
+            null
+        }
