@@ -1,5 +1,8 @@
 package com.joeshuff.dddungeongenerator.util
 
+import android.content.Context
+import android.content.res.Resources
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 
@@ -18,3 +21,13 @@ fun TextView.setTextFade(message: String, totalDuration: Long = 300) {
         animate().alpha(1f).setDuration(totalDuration / 2).start()
     }.start()
 }
+
+fun screenWidth(): Int = Resources.getSystem().displayMetrics.widthPixels
+
+fun screenHeight(): Int = Resources.getSystem().displayMetrics.heightPixels
+
+fun Context.dpToExact(dp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics) as Int
+
+fun Context.dpToExact(dp: Int) = dpToExact(dp.toFloat())
+
+fun Context.spToExact(sp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics) as Int

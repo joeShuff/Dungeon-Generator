@@ -23,10 +23,6 @@ class ActionAdapter(val actions: List<Action>) : RecyclerView.Adapter<ActionView
     override fun getItemCount() = actions.size
 
     class ActionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var text: TextView
-
-        init {
-            text = itemView.findViewById(R.id.specialAction)
-        }
+        var text: TextView = itemView.findViewById(R.id.specialAction)
     }
 }
