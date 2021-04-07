@@ -47,14 +47,18 @@ class MonsterFeature(seed: String?, @field:Transient var modifier: Modifier) : R
     }
 
     override fun getFeatureDescription(): String {
-        if (isBoss) {
-            return "there is a boss in this room. A " + selectedMonster!!.name + " resides here"
-        }
-        
-        return if (size > 1) {
-            "there are " + size + " " + selectedMonster!!.name + "'s in this room, be careful!"
-        } else {
-            "there is a " + selectedMonster!!.name + " in this room. Be careful!"
+        return selectedMonster?.name?.let {
+            if (isBoss) {
+                "there is a boss in this room. A $it resides here"
+            }
+
+            if (size > 1) {
+                "there are $size $it's in this room, be careful!"
+            } else {
+                "there is a $it in this room. Be careful!"
+            }
+        }?: run {
+            "An unknown monster roams the area"
         }
     }
 

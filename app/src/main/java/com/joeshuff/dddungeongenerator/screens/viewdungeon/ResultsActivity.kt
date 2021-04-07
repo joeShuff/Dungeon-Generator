@@ -1,16 +1,11 @@
 package com.joeshuff.dddungeongenerator.screens.viewdungeon
 
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
 import com.google.gson.GsonBuilder
 import com.joeshuff.dddungeongenerator.R
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon

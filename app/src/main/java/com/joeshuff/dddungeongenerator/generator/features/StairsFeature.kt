@@ -93,9 +93,9 @@ class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myR
             var otherRoomDesc = ""
 
             if (direction == DIRECTION.UP) {
-                otherRoomDesc = chosenType!!.downDesc
+                otherRoomDesc = featureDescription
             } else if (direction == DIRECTION.DOWN) {
-                otherRoomDesc = chosenType!!.upDesc
+                otherRoomDesc = featureDescription
             }
 
             connectedRoom.connectRoomTo(myRoom, otherRoomDesc, direction)

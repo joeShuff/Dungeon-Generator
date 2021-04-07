@@ -210,7 +210,7 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
             it.featureList.makeVisible()
             it.featureList.setEmptyView(it.emptyFeatureView)
             it.featureList.layoutManager = LinearLayoutManager(context)
-            it.featureList.adapter = FeatureListAdapter(context, r.getFeatureList())
+            it.featureList.adapter = FeatureListAdapter(parentContext, r.getFeatureList())
         }
     }
 
