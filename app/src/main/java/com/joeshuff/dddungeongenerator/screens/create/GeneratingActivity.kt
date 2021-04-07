@@ -40,7 +40,7 @@ class GeneratingActivity : AppCompatActivity() {
 
         dungeon?.let {
             it.setRoomSize(instructions.roomSize)
-            it.setLongCorridors(instructions.isLongCorridors)
+            it.setLongCorridors(instructions.longCorridors)
             it.setLinearProgression(instructions.isLoops)
             it.setUserModifier(instructions.userModifier)
         }
@@ -60,7 +60,7 @@ class GeneratingActivity : AppCompatActivity() {
         finish()
     }
 
-    fun setProgressText(text: String?) {
+    fun setProgressText(text: String) {
         Logs.i("GenerationUpdate", text, null)
         runOnUiThread { progressText.text = text }
     }

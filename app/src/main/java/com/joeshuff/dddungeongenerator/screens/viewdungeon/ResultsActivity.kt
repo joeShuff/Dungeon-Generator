@@ -29,7 +29,7 @@ class ResultsActivity : AppCompatActivity() {
         generatedDungeon = gson.fromJson(MemoryController.getFromSharedPreferences(applicationContext, "RECENT_DUNGEON"), Dungeon::class.java)
 
         generatedDungeon?.let {
-            title = it.name
+            title = it.getName()
             loadUI(it)
         }
     }

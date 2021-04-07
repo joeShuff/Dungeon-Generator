@@ -14,7 +14,6 @@ import com.joeshuff.dddungeongenerator.util.Logs
 import java.util.*
 
 class Dungeon {
-
     companion object {
         @Transient var MAP_SIZE = 800
 
@@ -30,8 +29,7 @@ class Dungeon {
         }
     }
 
-    var name: String = ""
-        private set
+    private var name: String = ""
 
     private var startX = 0
     private var startY = 0
@@ -90,6 +88,8 @@ class Dungeon {
             Bestiary.launchBestiary(it)
         }
     }
+
+    fun getName() = name
 
     fun getDungeonDescription(): String {
         var description = ""
