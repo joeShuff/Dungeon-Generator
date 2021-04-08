@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,14 +49,14 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
     var root: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.pager_information_page, container, false)
+        var view = inflater.inflate(R.layout.pager_information_page, container, false)
 
         if (pageId == 1) {
-            val infoPage = inflater.inflate(R.layout.pager_information_page, container, false)
-            loadInfoPage(infoPage)
+            view = inflater.inflate(R.layout.pager_information_page, container, false)
+            loadInfoPage(view)
         } else if (pageId == 2) {
-            val mapPage = inflater.inflate(R.layout.pager_map_page, container, false)
-            loadMapPage(mapPage)
+            view = inflater.inflate(R.layout.pager_map_page, container, false)
+            loadMapPage(view)
         }
 
         root = view
@@ -95,18 +97,18 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
     private fun loadMapPage(rootView: View) {
         fillMap(rootView, selectedLevel)
 
-        floorSelection.min = dungeon.lowestDungeonFloor?.level?.toFloat()?: 0f
-        floorSelection.max = dungeon.highestDungeonFloor?.level?.toFloat()?: 0f
-        floorSelection.tickCount = dungeon.getDungeonFloors().size
+        rootView.floorSelection.min = dungeon.lowestDungeonFloor?.level?.toFloat()?: 0f
+        rootView.floorSelection.max = dungeon.highestDungeonFloor?.level?.toFloat()?: 0f
+        rootView.floorSelection.tickCount = dungeon.getDungeonFloors().size
 
         if (dungeon.getDungeonFloors().size == 1) {
-            floorSelection.makeGone()
-            selectionTitle.text = "1 Floor"
+            rootView.floorSelection.makeGone()
+            rootView.selectionTitle.text = "1 Floor"
         }
 
-        floorSelection.setProgress(selectedLevel.toFloat())
+        rootView.floorSelection.setProgress(selectedLevel.toFloat())
 
-        floorSelection.onSeekChangeListener = object : OnSeekChangeListener {
+        rootView.floorSelection.onSeekChangeListener = object : OnSeekChangeListener {
             override fun onSeeking(seekParams: SeekParams) {}
             override fun onStartTrackingTouch(seekBar: TickSeekBar) {}
             override fun onStopTrackingTouch(seekBar: TickSeekBar) {
@@ -202,7 +204,7 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
         selectedRoomId = r.id
 
         root?.let {
-            it.roomTitle.text = "Room $r.id"
+            it.roomTitle.text = "Room ${r.id}"
             it.roomDesc.text = r.detail
 
             fillMap(it, selectedLevel)
@@ -229,22 +231,14 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
         }
     }
 
-    class ResultFragmentPagerAdapter(val a: AppCompatActivity, val dungeon: Dungeon) : PagerAdapter() {
-        fun getItem(i: Int): Fragment {
-            return ResultsFragment(a, i, dungeon)
+    class ResultFragmentPagerAdapter(val a: Context, fm: FragmentManager, val dungeon: Dungeon) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        override fun getItem(i: Int): Fragment {
+            return ResultsFragment(a, i + 1, dungeon)
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
             if (position == 0) return "Information"
             return if (position == 1) "Map" else "None"
-        }
-
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            return getItem(position)
-        }
-
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view === `object` as ImageView
         }
 
         override fun getCount(): Int {

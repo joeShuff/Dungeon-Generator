@@ -85,13 +85,13 @@ class Monster {
     @SerializedName("challenge_rating")
     var challengeRating: String? = null
 
-    var actions: List<Action> = emptyList()
+    var actions: List<Action>? = emptyList()
 
     @SerializedName("special_abilities")
-    var specialAbilities: List<Action> = emptyList()
+    var specialAbilities: List<Action>? = emptyList()
 
     @SerializedName("legendary_actions")
-    var legendaryActions: List<Action> = emptyList()
+    var legendaryActions: List<Action>? = emptyList()
 
     constructor(json: JSONObject) {
         name = tryOrNull { json.getString("name") }?: ""

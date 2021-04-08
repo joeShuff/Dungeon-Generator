@@ -71,7 +71,7 @@ class NewDungeonActivity : AppCompatActivity() {
             }
         }
 
-        generateButton.setOnClickListener { e: View? -> genButtonClicked() }
+        generateButton.setOnClickListener { genButtonClicked() }
     }
 
     private fun genButtonClicked() {

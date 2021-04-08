@@ -61,15 +61,15 @@ class MonsterActivity : AppCompatActivity() {
 
         specialActionsList.setEmptyView(findViewById(R.id.noSpecialActions))
         specialActionsList.layoutManager = LinearLayoutManager(this)
-        specialActionsList.adapter = ActionAdapter(monster.specialAbilities)
+        specialActionsList.adapter = ActionAdapter(monster.specialAbilities?: emptyList())
 
         actionsList.setEmptyView(findViewById(R.id.noActions))
         actionsList.layoutManager = LinearLayoutManager(this)
-        actionsList.adapter = ActionAdapter(monster.actions)
+        actionsList.adapter = ActionAdapter(monster.actions?: emptyList())
 
         legendaryActionsList.setEmptyView(findViewById(R.id.noLegendaryActions))
         legendaryActionsList.layoutManager = LinearLayoutManager(this)
-        legendaryActionsList.adapter = ActionAdapter(monster.legendaryActions)
+        legendaryActionsList.adapter = ActionAdapter(monster.legendaryActions?: emptyList())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -26,8 +26,8 @@ fun screenWidth(): Int = Resources.getSystem().displayMetrics.widthPixels
 
 fun screenHeight(): Int = Resources.getSystem().displayMetrics.heightPixels
 
-fun Context.dpToExact(dp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics) as Int
+fun Context.dpToExact(dp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
 fun Context.dpToExact(dp: Int) = dpToExact(dp.toFloat())
 
-fun Context.spToExact(sp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics) as Int
+fun Context.spToExact(sp: Float) = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics).toInt()

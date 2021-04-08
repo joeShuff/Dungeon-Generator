@@ -90,7 +90,7 @@ class FeatureListAdapter(var context: Context, var roomFeatures: List<RoomFeatur
                 with (feature) {
                     itemView.monsterType.text = "Monster Type: ${selectedMonster?.name?: "None"}"
                     itemView.monsterCount.text = "Monster Count: $size"
-                    itemView.viewMonsterButton.setOnClickListener { e: View? ->
+                    itemView.viewMonsterButton.setOnClickListener {
                         FirebaseTracker.EVENT(itemView.context, "FeatureInteract", "VIEW MONSTER")
                         val showMonster = Intent(itemView.context, MonsterActivity::class.java)
                         showMonster.putExtra("monster", Gson().toJson(selectedMonster?: "{}"))

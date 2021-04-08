@@ -1,5 +1,6 @@
 package com.joeshuff.dddungeongenerator.screens.viewdungeon
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -52,7 +53,7 @@ class ResultsActivity : AppCompatActivity() {
 
     private fun loadUI(dungeon: Dungeon) {
         resultsTab.setBackgroundColor(ContextCompat.getColor(this, R.color.tabLayoutBackgroundColor))
-        resultsPager.adapter = ResultFragmentPagerAdapter(this, dungeon)
+        resultsPager.adapter = ResultFragmentPagerAdapter(this, supportFragmentManager, dungeon)
         resultsTab.setupWithViewPager(resultsPager)
     }
 }

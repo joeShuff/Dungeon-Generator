@@ -28,8 +28,8 @@ class HomeListAdapter(var memories: List<MemoryGeneration>) : RecyclerView.Adapt
         previousSearchViewHolder.dungeonSeed.text = memories[i].seed
         previousSearchViewHolder.dungeonGenTime.text = memories[i].generatedAt
         previousSearchViewHolder.dungeonName.text = memories[i].workOutDungeonName()
-        previousSearchViewHolder.deleteButton.setOnClickListener { e: View? -> deletePressed(previousSearchViewHolder.itemView.context, memories[i]) }
-        previousSearchViewHolder.itemView.setOnClickListener { e: View? -> clicked(previousSearchViewHolder.itemView.context, memories[i]) }
+        previousSearchViewHolder.deleteButton.setOnClickListener { deletePressed(previousSearchViewHolder.itemView.context, memories[i]) }
+        previousSearchViewHolder.itemView.setOnClickListener { clicked(previousSearchViewHolder.itemView.context, memories[i]) }
     }
 
     fun deletePressed(c: Context, memoryGeneration: MemoryGeneration) {
