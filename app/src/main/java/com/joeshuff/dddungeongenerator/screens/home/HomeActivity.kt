@@ -27,6 +27,8 @@ class HomeActivity : AppCompatActivity() {
 
         init(applicationContext)
 
+        generateNewDungeonButton.setOnClickListener { genNewClicked() }
+
         AppCompatDelegate.setDefaultNightMode(darkThemeMode)
 
         FirebaseCrashlytics.getInstance().setUserId(installReference)

@@ -2,6 +2,7 @@ package com.joeshuff.dddungeongenerator.util
 
 import android.content.Context
 import android.content.res.Resources
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -20,6 +21,21 @@ fun TextView.setTextFade(message: String, totalDuration: Long = 300) {
         text = message
         animate().alpha(1f).setDuration(totalDuration / 2).start()
     }.start()
+}
+
+fun View.setScrollListener(listener: (scrollX: Int, scrollY: Int) -> Unit) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        viewTreeObserver.addOnScrollChangedListener {
+            val scrollY: Int = scrollY
+            val scrollX: Int = scrollX
+
+            listener.invoke(scrollX, scrollY)
+        }
+    } else {
+        setOnScrollChangeListener { view, x, y, oldX, oldY ->
+            listener.invoke(x, y)
+        }
+    }
 }
 
 fun screenWidth(): Int = Resources.getSystem().displayMetrics.widthPixels

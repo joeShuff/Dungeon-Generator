@@ -17,7 +17,7 @@
     </com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport>
 
     <LinearLayout
-            android:visibility="invisible"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/emptyHomeView"
@@ -49,12 +49,12 @@
         <com.google.android.material.button.MaterialButton
                 android:layout_width="240dp"
                 android:layout_height="60dp"
+                android:id="@+id/generateNewDungeonButton"
                 android:layout_marginBottom="25dp"
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 android:textColor="@color/colorWhite"
                 android:text="New Dungeon"
-                android:onClick="genNewClicked"
         />
 
     </LinearLayout>

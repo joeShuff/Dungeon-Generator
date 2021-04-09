@@ -8,7 +8,6 @@ import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate.
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
 import com.joeshuff.dddungeongenerator.generator.generating.PathFinding
 import com.joeshuff.dddungeongenerator.generator.models.Rectangle
-import java.util.*
 
 class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transient val floor: Floor, val width: Int, val height: Int) {
     var startPoint = Point()
@@ -162,7 +161,7 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
     fun clearUnnecessaryData() {
         triangularEdges.clear()
         triangulateGraph.clear()
-        rooms.removeIf { room: Room -> !room.isSelected || room.isRejected }
+        rooms.removeAll { room: Room -> !room.isSelected || room.isRejected }
     }
 
     fun getRooms(): List<Room> {
