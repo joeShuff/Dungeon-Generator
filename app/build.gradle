@@ -60,8 +60,8 @@ android {
         applicationId "com.joeshuff.dddungeongenerator"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 16
-        versionName "2.3"
+        versionCode 17
+        versionName "2.3.1"
         buildConfigField 'String', 'buildNumber', '"' + String.valueOf(versionBuild) + '"'
         buildConfigField 'String', 'buildTime', '"' + String.valueOf(versionDate) + '"'
 
