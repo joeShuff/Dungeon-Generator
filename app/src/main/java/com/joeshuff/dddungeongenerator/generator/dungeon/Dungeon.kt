@@ -8,12 +8,13 @@ import com.joeshuff.dddungeongenerator.generator.features.StairsFeature
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection
 import com.joeshuff.dddungeongenerator.generator.floors.Floor
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
-import com.joeshuff.dddungeongenerator.generator.monsters.Bestiary
-import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity
 import com.joeshuff.dddungeongenerator.util.Logs
+import io.reactivex.ObservableEmitter
 import java.util.*
 
-class Dungeon {
+class Dungeon(
+        var id: Int
+) {
     companion object {
         @Transient var MAP_SIZE = 800
 
@@ -63,17 +64,11 @@ class Dungeon {
     @Transient
     var allCompleted = false
 
-    //	HashMap<Integer, Giffer> floorGifs = new HashMap<>();
-    //	Giffer fainGiffer = new Giffer(0);
+    constructor(): this(Date().time.toInt(), 0, 0, 0, 0, "")
 
-    @Transient
-    var activity: GeneratingActivity? = null
+    constructor(startX: Int, startY: Int, endX: Int, endY: Int, seed: String): this(Date().time.toInt(), startX, startY, endX, endY, seed)
 
-    constructor(): this(null, 0, 0, 0, 0, "")
-
-    constructor(c: GeneratingActivity?, startX: Int, startY: Int, endX: Int, endY: Int, seed: String) {
-        activity = c
-
+    constructor(id: Int, startX: Int, startY: Int, endX: Int, endY: Int, seed: String): this(id) {
         setSeed(seed)
 
         this.startX = startX
@@ -83,10 +78,6 @@ class Dungeon {
 
         width = endX - startX
         height = endY - startY
-
-        c?.let {
-            Bestiary.launchBestiary(it)
-        }
     }
 
     fun getName() = name
@@ -167,33 +158,35 @@ class Dungeon {
         name = NameGenerator.generateName(this)
     }
 
-    fun generate() {
+    fun generate(publishSubject: ObservableEmitter<String>) {
         generateAttributes()
 
         val firstFloor = Floor(this, rnd, 0)
         firstFloor.fillFloor()
-//        firstFloor.splitFloor();
+
         dungeonFloors.add(firstFloor)
 
-        branchOut()
+        branchOut(publishSubject)
 
-        calculateNearestPartner()
+        calculateNearestPartner(publishSubject)
 
         calculateRejectedRooms()
 
-        triangulate()
+        triangulate(publishSubject)
 
-        minSpanningTree()
+        minSpanningTree(publishSubject)
 
         combinePaths()
 
         clearUnnecessaryData()
 
-        pathFind()
+        pathFind(publishSubject)
 
-        finalise()
+        finalise(publishSubject)
 
         complete()
+
+        publishSubject.onComplete()
     }
 
     fun addFloorForLevel(level: Int): Floor {
@@ -219,8 +212,8 @@ class Dungeon {
         return getDungeonFloors().firstOrNull { it.level == level }
     }
 
-    private fun branchOut() {
-        activity?.setProgressText("Generating Rooms...")
+    private fun branchOut(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Generating Rooms...")
         var i: Int = 0
 
         while (i < getDungeonFloors().size) {
@@ -231,8 +224,8 @@ class Dungeon {
         }
     }
 
-    private fun calculateNearestPartner() {
-        activity?.setProgressText("Spreading out Rooms...")
+    private fun calculateNearestPartner(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Spreading out Rooms...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.calculateNearestPartner()
@@ -248,8 +241,8 @@ class Dungeon {
         }
     }
 
-    private fun triangulate() {
-        activity?.setProgressText("Triangulating Rooms...")
+    private fun triangulate(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Triangulating Rooms...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.triangulate()
@@ -257,8 +250,8 @@ class Dungeon {
         }
     }
 
-    private fun minSpanningTree() {
-        activity?.setProgressText("Finding best corridors...")
+    private fun minSpanningTree(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Finding best corridors...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.minSpanningTree()
@@ -274,8 +267,8 @@ class Dungeon {
         }
     }
 
-    private fun pathFind() {
-        activity?.setProgressText("Connecting Rooms...")
+    private fun pathFind(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Connecting Rooms...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.pathFind()
@@ -283,8 +276,8 @@ class Dungeon {
         }
     }
 
-    private fun finalise() {
-        activity?.setProgressText("Generation Complete")
+    private fun finalise(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Generation Complete")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.finalise()
@@ -321,7 +314,6 @@ class Dungeon {
         }
 
         for (sf in stairsToDecide) sf.getConnectedRoom() //The get initialises the connection, not best practice but dismissable for now
-        activity?.runOnUiThread { activity?.onCompleted() }
     }
 
     fun getRoomAt(floor: Int, x: Int, y: Int): Room? {

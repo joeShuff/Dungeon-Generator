@@ -9,6 +9,10 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'realm-android'
+
 // Apply the Performance Monitoring plugin
 apply plugin: 'com.google.firebase.firebase-perf'
 
@@ -128,7 +132,7 @@ dependencies {
     implementation 'com.otaliastudios:zoomlayout:1.6.0'
     implementation 'com.github.warkiz.tickseekbar:tickseekbar:0.1.4'
 
-//    implementation 'com.github.joeShuff:EmptyRecyclerView:1.0.3' //TODO: JUST ADDING THIS CAUSED ISSUES, HAVE TO LOOK AT THE LIBRARY
+    implementation 'com.github.joeShuff:EmptyRecyclerView:1.0.4'
 
     implementation 'androidx.browser:browser:1.0.0'
 

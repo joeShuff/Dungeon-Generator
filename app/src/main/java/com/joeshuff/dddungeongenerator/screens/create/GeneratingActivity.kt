@@ -2,7 +2,6 @@ package com.joeshuff.dddungeongenerator.screens.create
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.perf.FirebasePerformance
@@ -10,22 +9,26 @@ import com.google.firebase.perf.metrics.Trace
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.joeshuff.dddungeongenerator.R
+import com.joeshuff.dddungeongenerator.generator.DungeonProcessor
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.features.*
 import com.joeshuff.dddungeongenerator.generator.models.RuntimeTypeAdapterFactory
+import com.joeshuff.dddungeongenerator.generator.monsters.Bestiary
 import com.joeshuff.dddungeongenerator.memory.MemoryController
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration
 import com.joeshuff.dddungeongenerator.screens.viewdungeon.ResultsActivity
 import com.joeshuff.dddungeongenerator.util.Logs
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_generating.*
 
 class GeneratingActivity : AppCompatActivity() {
     @Transient
     var leftMidGeneration = false
 
+    var disposables = arrayListOf<Disposable>()
+
     @Transient
     var myTrace: Trace? = null
-    var dungeon: Dungeon? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +39,11 @@ class GeneratingActivity : AppCompatActivity() {
 
     private fun startGenerating() {
         val instructions = Gson().fromJson(intent.getStringExtra("instructions"), MemoryGeneration::class.java)
-        dungeon = Dungeon(this, 0, 0, 800, 800, instructions.seed)
+        var newDungeon = Dungeon(0, 0, 800, 800, instructions.seed)
 
-        dungeon?.let {
+        Bestiary.launchBestiary(this)
+
+        newDungeon?.let {
             it.setRoomSize(instructions.roomSize)
             it.setLongCorridors(instructions.longCorridors)
             it.setLinearProgression(instructions.isLoops)
@@ -47,10 +52,17 @@ class GeneratingActivity : AppCompatActivity() {
 
         myTrace?.start()
 
-        Thread(Runnable { dungeon?.generate() }).start()
+        DungeonProcessor(disposables, newDungeon)
+                .beginProcessing({
+                    setProgressText(it)
+                }, {
+                    onCompleted(it)
+                }, {
+                    Logs.e("GENERATE", "Error when generating a dungeon", it)
+                })
     }
 
-    fun onCompleted() {
+    fun onCompleted(dungeon: Dungeon) {
         val results = Intent(this, ResultsActivity::class.java)
         val gson = GsonBuilder().registerTypeAdapterFactory(roomFeatureAdapter).create()
         MemoryController.saveToSharedPreferences(applicationContext, "RECENT_DUNGEON", gson.toJson(dungeon))
@@ -75,6 +87,11 @@ class GeneratingActivity : AppCompatActivity() {
         if (leftMidGeneration) {
             Toast.makeText(this, "You interrupted generation.", Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.forEach { it.dispose() }
     }
 
     override fun onBackPressed() {
