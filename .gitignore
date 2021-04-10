@@ -10,6 +10,9 @@
 
 .idea/
 
+app/playStore/
+app/beta/
+
 app/release/
 app/build/
 app/google-services.json
