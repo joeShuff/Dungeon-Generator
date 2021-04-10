@@ -58,10 +58,10 @@ android {
 
     defaultConfig {
         applicationId "com.joeshuff.dddungeongenerator"
-        minSdkVersion 24
-        targetSdkVersion 29
-        versionCode 15
-        versionName "2.2"
+        minSdkVersion 18
+        targetSdkVersion 30
+        versionCode 18
+        versionName "2.3.1"
         buildConfigField 'String', 'buildNumber', '"' + String.valueOf(versionBuild) + '"'
         buildConfigField 'String', 'buildTime', '"' + String.valueOf(versionDate) + '"'
 
