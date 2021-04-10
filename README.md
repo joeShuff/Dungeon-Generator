@@ -11,7 +11,7 @@ Feel free to contribute to the project and open a pull request.
       alt="Direct download"
       height="80">](https://github.com/joeShuff/Dungeon-Generator/releases)
       
-##Join the Beta!
+## Join the Beta!
 Fill in [this](https://forms.gle/ZFK9Qib1Ya3yKR1w6) form and you will be invited to the google play closed beta channel. Test some new features before they hit the live app!
 
 ## Short Term Planned Future Additions      
