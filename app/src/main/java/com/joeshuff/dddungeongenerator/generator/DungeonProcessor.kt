@@ -6,6 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 class DungeonProcessor(
@@ -21,6 +22,7 @@ class DungeonProcessor(
         disposables?.add(generateDungeon()
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
+//            .delaySubscription(1, TimeUnit.SECONDS)
             .subscribe({
                 onNext?.invoke(it)
             }, {

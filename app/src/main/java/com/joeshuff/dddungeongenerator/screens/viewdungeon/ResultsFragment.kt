@@ -142,18 +142,15 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
             paint.color = ContextCompat.getColor(parentContext, R.color.colorCorridor)
 
             dungeon.getDungeonFloorAtLevel(level)?.allCorridors?.forEach {
-                for (p in it) {
-
-                    val oneDp: Int = parentContext.dpToExact(3f)
-                    val topLeft: Int = parentContext.dpToExact((p.x - 1).toFloat())
-                    val topRight: Int = parentContext.dpToExact((p.y - 1).toFloat())
+                for (section in it.sections) {
+                    val topLeft: Int = parentContext.dpToExact((section.startX).toFloat())
+                    val topRight: Int = parentContext.dpToExact((section.startY).toFloat())
 
                     canvas.drawRect(Rect(
                             topLeft,
                             topRight,
-                            topLeft + oneDp,
-                            topRight + oneDp), paint)
-
+                            topLeft + parentContext.dpToExact(section.width.toFloat()),
+                            topRight + parentContext.dpToExact(section.height.toFloat())), paint)
                 }
             }
 

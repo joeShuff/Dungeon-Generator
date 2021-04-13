@@ -7,6 +7,7 @@ import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate.Triangle
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
 import com.joeshuff.dddungeongenerator.generator.generating.PathFinding
+import com.joeshuff.dddungeongenerator.generator.models.Corridor
 import com.joeshuff.dddungeongenerator.generator.models.Rectangle
 
 class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transient val floor: Floor, val width: Int, val height: Int) {
@@ -21,7 +22,7 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
 
     @Transient
     private var triangularEdges: ArrayList<MinSpanningTree.Edge> = ArrayList()
-    var corridors: List<List<Point>> = ArrayList()
+    var corridors: List<Corridor> = ArrayList()
         private set
 
     @Transient
@@ -168,18 +169,13 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
         return rooms
     }
 
-    fun getGlobalCorridors(): List<List<Point>> {
-        val globalCorridors: ArrayList<List<Point>> = ArrayList()
+    fun getGlobalCorridors(): List<Corridor> {
+        val globalCorridors: ArrayList<Corridor> = ArrayList()
 
         for (localCorridor in corridors) {
-            val globalCorridor: ArrayList<Point> = ArrayList()
-
-            for (point in localCorridor) {
-                globalCorridor.add(Point(point.x + startPoint.x, point.y + startPoint.y))
-            }
-
-            globalCorridors.add(globalCorridor)
+            globalCorridors.add(localCorridor.globalise(startPoint.x, startPoint.y))
         }
+
         return globalCorridors
     }
 

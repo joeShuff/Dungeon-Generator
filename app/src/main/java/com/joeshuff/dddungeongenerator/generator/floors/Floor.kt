@@ -5,6 +5,7 @@ import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate.Triangle
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
+import com.joeshuff.dddungeongenerator.generator.models.Corridor
 import com.joeshuff.dddungeongenerator.util.Logs
 import java.util.*
 
@@ -155,9 +156,9 @@ class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: 
         return sectionList
     }
 
-    val allCorridors: List<List<Point>>
+    val allCorridors: List<Corridor>
         get() {
-            val allCorridors: MutableList<List<Point>> = ArrayList()
+            val allCorridors: MutableList<Corridor> = ArrayList()
             for (section in sectionList) {
                 allCorridors.addAll(section.getGlobalCorridors())
             }
