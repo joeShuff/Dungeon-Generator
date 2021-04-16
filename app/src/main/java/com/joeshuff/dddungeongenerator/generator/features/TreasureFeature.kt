@@ -3,7 +3,7 @@ package com.joeshuff.dddungeongenerator.generator.features
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import java.util.*
 
-class TreasureFeature(seed: String) : RoomFeature {
+class TreasureFeature(seed: String) : RoomFeature() {
     var description: String
 
     override fun getPageForMoreInfo(): Int {

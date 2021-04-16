@@ -1,16 +1,16 @@
 package com.joeshuff.dddungeongenerator.generator.models
 
-import android.graphics.Point
-import com.joeshuff.dddungeongenerator.generator.features.StairsFeature
+import com.joeshuff.dddungeongenerator.db.models.Point
+import io.realm.RealmObject
 import io.realm.annotations.Ignore
 import kotlin.math.absoluteValue
 
-class CorridorSection(
+open class CorridorSection(
         var startX: Int,
         var startY: Int,
         var width: Int = 1,
         var height: Int = 1
-) {
+): RealmObject() {
     private enum class Direction {
         POS_X, NEG_X, POS_Y, NEG_Y
     }

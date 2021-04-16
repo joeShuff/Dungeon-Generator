@@ -13,8 +13,8 @@ class RealmHelper {
             Realm.init(context)
 
             val config = RealmConfiguration.Builder()
-                    .name("chatalyser.realm")
-                    .schemaVersion(1) //SCHEMA VERSION SET 13/02/2020
+                    .name("dungeongenerator.realm")
+                    .schemaVersion(1) //SCHEMA VERSION SET 13/04/2021
 
             if (BuildConfig.DEV) {
                 config.deleteRealmIfMigrationNeeded()

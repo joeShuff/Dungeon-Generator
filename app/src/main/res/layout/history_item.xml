@@ -48,8 +48,18 @@
             android:layout_marginBottom="@dimen/small_margin"
             android:weightSum="2"
             android:layout_toEndOf="@id/deleteButton"
-            android:orientation="vertical"
-    >
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/generationWarning"
+                android:text="  Not Generated Yet"
+                android:textColor="#ff0000"
+                android:drawableStart="@drawable/ic_icon_warning"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/default_margin" />
+
 
         <TextView
                 android:layout_width="match_parent"

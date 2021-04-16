@@ -88,13 +88,7 @@ class NewDungeonActivity : AppCompatActivity() {
                 dungeon_depth.progress
         )
 
-        try {
-            MemoryController.addToMemory(applicationContext, memory)
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-
-        generator.putExtra("instructions", Gson().toJson(memory))
+        generator.putExtra(GeneratingActivity.GENERATION_INSTRUCTIONS, Gson().toJson(memory))
         startActivity(generator)
         finish()
     }

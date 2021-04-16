@@ -8,20 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.PagerAdapter
 import com.joeshuff.dddungeongenerator.R
-import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.util.dpToExact
@@ -33,10 +27,6 @@ import com.warkiz.tickseekbar.SeekParams
 import com.warkiz.tickseekbar.TickSeekBar
 import kotlinx.android.synthetic.main.element_info_pair.view.*
 import kotlinx.android.synthetic.main.pager_information_page.view.*
-import kotlinx.android.synthetic.main.pager_map_page.*
-import kotlinx.android.synthetic.main.pager_map_page.clickOnARoom
-import kotlinx.android.synthetic.main.pager_map_page.mapLayout
-import kotlinx.android.synthetic.main.pager_map_page.room_description_title
 import kotlinx.android.synthetic.main.pager_map_page.view.*
 
 class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: Dungeon): Fragment() {
@@ -207,9 +197,8 @@ class ResultsFragment(val parentContext: Context, val pageId: Int, val dungeon: 
             fillMap(it, selectedLevel)
 
             it.featureList.makeVisible()
-            it.featureList.setEmptyView(it.emptyFeatureView)
-            it.featureList.layoutManager = LinearLayoutManager(context)
-            it.featureList.adapter = FeatureListAdapter(parentContext, r.getFeatureList())
+            it.featureList.setLayoutManager(LinearLayoutManager(context))
+            it.featureList.setAdapter(FeatureListAdapter(parentContext, r.getUIFeatures()))
         }
     }
 

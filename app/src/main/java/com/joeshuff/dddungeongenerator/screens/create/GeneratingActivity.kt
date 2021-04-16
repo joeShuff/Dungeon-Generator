@@ -7,21 +7,25 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.perf.FirebasePerformance
 import com.google.firebase.perf.metrics.Trace
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.joeshuff.dddungeongenerator.R
+import com.joeshuff.dddungeongenerator.db.dungeonDao
 import com.joeshuff.dddungeongenerator.generator.DungeonProcessor
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
-import com.joeshuff.dddungeongenerator.generator.features.*
-import com.joeshuff.dddungeongenerator.generator.models.RuntimeTypeAdapterFactory
 import com.joeshuff.dddungeongenerator.generator.monsters.Bestiary
 import com.joeshuff.dddungeongenerator.memory.MemoryController
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration
 import com.joeshuff.dddungeongenerator.screens.viewdungeon.ResultsActivity
 import com.joeshuff.dddungeongenerator.util.Logs
 import io.reactivex.disposables.Disposable
+import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_generating.*
 
 class GeneratingActivity : AppCompatActivity() {
+
+    companion object {
+        const val GENERATION_INSTRUCTIONS = "gen_instructions"
+    }
+
     @Transient
     var leftMidGeneration = false
 
@@ -29,6 +33,8 @@ class GeneratingActivity : AppCompatActivity() {
 
     @Transient
     var myTrace: Trace? = null
+
+    var instructions: MemoryGeneration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +44,17 @@ class GeneratingActivity : AppCompatActivity() {
     }
 
     private fun startGenerating() {
-        val instructions = Gson().fromJson(intent.getStringExtra("instructions"), MemoryGeneration::class.java)
-        var newDungeon = Dungeon(0, 0, 800, 800, instructions.seed)
-
-        Bestiary.launchBestiary(this)
+        val foundInstructions = Gson().fromJson(intent.getStringExtra(GENERATION_INSTRUCTIONS), MemoryGeneration::class.java)
+        var newDungeon = Dungeon(0, 0, 800, 800, foundInstructions.seed)
 
         newDungeon?.let {
-            it.setRoomSize(instructions.roomSize)
-            it.setLongCorridors(instructions.longCorridors)
-            it.setLinearProgression(instructions.isLoops)
-            it.setUserModifier(instructions.userModifier)
+            it.setRoomSize(foundInstructions.roomSize)
+            it.setLongCorridors(foundInstructions.longCorridors)
+            it.setLinearProgression(foundInstructions.isLoops)
+            it.setUserModifier(foundInstructions.userModifier)
         }
+
+        instructions = foundInstructions
 
         myTrace?.start()
 
@@ -58,18 +64,29 @@ class GeneratingActivity : AppCompatActivity() {
                 }, {
                     onCompleted(it)
                 }, {
-                    Logs.e("GENERATE", "Error when generating a dungeon", it)
+                    Logs.e("GENERATE", "Error when generating a dungeon ${newDungeon.getSeed()}", it)
+                    Toast.makeText(this, "Something went wrong generating this dungeon. This has been reported.", Toast.LENGTH_LONG).show()
+                    finish()
                 })
     }
 
     fun onCompleted(dungeon: Dungeon) {
-        val results = Intent(this, ResultsActivity::class.java)
-        val gson = GsonBuilder().registerTypeAdapterFactory(roomFeatureAdapter).create()
-        MemoryController.saveToSharedPreferences(applicationContext, "RECENT_DUNGEON", gson.toJson(dungeon))
-
         myTrace?.stop()
-        startActivity(results)
-        finish()
+
+        instructions?.let {
+            MemoryController.removeFromMemory(applicationContext, it)
+        }
+
+        Realm.getDefaultInstance().dungeonDao().addDungeon(dungeon)
+                .subscribe({
+                    val results = Intent(this, ResultsActivity::class.java)
+                    results.putExtra(ResultsActivity.DUNGEON_ID_EXTRA, dungeon.id)
+                    startActivity(results)
+                    finish()
+                }, {
+                    Toast.makeText(this, "Something went wrong!", Toast.LENGTH_LONG).show()
+                    finish()
+                })
     }
 
     fun setProgressText(text: String) {
@@ -96,15 +113,5 @@ class GeneratingActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         Toast.makeText(this, "Generating, please don't exit the app", Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        @JvmField
-        @Transient
-        var roomFeatureAdapter = RuntimeTypeAdapterFactory.of(RoomFeature::class.java, "type")
-                .registerSubtype(TreasureFeature::class.java, "Treasure")
-                .registerSubtype(MonsterFeature::class.java, "Monster")
-                .registerSubtype(StairsFeature::class.java, "Stairs")
-                .registerSubtype(TrapFeature::class.java, "Trap")
     }
 }

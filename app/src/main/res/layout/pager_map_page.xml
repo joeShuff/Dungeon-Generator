@@ -130,46 +130,15 @@
                         android:text="Room Detail"
                 />
 
-                <com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
+                <com.joeshuff.emptyrecyclerview.EmptyRecyclerView
                         android:id="@+id/featureList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginTop="5dp"
                         android:nestedScrollingEnabled="true"
-                >
+                        app:empty_layout="@layout/empty_room_features"/>
 
-                </com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport>
-
-                <LinearLayout
-                        android:visibility="invisible"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/emptyFeatureView"
-                        android:orientation="vertical">
-
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:src="@drawable/baseline_grid_off_black_48"
-                            android:tint="@color/colorFontRegular"
-                            android:scaleType="fitCenter"
-                            android:padding="5dp"
-                    />
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
-                            android:paddingStart="25dp"
-                            android:paddingEnd="25dp"
-                            android:textColor="@color/colorFontRegular"
-                            android:gravity="center"
-                            android:text="No Room Features"
-                    />
-                </LinearLayout>
             </LinearLayout>
             <!--==================-->
         </LinearLayout>

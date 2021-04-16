@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginBottom="16dp"
         tools:context="com.joeshuff.dddungeongenerator.screens.viewmonster.MonsterActivity">
 
@@ -35,7 +35,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Armor Class This is a test to see how things look on different lines"
+                android:text="Armor Class"
         />
 
         <TextView
@@ -46,7 +46,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Hit Points This is a test to see how things look on different lines"
+                android:text="Hit Points"
         />
 
         <TextView
@@ -57,7 +57,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Speed This is a test to see how things look on different lines"
+                android:text="Speed"
         />
 
         <include layout="@layout/monster_seperator"/>
@@ -72,7 +72,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Saving Throws This is a test to see how things look on different lines"
+                android:text="Saving Throws"
         />
 
         <TextView
@@ -83,7 +83,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Senses This is a test to see how things look on different lines"
+                android:text="Senses"
         />
 
         <TextView
@@ -94,7 +94,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Languages This is a test to see how things look on different lines"
+                android:text="Languages"
         />
 
         <TextView
@@ -105,7 +105,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                android:text="Challenge This is a test to see how things look on different lines"
+                android:text="Challenge"
         />
 
         <include layout="@layout/monster_seperator"/>
@@ -114,24 +114,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
+            <com.joeshuff.emptyrecyclerview.EmptyRecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/specialActionsList"
+                    app:empty_layout="@layout/empty_monster_actions"
             >
 
-            </com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport>
+            </com.joeshuff.emptyrecyclerview.EmptyRecyclerView>
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/noSpecialActions"
-                    android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="No Special Actions"
-            />
+
         </RelativeLayout>
 
         <include layout="@layout/monster_seperator"/>
@@ -149,24 +141,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
+            <com.joeshuff.emptyrecyclerview.EmptyRecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/actionsList"
+                    app:empty_layout="@layout/empty_monster_actions"
             >
 
-            </com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/noActions"
-                    android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="No Special Actions"
-            />
+            </com.joeshuff.emptyrecyclerview.EmptyRecyclerView>
         </RelativeLayout>
 
         <include layout="@layout/monster_seperator"/>
@@ -184,24 +166,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
+            <com.joeshuff.emptyrecyclerview.EmptyRecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/legendaryActionsList"
+                    app:empty_layout="@layout/empty_monster_actions"
             >
-
-            </com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport>
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/noLegendaryActions"
-                    android:textSize="16sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="No Legendary Actions"
-            />
+            </com.joeshuff.emptyrecyclerview.EmptyRecyclerView>
         </RelativeLayout>
 
     </LinearLayout>

@@ -1,6 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.models
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import kotlin.math.max
 import kotlin.math.min
 
@@ -32,7 +32,8 @@ class Rectangle: androidx.constraintlayout.solver.widgets.Rectangle {
         return res
     }
 
-    fun intersects(rectangle: Rectangle): Boolean {
+    fun intersects(rectangle: Rectangle?): Boolean {
+        if (rectangle == null) return false
         if (isEmpty() || rectangle.width <= 0 || rectangle.height <= 0) return false
         val x1 = rectangle.x.toDouble()
         val y1 = rectangle.y.toDouble()

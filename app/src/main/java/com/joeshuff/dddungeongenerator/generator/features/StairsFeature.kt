@@ -1,14 +1,17 @@
 package com.joeshuff.dddungeongenerator.generator.features
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Modifier
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.generator.floors.Floor
+import io.realm.annotations.Ignore
 import java.util.*
 
-class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myRoom: Room) : RoomFeature {
-
+class StairsFeature(
+        @Transient val seed: String,
+        @Transient val modifier: Modifier,
+        @Transient val myRoom: Room) : RoomFeature() {
     companion object {
         @Transient
         var possibleConnections = Arrays.asList(
@@ -40,16 +43,20 @@ class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myR
     var rnd: Random? = null
 
     @Transient
-    private lateinit var floorTarget: Floor
+    private var floorTarget: Floor? = null
 
     @Transient
-    private lateinit var connectedRoom: Room
+    private var connectedRoom: Room? = null
+
+    private var featureDescription: String = ""
+    var connectedRoomId = 0
+    var connectedFloorId = 0
 
     lateinit var direction: DIRECTION
 
-    private lateinit var featureDescription: String
-    var connectedRoomId = 0
-    var connectedFloorId = 0
+    init {
+        generateType()
+    }
 
     fun generateType() {
         var newrnd = Random(Dungeon.stringToSeed(seed))
@@ -66,29 +73,29 @@ class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myR
         }
     }
 
-    constructor(seed: String, modifier: Modifier, myRoom: Room, direction: DIRECTION, description: String, roomId: Int, connectedFloorId: Int): this(seed, modifier, myRoom) {
+    constructor(seed: String, modifier: Modifier, myRoom: Room, direction: DIRECTION, description: String, roomId: Int, floorId: Int): this(seed, modifier, myRoom) {
         this.direction = direction
         featureDescription = description
         connectedRoomId = roomId
-        this.connectedFloorId = connectedFloorId
+        connectedFloorId = floorId
     }
 
     fun setFloorTarget(floorTarget: Floor) {
         this.floorTarget = floorTarget
+        connectedFloorId = floorTarget.level
     }
 
     fun getConnectedRoom(): Room? {
-        if (!this::connectedRoom.isInitialized) {
+        if (connectedRoom == null) {
             val myRoomCentre = Point(
                     myRoom.globalStartX + myRoom.width / 2,
                     myRoom.globalStartY + myRoom.height / 2
             )
 
-            val gennedConnectedRoom = floorTarget.getRoomClosestTo(myRoom) ?: return null
+            val gennedConnectedRoom = floorTarget?.getRoomClosestTo(myRoom) ?: return null
 
             connectedRoom = gennedConnectedRoom
-            connectedFloorId = floorTarget.level
-            connectedRoomId = connectedRoom.id
+            connectedRoomId = gennedConnectedRoom.id
 
             var otherRoomDesc = ""
 
@@ -98,7 +105,7 @@ class StairsFeature(val seed: String, val modifier: Modifier, @Transient val myR
                 otherRoomDesc = featureDescription
             }
 
-            connectedRoom.connectRoomTo(myRoom, otherRoomDesc, direction)
+            connectedRoom?.connectRoomTo(myRoom, otherRoomDesc, direction)
         }
 
         return connectedRoom

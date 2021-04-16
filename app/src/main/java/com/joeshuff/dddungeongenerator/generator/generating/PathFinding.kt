@@ -1,10 +1,9 @@
 package com.joeshuff.dddungeongenerator.generator.generating
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection
 import com.joeshuff.dddungeongenerator.generator.models.Corridor
-import java.util.*
 import kotlin.math.abs
 
 class PathFinding(

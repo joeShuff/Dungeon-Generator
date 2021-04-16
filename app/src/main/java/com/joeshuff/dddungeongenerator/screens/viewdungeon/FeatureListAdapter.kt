@@ -19,10 +19,10 @@ import kotlinx.android.synthetic.main.feature_monster_content.view.*
 import kotlinx.android.synthetic.main.feature_stairs_content.view.*
 import kotlinx.android.synthetic.main.feature_trap_content.view.*
 
-class FeatureListAdapter(var context: Context, var roomFeatures: List<RoomFeature>) : RecyclerView.Adapter<FeatureListAdapter.FeatureViewHolder>() {
+class FeatureListAdapter(var context: Context, var roomFeatures: FeatureContainer) : RecyclerView.Adapter<FeatureListAdapter.FeatureViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return when (roomFeatures[position]) {
+        return when (roomFeatures.features[position]) {
             is StairsFeature -> 0
             is MonsterFeature -> 1
             is TrapFeature -> 2
@@ -42,11 +42,11 @@ class FeatureListAdapter(var context: Context, var roomFeatures: List<RoomFeatur
     }
 
     override fun onBindViewHolder(viewHolder: FeatureViewHolder, i: Int) {
-        viewHolder.bind(roomFeatures[i])
+        viewHolder.bind(roomFeatures.features[i])
     }
 
     override fun getItemCount(): Int {
-        return roomFeatures.size
+        return roomFeatures.features.size
     }
 
     open class FeatureViewHolder(parent: ViewGroup, @LayoutRes resource: Int = R.layout.feature_standard_content, title: String = "No Feature") : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.feature_item, parent, false)) {

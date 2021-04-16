@@ -1,10 +1,13 @@
 package com.joeshuff.dddungeongenerator.generator.models
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
+import com.joeshuff.dddungeongenerator.db.toRealmList
 import com.joeshuff.dddungeongenerator.util.Logs
+import io.realm.RealmList
+import io.realm.RealmObject
 
-class Corridor() {
-    var sections: ArrayList<CorridorSection> = arrayListOf()
+open class Corridor(): RealmObject() {
+    var sections: RealmList<CorridorSection> = RealmList()
 
     constructor(points: List<Point>): this() {
         var currentSection = CorridorSection()
@@ -36,7 +39,7 @@ class Corridor() {
 
     fun globalise(startX: Int, startY: Int): Corridor {
         val corridor = Corridor()
-        corridor.sections = ArrayList(sections.map { it.globalise(startX, startY) })
+        corridor.sections = ArrayList(sections.map { it.globalise(startX, startY) }).toRealmList()
         return corridor
     }
 }

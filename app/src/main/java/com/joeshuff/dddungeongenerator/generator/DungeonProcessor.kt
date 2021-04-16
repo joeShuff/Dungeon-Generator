@@ -22,7 +22,6 @@ class DungeonProcessor(
         disposables?.add(generateDungeon()
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-//            .delaySubscription(1, TimeUnit.SECONDS)
             .subscribe({
                 onNext?.invoke(it)
             }, {
