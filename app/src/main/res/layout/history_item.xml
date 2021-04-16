@@ -53,17 +53,6 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/generationWarning"
-                android:text="  Not Generated Yet"
-                android:textColor="#ff0000"
-                android:drawableStart="@drawable/ic_icon_warning"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/default_margin" />
-
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:id="@+id/dungeonNameField"
                 android:textSize="25sp"

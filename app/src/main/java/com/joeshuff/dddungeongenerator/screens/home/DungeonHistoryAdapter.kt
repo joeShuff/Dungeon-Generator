@@ -56,14 +56,12 @@ class DungeonHistoryAdapter(var history: ArrayList<DungeonHistoryItem>) : Recycl
         var dungeonName: TextView = itemView.dungeonNameField
         var dungeonGenTime: TextView = itemView.dungeonTimeGennedField
         var dungeonSeed: TextView = itemView.dungeonSeedField
-        var deleteButton: ImageButton = itemView.deleteButton
-        var warning: TextView = itemView.generationWarning
+        var deleteButton: ImageButton = itemView.deleteButtong
 
         fun bind(dungeon: DungeonHistoryItem) {
             dungeonName.text = dungeon.dungeonName
-            dungeonGenTime.text = dungeon.createdAt
+            dungeonGenTime.text = dungeon.getCreatedDate()
             dungeonSeed.text = dungeon.seed
-            dungeon.dungeonId?.let { warning.makeGone() }?: run { warning.makeVisible() }
             deleteButton.setOnClickListener { deletePressed(itemView.context, dungeon) }
             itemView.setOnClickListener { clicked(itemView.context, dungeon) }
         }
