@@ -1,6 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.generator.dungeon.Environment.ENVIRONMENT_TYPE
 import com.joeshuff.dddungeongenerator.generator.dungeon.History.HISTORY
 import com.joeshuff.dddungeongenerator.generator.dungeon.Purpose.PURPOSE
@@ -8,12 +8,20 @@ import com.joeshuff.dddungeongenerator.generator.features.StairsFeature
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection
 import com.joeshuff.dddungeongenerator.generator.floors.Floor
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
-import com.joeshuff.dddungeongenerator.generator.monsters.Bestiary
-import com.joeshuff.dddungeongenerator.screens.create.GeneratingActivity
+import com.joeshuff.dddungeongenerator.memory.MemoryGeneration
+import com.joeshuff.dddungeongenerator.screens.home.DungeonHistoryItem
 import com.joeshuff.dddungeongenerator.util.Logs
+import io.reactivex.ObservableEmitter
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.Ignore
+import io.realm.annotations.PrimaryKey
+import java.text.SimpleDateFormat
 import java.util.*
 
-class Dungeon {
+open class Dungeon(
+        @PrimaryKey var id: Int
+): RealmObject() {
     companion object {
         @Transient var MAP_SIZE = 800
 
@@ -38,42 +46,43 @@ class Dungeon {
     var width = 0
     var height = 0
 
-    var selectedEnvironment: ENVIRONMENT_TYPE? = null
-        private set
+    private var environment: String? = null
+    var selectedEnvironment: ENVIRONMENT_TYPE?
+        get() { return environment?.let { ENVIRONMENT_TYPE.valueOf(it) }?: null }
+        set(new) { new?.let { environment = it.name } }
 
     var dungeonCreator: Creator? = null
         private set
 
-    var dungeonPurpose: PURPOSE? = null
-        private set
+    private var purpose: String? = null
+    var dungeonPurpose: PURPOSE?
+        get() { return purpose?.let { PURPOSE.valueOf(it) }?: null }
+        set(new) { new?.let { purpose = it.name } }
 
-    var dungeonHistory: HISTORY? = null
-        private set
+    private var history: String? = null
+    var dungeonHistory: HISTORY?
+        get() { return history?.let { HISTORY.valueOf(it) }?: null }
+        set(new) { new?.let { history = it.name } }
+
 
     private var globalModifier = Modifier()
     private var userModifier = Modifier()
 
-    @Transient
+    @Ignore
     lateinit var rnd: Random
 
     private var seed = ""
-    private var dungeonFloors: ArrayList<Floor> = ArrayList()
+
+    private var dungeonFloors: RealmList<Floor> = RealmList()
 
     //Generation all complete
-    @Transient
     var allCompleted = false
 
-    //	HashMap<Integer, Giffer> floorGifs = new HashMap<>();
-    //	Giffer fainGiffer = new Giffer(0);
+    constructor(): this((System.currentTimeMillis() / 1000).toInt(), 0, 0, 0, 0, "")
 
-    @Transient
-    var activity: GeneratingActivity? = null
+    constructor(startX: Int, startY: Int, endX: Int, endY: Int, seed: String): this((System.currentTimeMillis() / 1000).toInt(), startX, startY, endX, endY, seed)
 
-    constructor(): this(null, 0, 0, 0, 0, "")
-
-    constructor(c: GeneratingActivity?, startX: Int, startY: Int, endX: Int, endY: Int, seed: String) {
-        activity = c
-
+    constructor(id: Int, startX: Int, startY: Int, endX: Int, endY: Int, seed: String): this(id) {
         setSeed(seed)
 
         this.startX = startX
@@ -83,10 +92,6 @@ class Dungeon {
 
         width = endX - startX
         height = endY - startY
-
-        c?.let {
-            Bestiary.launchBestiary(it)
-        }
     }
 
     fun getName() = name
@@ -143,6 +148,10 @@ class Dungeon {
         return seed
     }
 
+    override fun equals(other: Any?): Boolean {
+        return if (other !is Dungeon) false else id == other.id
+    }
+
     fun generateAttributes() {
         rnd?.let {randomness ->
             selectedEnvironment = Environment.generateEnvironmentType(randomness)
@@ -167,33 +176,35 @@ class Dungeon {
         name = NameGenerator.generateName(this)
     }
 
-    fun generate() {
+    fun generate(publishSubject: ObservableEmitter<String>) {
         generateAttributes()
 
         val firstFloor = Floor(this, rnd, 0)
         firstFloor.fillFloor()
-//        firstFloor.splitFloor();
+
         dungeonFloors.add(firstFloor)
 
-        branchOut()
+        branchOut(publishSubject)
 
-        calculateNearestPartner()
+        calculateNearestPartner(publishSubject)
 
         calculateRejectedRooms()
 
-        triangulate()
+        triangulate(publishSubject)
 
-        minSpanningTree()
+        minSpanningTree(publishSubject)
 
         combinePaths()
 
         clearUnnecessaryData()
 
-        pathFind()
+        pathFind(publishSubject)
 
-        finalise()
+        finalise(publishSubject)
 
         complete()
+
+        publishSubject.onComplete()
     }
 
     fun addFloorForLevel(level: Int): Floor {
@@ -219,8 +230,8 @@ class Dungeon {
         return getDungeonFloors().firstOrNull { it.level == level }
     }
 
-    private fun branchOut() {
-        activity?.setProgressText("Generating Rooms...")
+    private fun branchOut(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Generating Rooms...")
         var i: Int = 0
 
         while (i < getDungeonFloors().size) {
@@ -231,8 +242,8 @@ class Dungeon {
         }
     }
 
-    private fun calculateNearestPartner() {
-        activity?.setProgressText("Spreading out Rooms...")
+    private fun calculateNearestPartner(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Spreading out Rooms...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.calculateNearestPartner()
@@ -248,8 +259,8 @@ class Dungeon {
         }
     }
 
-    private fun triangulate() {
-        activity?.setProgressText("Triangulating Rooms...")
+    private fun triangulate(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Triangulating Rooms...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.triangulate()
@@ -257,8 +268,8 @@ class Dungeon {
         }
     }
 
-    private fun minSpanningTree() {
-        activity?.setProgressText("Finding best corridors...")
+    private fun minSpanningTree(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Finding best corridors...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.minSpanningTree()
@@ -274,8 +285,8 @@ class Dungeon {
         }
     }
 
-    private fun pathFind() {
-        activity?.setProgressText("Connecting Rooms...")
+    private fun pathFind(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Connecting Rooms...")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.pathFind()
@@ -283,8 +294,8 @@ class Dungeon {
         }
     }
 
-    private fun finalise() {
-        activity?.setProgressText("Generation Complete")
+    private fun finalise(publishSubject: ObservableEmitter<String>) {
+        publishSubject.onNext("Generation Complete")
         getDungeonFloors().forEach { floor ->
             floor.sectionList.forEach { section ->
                 section.finalise()
@@ -320,8 +331,9 @@ class Dungeon {
             }
         }
 
-        for (sf in stairsToDecide) sf.getConnectedRoom() //The get initialises the connection, not best practice but dismissable for now
-        activity?.runOnUiThread { activity?.onCompleted() }
+        stairsToDecide.forEach { it.getConnectedRoom() }
+
+        getDungeonFloors().forEach { it.complete() }
     }
 
     fun getRoomAt(floor: Int, x: Int, y: Int): Room? {
@@ -336,4 +348,13 @@ class Dungeon {
     }
 
     fun getGlobalModifier() = globalModifier
+
+    fun getMemoryItem(): DungeonHistoryItem {
+        return DungeonHistoryItem(
+                name,
+                seed,
+                id,
+                id
+        )
+    }
 }

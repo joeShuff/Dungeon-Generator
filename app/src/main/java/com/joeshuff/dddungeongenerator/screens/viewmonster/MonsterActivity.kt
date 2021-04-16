@@ -6,17 +6,17 @@ import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.joeshuff.dddungeongenerator.R
-import com.joeshuff.dddungeongenerator.RecyclerViewEmptySupport
 import com.joeshuff.dddungeongenerator.generator.monsters.Monster
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker
+import com.joeshuff.emptyrecyclerview.EmptyViewCreatedListener
 import kotlinx.android.synthetic.main.activity_monster_display.*
+import kotlinx.android.synthetic.main.empty_monster_actions.view.*
 import kotlinx.android.synthetic.main.monster_stat_view.*
 
 class MonsterActivity : AppCompatActivity() {
@@ -59,17 +59,26 @@ class MonsterActivity : AppCompatActivity() {
         languages.text = Html.fromHtml("<b>Languages</b>    " + monster.languages)
         challenge.text = Html.fromHtml("<b>Challenge</b>    " + monster.challengeRating + " (" + monster.getChallengeXp() + " XP)")
 
-        specialActionsList.setEmptyView(findViewById(R.id.noSpecialActions))
-        specialActionsList.layoutManager = LinearLayoutManager(this)
-        specialActionsList.adapter = ActionAdapter(monster.specialAbilities?: emptyList())
+        specialActionsList.setLayoutManager(LinearLayoutManager(this))
+        specialActionsList.setOnEmptyViewCreatedListener(object : EmptyViewCreatedListener {
+            override fun onCreated(view: View) { view.noActionsTextField.text = "No Special Actions" }
+            override fun onShown(view: View?) {}
+        })
+        specialActionsList.setAdapter(ActionAdapter(monster.specialAbilities?: emptyList()))
 
-        actionsList.setEmptyView(findViewById(R.id.noActions))
-        actionsList.layoutManager = LinearLayoutManager(this)
-        actionsList.adapter = ActionAdapter(monster.actions?: emptyList())
+        actionsList.setLayoutManager(LinearLayoutManager(this))
+        actionsList.setOnEmptyViewCreatedListener(object : EmptyViewCreatedListener {
+            override fun onCreated(view: View) { view.noActionsTextField.text = "No Actions" }
+            override fun onShown(view: View?) {}
+        })
+        actionsList.setAdapter(ActionAdapter(monster.actions?: emptyList()))
 
-        legendaryActionsList.setEmptyView(findViewById(R.id.noLegendaryActions))
-        legendaryActionsList.layoutManager = LinearLayoutManager(this)
-        legendaryActionsList.adapter = ActionAdapter(monster.legendaryActions?: emptyList())
+        legendaryActionsList.setLayoutManager(LinearLayoutManager(this))
+        legendaryActionsList.setOnEmptyViewCreatedListener(object : EmptyViewCreatedListener {
+            override fun onCreated(view: View) { view.noActionsTextField.text = "No Legendary Actions" }
+            override fun onShown(view: View?) {}
+        })
+        legendaryActionsList.setAdapter(ActionAdapter(monster.legendaryActions?: emptyList()))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

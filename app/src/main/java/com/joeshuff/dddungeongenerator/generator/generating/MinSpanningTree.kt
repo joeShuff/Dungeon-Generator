@@ -1,6 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.generating
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.util.Logs
 import java.util.*
 import kotlin.math.pow

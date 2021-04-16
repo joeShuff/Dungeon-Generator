@@ -2,6 +2,7 @@ package com.joeshuff.dddungeongenerator.memory
 
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Modifier
+import com.joeshuff.dddungeongenerator.screens.home.DungeonHistoryItem
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -13,6 +14,7 @@ class MemoryGeneration(val seed: String,
                        val treasureFrequency: Double,
                        val stairsFrequency: Double,
                        val depth: Int) : Comparable<MemoryGeneration> {
+
     var epoch: Int
     val generatedAt: String
     val isLoops = false
@@ -40,6 +42,15 @@ class MemoryGeneration(val seed: String,
         test.setSeed(seed)
         test.generateAttributes()
         return test.getName()
+    }
+
+    fun getMemoryItem(): DungeonHistoryItem {
+        return DungeonHistoryItem(
+                workOutDungeonName(),
+                seed,
+                epoch,
+                memoryId = this
+        )
     }
 
     init {

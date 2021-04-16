@@ -8,7 +8,7 @@ import com.joeshuff.dddungeongenerator.util.Logs
 import java.util.*
 import kotlin.math.max
 
-class MonsterFeature(seed: String?, @field:Transient var modifier: Modifier) : RoomFeature {
+class MonsterFeature(seed: String?, @field:Transient var modifier: Modifier) : RoomFeature() {
     var size: Int
     var selectedMonster: Monster? = null
 

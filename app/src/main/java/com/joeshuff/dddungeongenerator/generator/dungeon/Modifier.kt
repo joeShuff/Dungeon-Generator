@@ -2,10 +2,13 @@ package com.joeshuff.dddungeongenerator.generator.dungeon
 
 import com.joeshuff.dddungeongenerator.generator.monsters.MonsterClass.MONSTER_CLASS
 import com.joeshuff.dddungeongenerator.util.ifNotEmpty
+import io.realm.RealmList
+import io.realm.RealmObject
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.ceil
 
-class Modifier {
+open class Modifier: RealmObject() {
     var monsterChanceModifier = 0.0
         private set
 
@@ -40,9 +43,22 @@ class Modifier {
     var stairChanceModifier = 0.0
         private set
 
-    private var preferredMonsters: ArrayList<MONSTER_CLASS> = ArrayList()
+    private var internalPreferredMonsters: RealmList<String> = RealmList()
+    private var preferredMonsters: ArrayList<MONSTER_CLASS>
+        get() { return ArrayList(internalPreferredMonsters.map { MONSTER_CLASS.valueOf(it) }) }
+        set(value) {
+            internalPreferredMonsters.clear()
+            internalPreferredMonsters.addAll(value.map { it.name })
+        }
 
-    private var blockedMonsters: ArrayList<MONSTER_CLASS> = ArrayList()
+    private var internalBlockMonsters: RealmList<String> = RealmList()
+    private var blockedMonsters: ArrayList<MONSTER_CLASS>
+        get() { return ArrayList(internalBlockMonsters.map { MONSTER_CLASS.valueOf(it) }) }
+        set(value) {
+            internalBlockMonsters.clear()
+            internalBlockMonsters.addAll(value.map { it.name })
+        }
+
 
     fun loadDefaults() {
         monsterChanceModifier = 1.0

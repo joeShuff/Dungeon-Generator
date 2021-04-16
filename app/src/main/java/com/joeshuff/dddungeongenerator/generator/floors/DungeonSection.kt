@@ -1,53 +1,76 @@
 package com.joeshuff.dddungeongenerator.generator.floors
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
+import com.joeshuff.dddungeongenerator.db.toRealmList
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate.Triangle
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
 import com.joeshuff.dddungeongenerator.generator.generating.PathFinding
+import com.joeshuff.dddungeongenerator.generator.models.Corridor
 import com.joeshuff.dddungeongenerator.generator.models.Rectangle
+import com.joeshuff.dddungeongenerator.util.Logs
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.Ignore
+import java.lang.Exception
+import java.security.spec.ECField
 
-class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transient val floor: Floor, val width: Int, val height: Int) {
-    var startPoint = Point()
+open class DungeonSection(
+        var id: Int,
+        @Ignore val floor: Floor?,
+        var width: Int,
+        var height: Int): RealmObject() {
+
+    var startPoint: Point? = Point()
         private set
 
-    @Transient
+    @Ignore
     private var triangulateGraph: ArrayList<Triangle> = ArrayList()
 
-    @Transient
+    @Ignore
     private var minSpanningTree: ArrayList<MinSpanningTree.Edge> = ArrayList()
 
-    @Transient
+    @Ignore
     private var triangularEdges: ArrayList<MinSpanningTree.Edge> = ArrayList()
-    var corridors: List<List<Point>> = ArrayList()
+
+    var corridors: RealmList<Corridor> = RealmList()
         private set
 
-    @Transient
+    @Ignore
     private var centers: ArrayList<Point> = ArrayList()
 
-    @Transient
+    @Ignore
     private var finalConnections: ArrayList<MinSpanningTree.Edge> = ArrayList()
-    var rooms: ArrayList<Room> = ArrayList()
 
-    constructor(id: Int, mainDungeon: Dungeon, floor: Floor, width: Int, height: Int, p: Point) : this(id, mainDungeon, floor, width, height) {
+    var rooms: RealmList<Room> = RealmList()
+
+    constructor(): this(0, null, 0, 0)
+
+    constructor(id: Int, floor: Floor, width: Int, height: Int, p: Point) : this(id, floor, width, height) {
         startPoint = p
     }
 
     fun branchOut() {
         var coverage = 0
         val totalCoverage = height * width
+        val gennedRooms = arrayListOf<Room>()
 
-        while (coverage < mainDungeon.getGlobalModifier().getMapCoveragePercentage() * totalCoverage) {
-            coverage = 0
+        try {
+            floor?.dungeon?.let {
+                while (coverage < it.getGlobalModifier().getMapCoveragePercentage() * totalCoverage) {
+                    coverage = gennedRooms.map { (it.area * 1.5f).toInt() }.sum()
+                    Logs.i("COVERAGE", "$coverage out of ${it.getGlobalModifier().getMapCoveragePercentage() * totalCoverage}")
 
-            rooms.forEach { r ->
-                coverage += (r.area * 1.5f).toInt()
+                    gennedRooms.add(Room(rooms.size + 1, this, it.rnd, it.getGlobalModifier()))
+                }
             }
-
-            rooms.add(Room(this, rooms.size + 1, mainDungeon.rnd, mainDungeon.getGlobalModifier()))
+        } catch (e: Exception) {
+            throw e
         }
+
+        rooms = gennedRooms.toRealmList()
     }
 
     fun calculateNearestPartner() {
@@ -135,27 +158,36 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
     }
 
     fun combinePaths() {
-        finalConnections = ArrayList()
-        finalConnections.addAll(minSpanningTree)
+        floor?.dungeon?.let {
+            finalConnections = ArrayList()
+            finalConnections.addAll(minSpanningTree)
 
-        if (linearProgression) return
+            if (linearProgression) return
 
-        for (edge in triangularEdges) {
-            if (finalConnections.contains(edge)) continue
+            for (edge in triangularEdges) {
+                if (finalConnections.contains(edge)) continue
 
-            if (mainDungeon.rnd.nextDouble() <= mainDungeon.getGlobalModifier().getTriangulationAdditionChange()) {
-                finalConnections.add(edge)
+                if (it.rnd.nextDouble() <= it.getGlobalModifier().getTriangulationAdditionChange()) {
+                    finalConnections.add(edge)
+                }
             }
         }
     }
 
     fun pathFind() {
-        corridors = PathFinding(this, rooms, finalConnections).findPaths()
+        corridors.clear()
+        PathFinding(this, rooms, finalConnections).findPaths().forEach {
+            corridors.add(it)
+        }
     }
 
     fun finalise() {
         finalConnections.clear()
         minSpanningTree.clear()
+    }
+
+    fun complete() {
+        rooms.forEach { it.complete() }
     }
 
     fun clearUnnecessaryData() {
@@ -168,18 +200,13 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
         return rooms
     }
 
-    fun getGlobalCorridors(): List<List<Point>> {
-        val globalCorridors: ArrayList<List<Point>> = ArrayList()
+    fun getGlobalCorridors(): List<Corridor> {
+        val globalCorridors: ArrayList<Corridor> = ArrayList()
 
         for (localCorridor in corridors) {
-            val globalCorridor: ArrayList<Point> = ArrayList()
-
-            for (point in localCorridor) {
-                globalCorridor.add(Point(point.x + startPoint.x, point.y + startPoint.y))
-            }
-
-            globalCorridors.add(globalCorridor)
+            globalCorridors.add(localCorridor.globalise(startPoint?.x?: 0, startPoint?.y?: 0))
         }
+
         return globalCorridors
     }
 
@@ -191,7 +218,9 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
         val globalTriangles: ArrayList<Triangle> = ArrayList()
 
         for (triangle in getTriangulateGraph()) {
-            globalTriangles.add(triangle.translate(startPoint))
+            startPoint?.let {
+                globalTriangles.add(triangle.translate(it))
+            }
         }
 
         return globalTriangles
@@ -201,7 +230,9 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
         val globalEdges: ArrayList<MinSpanningTree.Edge> = ArrayList()
 
         for (edge in getFinalConnections()) {
-            globalEdges.add(edge.translate(startPoint))
+            startPoint?.let {
+                globalEdges.add(edge.translate(it))
+            }
         }
 
         return globalEdges
@@ -215,7 +246,9 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
         val globalEdges: ArrayList<MinSpanningTree.Edge> = ArrayList()
 
         for (edge in getMinSpanningTree()) {
-            globalEdges.add(edge.translate(startPoint))
+            startPoint?.let {
+                globalEdges.add(edge.translate(it))
+            }
         }
 
         return globalEdges
@@ -225,8 +258,12 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
         return minSpanningTree
     }
 
-    fun me(): Rectangle {
-        return Rectangle(startPoint.x, startPoint.y, width, height)
+    fun me(): Rectangle? {
+        startPoint?.let {
+            return Rectangle(it.x, it.y, width, height)
+        }
+
+        return null
     }
 
     override fun equals(o: Any?): Boolean {
@@ -234,6 +271,7 @@ class DungeonSection(val id: Int, @Transient val mainDungeon: Dungeon, @Transien
     }
 
     companion object {
+        @Ignore
         var linearProgression = false
     }
 }
