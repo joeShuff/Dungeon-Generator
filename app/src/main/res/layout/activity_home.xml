@@ -8,10 +8,27 @@
         android:background="@color/screenBackgroundColor"
         tools:context="com.joeshuff.dddungeongenerator.screens.home.HomeActivity">
 
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/default_margin"
+            android:id="@+id/homeScreenSorterContainer"
+            android:background="@drawable/spinner_background"
+            >
+
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/homeScreenSorter"
+        />
+
+    </RelativeLayout>
+
     <com.joeshuff.emptyrecyclerview.EmptyRecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/homeHistoryList"
+            android:layout_below="@id/homeScreenSorterContainer"
             app:empty_layout="@layout/empty_home_list">
     </com.joeshuff.emptyrecyclerview.EmptyRecyclerView>
 </RelativeLayout>

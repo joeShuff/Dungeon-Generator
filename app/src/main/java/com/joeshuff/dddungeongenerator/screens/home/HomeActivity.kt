@@ -5,10 +5,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.joeshuff.chatalyser.db.RealmHelper
 import com.joeshuff.dddungeongenerator.R
@@ -28,9 +33,19 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.empty_home_list.view.*
 
+
 class HomeActivity : AppCompatActivity(), EmptyViewCreatedListener {
 
     val disposables = arrayListOf<Disposable>()
+
+    val sorters = arrayListOf(
+            HomeSortable(0, "Newest") { ArrayList(it.sortedBy { it.createdAt }.reversed()) },
+            HomeSortable(1, "Oldest") { ArrayList(it.sortedBy { it.createdAt }) },
+            HomeSortable(2, "Name A-Z") { ArrayList(it.sortedBy { it.dungeonName }) },
+            HomeSortable(3, "Name Z-A") { ArrayList(it.sortedBy { it.dungeonName }.reversed()) }
+    )
+
+    var chosenSorter: HomeSortable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +66,56 @@ class HomeActivity : AppCompatActivity(), EmptyViewCreatedListener {
     }
 
     fun initUi() {
+        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                Toast.makeText(applicationContext, "on Move", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                val position = viewHolder.adapterPosition
+                Toast.makeText(applicationContext, "on Swiped $position", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+
         homeHistoryList.let {
             it.setLayoutManager(LinearLayoutManager(this))
             it.setOnEmptyViewCreatedListener(this)
-            it.setAdapter(DungeonHistoryAdapter(arrayListOf()), true)
+//            itemTouchHelper.attachToRecyclerView(it.getRecyclerView())
+            it.setAdapter(DungeonHistoryAdapter(arrayListOf(), sorters[0]), true)
+        }
+
+        val facetAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, sorters.map { it.displayName })
+        facetAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        homeScreenSorter.apply {
+            adapter = facetAdapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    changeSort(position)
+                }
+            }
+            setSelection(0)
+        }
+    }
+
+    fun changeSort(position: Int) {
+        val newFilter = sorters.firstOrNull { it.id == position }
+
+        newFilter?.let {newSort ->
+            chosenSorter = newSort
+
+            homeHistoryList.getRecyclerView()?.adapter?.let {
+                if (it is DungeonHistoryAdapter) it.updateSort(newSort)
+            }
+        }?: run {
+            Toast.makeText(applicationContext, "Can't apply that filter", Toast.LENGTH_LONG).show()
         }
     }
 

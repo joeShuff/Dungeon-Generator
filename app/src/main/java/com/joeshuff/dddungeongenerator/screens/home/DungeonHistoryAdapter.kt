@@ -26,7 +26,8 @@ import com.joeshuff.dddungeongenerator.util.makeVisible
 import io.realm.Realm
 import kotlinx.android.synthetic.main.history_item.view.*
 
-class DungeonHistoryAdapter(var history: ArrayList<DungeonHistoryItem>) : RecyclerView.Adapter<DungeonHistoryAdapter.DungeonHistoryViewHolder>() {
+class DungeonHistoryAdapter(var history: ArrayList<DungeonHistoryItem>,
+                                var sortable: HomeSortable) : RecyclerView.Adapter<DungeonHistoryAdapter.DungeonHistoryViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int) =
         DungeonHistoryViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.history_item, viewGroup, false))
@@ -36,7 +37,7 @@ class DungeonHistoryAdapter(var history: ArrayList<DungeonHistoryItem>) : Recycl
         old.addAll(this.history)
 
         this.history.clear()
-        this.history.addAll(newHistory)
+        this.history.addAll(sortable.sort.invoke(newHistory))
 
         if (this.history.size > 10 || this.history.isEmpty() || old.isEmpty()) {
             notifyDataSetChanged()
@@ -44,6 +45,13 @@ class DungeonHistoryAdapter(var history: ArrayList<DungeonHistoryItem>) : Recycl
             val diffResult = DiffUtil.calculateDiff(DungeonHistoryDiffUtil(old, this.history))
             diffResult.dispatchUpdatesTo(this)
         }
+    }
+
+    fun updateSort(sortable: HomeSortable) {
+        this.sortable = sortable
+        val items = arrayListOf<DungeonHistoryItem>()
+        items.addAll(this.history)
+        update(items)
     }
 
     override fun onBindViewHolder(previousSearchViewHolder: DungeonHistoryViewHolder, i: Int) {
@@ -56,7 +64,7 @@ class DungeonHistoryAdapter(var history: ArrayList<DungeonHistoryItem>) : Recycl
         var dungeonName: TextView = itemView.dungeonNameField
         var dungeonGenTime: TextView = itemView.dungeonTimeGennedField
         var dungeonSeed: TextView = itemView.dungeonSeedField
-        var deleteButton: ImageButton = itemView.deleteButtong
+        var deleteButton: ImageButton = itemView.deleteButton
 
         fun bind(dungeon: DungeonHistoryItem) {
             dungeonName.text = dungeon.dungeonName

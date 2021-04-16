@@ -48,7 +48,7 @@ class MemoryGeneration(val seed: String,
         return DungeonHistoryItem(
                 workOutDungeonName(),
                 seed,
-                generatedAt,
+                epoch,
                 memoryId = this
         )
     }

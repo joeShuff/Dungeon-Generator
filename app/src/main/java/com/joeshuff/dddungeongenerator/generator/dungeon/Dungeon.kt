@@ -350,12 +350,10 @@ open class Dungeon(
     fun getGlobalModifier() = globalModifier
 
     fun getMemoryItem(): DungeonHistoryItem {
-        val createdAtDate = SimpleDateFormat("dd MMM yyyy | HH:mm:ss").format(Date(id.toLong() * 1000L))
-
         return DungeonHistoryItem(
                 name,
                 seed,
-                createdAtDate,
+                id,
                 id
         )
     }
