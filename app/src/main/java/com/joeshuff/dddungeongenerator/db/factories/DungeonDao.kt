@@ -1,5 +1,7 @@
 package com.joeshuff.dddungeongenerator.db.factories
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.joeshuff.chatalyser.db.RealmLiveData
 import com.joeshuff.dddungeongenerator.db.asLiveData
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
@@ -51,4 +53,11 @@ class DungeonDao(val realm: Realm) {
                 .findAllAsync().asLiveData()
     }
 
+    fun loadDungeonOnce(id: Int, lifecycleOwner: LifecycleOwner, onGet: (Dungeon?) -> Unit) {
+        val request = getDungeonById(id)
+        request.observe(lifecycleOwner, Observer { results ->
+            request.removeObservers(lifecycleOwner)
+            onGet.invoke(results.firstOrNull())
+        })
+    }
 }
