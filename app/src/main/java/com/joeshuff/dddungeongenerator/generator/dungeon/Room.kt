@@ -1,51 +1,63 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon
 
-import android.graphics.Point
+import com.google.gson.GsonBuilder
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.generator.features.*
 import com.joeshuff.dddungeongenerator.generator.features.StairsFeature.DIRECTION
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection
 import com.joeshuff.dddungeongenerator.generator.models.Rectangle
+import com.joeshuff.dddungeongenerator.db.RuntimeTypeAdapterFactory
 import com.joeshuff.dddungeongenerator.util.Logs
+import io.realm.RealmObject
+import io.realm.annotations.Ignore
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 
-class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var rnd: Random, modifier: Modifier) {
+
+open class Room(
+        var id: Int,
+        @Ignore val thisSection: DungeonSection?,
+        @Ignore var rnd: Random?,
+        @Ignore var modifier: Modifier?): RealmObject() {
+
+    constructor(): this(0, null, null, null)
 
     companion object {
-        @Transient
+        @Ignore
         var featureIntros = Arrays.asList("You've heard rumors that ", "You've discovered that ", "Maps have told you that ", "It became apparent that ", "You know that ")
 
-        @Transient
+        @Ignore
         private val MIN_MEAN_ROOM_SIZE = 45
 
-        @Transient
+        @Ignore
         private val MAX_MEAN_ROOM_SIZE = 85
 
-        @Transient
+        @Ignore
         private val MIN_STD_DEV = 15
 
-        @Transient
+        @Ignore
         private val MAX_STD_DEV = 45
 
-        @Transient
+        @Ignore
         private var MEAN_ROOM_SIZE = 65
 
-        @Transient
+        @Ignore
         private var STD_DEV = 30
 
-        @Transient
+        @Ignore
         var DEFAULT_MONSTER_CHANCE = 0.15
 
-        @Transient
+        @Ignore
         var DEFAULT_TRAP_CHANCE = 0.2
 
-        @Transient
+        @Ignore
         var DEFAULT_TREASURE_CHANCE = 0.25
 
-        @Transient
+        @Ignore
         var DEFAULT_STAIRS_CHANCE = 0.05
         fun changeRoomSize(percentage: Float) {
             MEAN_ROOM_SIZE = (MIN_MEAN_ROOM_SIZE + (MAX_MEAN_ROOM_SIZE - MIN_MEAN_ROOM_SIZE) * percentage).toInt()
@@ -56,44 +68,60 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
     private var sectionStartX = 0
     private var sectionStartY = 0
 
-    var id: Int
-
-    val detail: String
+    var detail: String = ""
 
     var startX: Int = 0
     var startY: Int = 0
 
+    @Ignore
     var isSelected = false
 
+    @Ignore
     var isRejected = false
 
-    val width: Int
-    val height: Int
+    var width: Int = 0
+    var height: Int = 0
 
+    @Ignore
     private var timesShifted = 0
 
-    private var featureList: ArrayList<RoomFeature> = ArrayList()
+    private var features: String = "{\"features\":[]}"
 
-    @Transient
+    fun getUIFeatures(): FeatureContainer {
+        val gson = GsonBuilder().registerTypeAdapterFactory(RuntimeTypeAdapterFactory.getAdapter()).create()
+        val result = gson.fromJson(features, FeatureContainer::class.java)
+        return result
+    }
+
+    @Ignore
+    private var featureList: ArrayList<RoomFeature> = arrayListOf()
+
+    fun addFeature(roomFeature: RoomFeature) {
+        featureList.add(roomFeature)
+    }
+
+    @Ignore
     var movementHistory: ArrayList<Movement> = ArrayList()
 
     init {
-        sectionStartX = thisSection.startPoint.x
-        sectionStartY = thisSection.startPoint.y
+        thisSection?.let { section ->
+            rnd?.let { random ->
+                sectionStartX = section.startPoint?.x?: 0
+                sectionStartY = section.startPoint?.y?: 0
 
-        this.id = id
+                val center = randomPointInCircle(random, section.width / 4)
 
-        val center = randomPointInCircle(thisSection.width / 4)
+                height = (random.nextGaussian() * STD_DEV + MEAN_ROOM_SIZE).toInt()
+                width = (random.nextGaussian() * STD_DEV + MEAN_ROOM_SIZE).toInt()
 
-        height = (rnd.nextGaussian() * STD_DEV + MEAN_ROOM_SIZE).toInt()
-        width = (rnd.nextGaussian() * STD_DEV + MEAN_ROOM_SIZE).toInt()
+                detail = "This room is ${height}ft x ${width}ft\n${RoomDetail.getDetail(random)}"
 
-        detail = "This room is ${height}ft x ${width}ft\n${RoomDetail.getDetail(rnd)}"
+                startX = (section.width / 2) + (center.x - width / 2)
+                startY = (section.height / 2) + (center.y - height / 2)
 
-        startX = thisSection.width / 2 + center.x - width / 2
-        startY = thisSection.height / 2 + center.y - height / 2
-
-        generateFeatures(modifier)
+                modifier?.let { generateFeatures(section, random, it) }
+            }
+        }
     }
 
     fun getFullRoomDescription(): String {
@@ -119,13 +147,15 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
     }
 
     fun connectRoomTo(room: Room, connection: String, direction: DIRECTION) {
-        val newStairs = StairsFeature("", Modifier(), this, direction.opposite(), connection, room.id, room.thisSection.floor.level)
-        featureList.add(newStairs)
+        room.thisSection?.floor?.let {
+            val newStairs = StairsFeature("", Modifier(), this, direction.opposite(), connection, room.id, it.level)
+            addFeature(newStairs)
+        }
     }
 
-    private fun randomPointInCircle(radius: Int): Point {
-        val t = 2.0f * Math.PI * rnd.nextDouble()
-        val u = rnd.nextDouble() + rnd.nextDouble()
+    private fun randomPointInCircle(random: Random, radius: Int): Point {
+        val t = 2.0f * Math.PI * random.nextDouble()
+        val u = random.nextDouble() + random.nextDouble()
         val r: Double
 
         r = if (u > 1) {
@@ -141,6 +171,8 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
     }
 
     fun moveAwayFrom(room: Room): Boolean {
+        if (thisSection == null) return false
+
         val center = myCenter()
         val otherCenter = room.myCenter()
 
@@ -294,40 +326,41 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
         return featureList
     }
 
-    fun generateFeatures(modifier: Modifier) {
+    fun generateFeatures(section: DungeonSection, random: Random, modifier: Modifier) {
         if (willIBeRejected()) return
 
         //monster chance
-        val monChance = rnd.nextDouble()
+        val monChance = random.nextDouble()
         if (monChance <= DEFAULT_MONSTER_CHANCE * modifier.monsterChanceModifier) {
-            featureList.add(MonsterFeature(String.format("%.0f", monChance * 10.0.pow(16.0)), modifier))
+            addFeature(MonsterFeature(String.format("%.0f", monChance * 10.0.pow(16.0)), modifier))
         }
-        val trapChance = rnd.nextDouble()
+        val trapChance = random.nextDouble()
         //trap chance
         if (trapChance <= DEFAULT_TRAP_CHANCE * modifier.trapChanceModifier) {
-            featureList.add(TrapFeature(String.format("%.0f", trapChance * 10.0.pow(16.0)), modifier))
+            addFeature(TrapFeature(String.format("%.0f", trapChance * 10.0.pow(16.0)), modifier))
         }
 
         //treasure chance
-        val treasureChance = rnd.nextDouble()
-        if (rnd.nextDouble() <= DEFAULT_TREASURE_CHANCE * modifier.treasureChanceModifier) {
-            featureList.add(TreasureFeature(String.format("%.0f", treasureChance * 10.0.pow(16.0))))
+        val treasureChance = random.nextDouble()
+        if (random.nextDouble() <= DEFAULT_TREASURE_CHANCE * modifier.treasureChanceModifier) {
+            addFeature(TreasureFeature(String.format("%.0f", treasureChance * 10.0.pow(16.0))))
         }
 
         //Stairs Chance
         //As you get further away from the ground floor, the chance halves every floor you are away, to stop infinite growing
         val stairModifier = modifier.stairChanceModifier
-        val level = thisSection.floor.level
+        val level = section.floor?.level?: 0
 
         val chanceOfStairFeature = DEFAULT_STAIRS_CHANCE * stairModifier / (1 + abs(level))
-        val stairChance = rnd.nextDouble()
+        val stairChance = random.nextDouble()
 
         if (stairChance <= chanceOfStairFeature) {
             val stairsFeature = StairsFeature(String.format("%.0f", stairChance * 10.0.pow(16.0)), modifier, this)
-            stairsFeature.generateType()
 
-            featureList.add(stairsFeature)
-            stairsFeature.setFloorTarget(thisSection.floor.newFloor(stairsFeature.direction.elevation, this))
+            section.floor?.newFloor(stairsFeature.direction.elevation, this)?.let {
+                addFeature(stairsFeature)
+                stairsFeature.setFloorTarget(it)
+            }
         }
     }
 
@@ -337,6 +370,13 @@ class Room(@Transient val thisSection: DungeonSection, id: Int, @Transient var r
 
     fun containsGlobalPoint(p: Point): Boolean {
         return p.x > globalStartX && p.x < globalStartX + width && p.y > globalStartY && p.y < globalStartY + height
+    }
+
+    fun complete() {
+        val gson = GsonBuilder().registerTypeAdapterFactory(RuntimeTypeAdapterFactory.getAdapter()).create()
+        val result = gson.toJson(FeatureContainer(featureList))
+
+        features = result
     }
 
     //=========================

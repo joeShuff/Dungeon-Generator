@@ -2,31 +2,32 @@ package com.joeshuff.dddungeongenerator.generator.features
 
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Modifier
+import io.realm.annotations.Ignore
 import java.util.*
 
-class TrapFeature : RoomFeature {
+class TrapFeature(
+        @Transient var seed: String,
+        @Transient var modifier: Modifier): RoomFeature() {
+
     enum class TRAP_TYPE {
         MECHANICAL, MAGICAL
     }
 
-    private lateinit var trapType: TRAP_TYPE
-    private lateinit var rnd: Random
+    private var trapType: TRAP_TYPE
+
+    @Transient
+    private var rnd: Random = Random(Dungeon.stringToSeed(seed))
 
     fun setTrapType(trapType: TRAP_TYPE) {
         this.trapType = trapType
     }
 
-    constructor(seed: String?, modifier: Modifier) {
-        rnd = Random(Dungeon.stringToSeed(seed))
+    init {
         trapType = if (rnd.nextDouble() <= modifier.getTrapMagicalChance()) {
             TRAP_TYPE.MAGICAL
         } else {
             TRAP_TYPE.MECHANICAL
         }
-    }
-
-    constructor(type: TRAP_TYPE) {
-        trapType = type
     }
 
     override fun getFeatureName(): String {

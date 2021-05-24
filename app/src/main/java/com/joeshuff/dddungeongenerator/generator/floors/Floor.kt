@@ -1,52 +1,65 @@
 package com.joeshuff.dddungeongenerator.generator.floors
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.generator.generating.DelauneyTriangulate.Triangle
 import com.joeshuff.dddungeongenerator.generator.generating.MinSpanningTree
+import com.joeshuff.dddungeongenerator.generator.models.Corridor
 import com.joeshuff.dddungeongenerator.util.Logs
+import io.realm.RealmList
+import io.realm.RealmObject
+import io.realm.annotations.Ignore
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
-class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: Int) {
-    var sectionList: ArrayList<DungeonSection> = ArrayList()
+open class Floor(
+        @Ignore var dungeon: Dungeon?,
+        @Ignore var rnd: Random?,
+        var level: Int) : RealmObject()
+{
+    var sectionList: RealmList<DungeonSection> = RealmList()
+
+    constructor(): this(null, null, 0)
 
     companion object {
-        @Transient
+        @Ignore
         private val MIN_SECTION_SIZE = Dungeon.MAP_SIZE / 5
 
-        @Transient
+        @Ignore
         private val MAX_SECTION_SIZE = (Dungeon.MAP_SIZE * 0.66).toInt()
     }
-
-    var level = 0
 
     /**
      * Once a floor has started adding rooms, no new sections can be generated. When a room is generated with stairs to this floor
      * no action is taken and a room is assigned to those stairs later.
      */
+    @Ignore
     var startedAddingRooms = false
 
     fun sectionFrom(p: Point) {
-        if (startedAddingRooms) return
+        rnd?.let {
+            if (startedAddingRooms) return
 
-        var width = (MIN_SECTION_SIZE + (MAX_SECTION_SIZE - MIN_SECTION_SIZE) * rnd.nextDouble()).toInt()
-        var height = (MIN_SECTION_SIZE + (MAX_SECTION_SIZE - MIN_SECTION_SIZE) * rnd.nextDouble()).toInt()
+            var width = (MIN_SECTION_SIZE + (MAX_SECTION_SIZE - MIN_SECTION_SIZE) * it.nextDouble()).toInt()
+            var height = (MIN_SECTION_SIZE + (MAX_SECTION_SIZE - MIN_SECTION_SIZE) * it.nextDouble()).toInt()
 
-        val startX = Math.max(p.x - width / 2, 0)
-        val startY = Math.max(p.y - height / 2, 0)
+            val startX = max(p.x - width / 2, 0)
+            val startY = max(p.y - height / 2, 0)
 
-        if (startX + width > Dungeon.MAP_SIZE) {
-            width -= startX + width - Dungeon.MAP_SIZE
+            if (startX + width > Dungeon.MAP_SIZE) {
+                width -= startX + width - Dungeon.MAP_SIZE
+            }
+
+            if (startY + height > Dungeon.MAP_SIZE) {
+                height -= startY + height - Dungeon.MAP_SIZE
+            }
+
+            val startPoint = Point(startX, startY)
+
+            sectionList.add(DungeonSection(sectionList.size, this, width, height, startPoint))
         }
-
-        if (startY + height > Dungeon.MAP_SIZE) {
-            height -= startY + height - Dungeon.MAP_SIZE
-        }
-
-        val startPoint = Point(startX, startY)
-
-        sectionList.add(DungeonSection(sectionList.size, dungeon, this, width, height, startPoint))
     }
 
     fun getRoomClosestTo(root: Room): Room? {
@@ -72,44 +85,52 @@ class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: 
             for (comparingSection in sectionList) {
                 if (section === comparingSection) continue
 
-                if (section.me().intersects(comparingSection.me())) {
-                    newSectionList.remove(section)
-                    newSectionList.remove(comparingSection)
+                var doBreak = false
 
-//                    Logs.i("2 sections are overlapping (" + section.me() + ") (" + comparingSection.me() + ")");
-                    var topLeft = Point(
-                            Math.min(section.startPoint.x, comparingSection.startPoint.x),
-                            Math.min(section.startPoint.y, comparingSection.startPoint.y)
-                    )
+                section.startPoint?.let { startPoint1 ->
+                    comparingSection.startPoint?.let { startPoint2 ->
+                        if (section.me()?.intersects(comparingSection.me()) == true) {
+                            newSectionList.remove(section)
+                            newSectionList.remove(comparingSection)
 
-                    val bottomRight = Point(
-                            Math.max(section.startPoint.x + section.width, comparingSection.startPoint.x + comparingSection.width),
-                            Math.max(section.startPoint.y + section.height, comparingSection.startPoint.y + comparingSection.height)
-                    )
+//                          Logs.i("2 sections are overlapping (" + section.me() + ") (" + comparingSection.me() + ")");
+                            var topLeft = Point(
+                                    min(startPoint1.x, startPoint2.x),
+                                    min(startPoint1.y, startPoint2.y)
+                            )
 
-                    val center = Point(
-                            topLeft.x + (bottomRight.x - topLeft.x) / 2,
-                            topLeft.y + (bottomRight.y - topLeft.y) / 2)
+                            val bottomRight = Point(
+                                    max(startPoint1.x + section.width, startPoint2.x + comparingSection.width),
+                                    max(startPoint1.y + section.height, startPoint2.y + comparingSection.height)
+                            )
 
-                    val width = (section.width + comparingSection.width) / 2
-                    val height = (section.height + comparingSection.height) / 2
+                            val center = Point(
+                                    topLeft.x + (bottomRight.x - topLeft.x) / 2,
+                                    topLeft.y + (bottomRight.y - topLeft.y) / 2)
 
-                    topLeft = Point(center.x - width / 2, center.y - height / 2)
+                            val width = (section.width + comparingSection.width) / 2
+                            val height = (section.height + comparingSection.height) / 2
 
-//                    int width = bottomRight.x - topLeft.x;
-//                    int height = bottomRight.y - topLeft.y;
+                            topLeft = Point(center.x - width / 2, center.y - height / 2)
 
-//                    Logs.i("combined to " + topLeft + " at " + width + "x" + height);
-                    Logs.i("Floor", "rectangle('position', [" + section.startPoint.x + ", " + section.startPoint.y + "," + section.width + "," + section.height + "], 'edgecolor',[0, 1, 0])", null)
-                    Logs.i("Floor", "rectangle('position', [" + comparingSection.startPoint.x + ", " + comparingSection.startPoint.y + "," + comparingSection.width + "," + comparingSection.height + "], 'edgecolor',[0, 1, 0])", null)
+//                            int width = bottomRight.x - topLeft.x;
+//                            int height = bottomRight.y - topLeft.y;
+//
+//                            Logs.i("combined to " + topLeft + " at " + width + "x" + height);
+                            Logs.i("Floor", "rectangle('position', [" + startPoint1.x + ", " + startPoint1.y + "," + section.width + "," + section.height + "], 'edgecolor',[0, 1, 0])", null)
+                            Logs.i("Floor", "rectangle('position', [" + startPoint2.x + ", " + startPoint2.y + "," + comparingSection.width + "," + comparingSection.height + "], 'edgecolor',[0, 1, 0])", null)
 
-                    val newSection = DungeonSection(section.id, dungeon, this, width, height, topLeft)
-                    Logs.i("Floor", "rectangle('position', [" + newSection.startPoint.x + ", " + newSection.startPoint.y + "," + newSection.width + "," + newSection.height + "], 'edgecolor',[1, 0, 0])", null)
+                            val newSection = DungeonSection(section.id, this, width, height, topLeft)
+                            Logs.i("Floor", "rectangle('position', [" + topLeft.x + ", " + topLeft.y + "," + newSection.width + "," + newSection.height + "], 'edgecolor',[1, 0, 0])", null)
 
-                    newSectionList.add(newSection)
-                    allClear = false
-                    break
+                            newSectionList.add(newSection)
+                            allClear = false
+                            doBreak = true
+                        }
+                    }
                 }
+
+                if (doBreak) break
             }
 
             if (!allClear) break
@@ -124,22 +145,30 @@ class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: 
     }
 
     fun fillFloor() {
-        sectionList.add(DungeonSection(sectionList.size, dungeon, this, dungeon.width, dungeon.height, Point(0, 0)))
+        dungeon?.let {
+            sectionList.add(DungeonSection(sectionList.size, this, it.width, it.height, Point(0, 0)))
+        }
     }
 
     fun splitFloor() {
-        sectionList.add(DungeonSection(sectionList.size, dungeon, this, dungeon.width / 2, dungeon.height, Point(0, 0)))
-        sectionList.add(DungeonSection(sectionList.size, dungeon, this, dungeon.width / 2, dungeon.height, Point(dungeon.width / 2, 0)))
+        dungeon?.let {
+            sectionList.add(DungeonSection(sectionList.size, this, it.width / 2, it.height, Point(0, 0)))
+            sectionList.add(DungeonSection(sectionList.size, this, it.width / 2, it.height, Point(it.width / 2, 0)))
+        }
     }
 
-    fun newFloor(elevation: Int, from: Room): Floor {
-        val newOrExistingFloor = dungeon.addFloorForLevel(level + elevation)
+    fun newFloor(elevation: Int, from: Room): Floor? {
+        dungeon?.let {
+            val newOrExistingFloor = it.addFloorForLevel(level + elevation)
 
-        if (!newOrExistingFloor.startedAddingRooms) {
-            newOrExistingFloor.sectionFrom(from.myGlobalCenter())
+            if (!newOrExistingFloor.startedAddingRooms) {
+                newOrExistingFloor.sectionFrom(from.myGlobalCenter())
+            }
+
+            return newOrExistingFloor
         }
 
-        return newOrExistingFloor
+        return null
     }
 
     fun branchOut() {
@@ -155,9 +184,13 @@ class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: 
         return sectionList
     }
 
-    val allCorridors: List<List<Point>>
+    fun complete() {
+        sectionList.forEach { it.complete() }
+    }
+
+    val allCorridors: List<Corridor>
         get() {
-            val allCorridors: MutableList<List<Point>> = ArrayList()
+            val allCorridors: MutableList<Corridor> = ArrayList()
             for (section in sectionList) {
                 allCorridors.addAll(section.getGlobalCorridors())
             }
@@ -199,8 +232,4 @@ class Floor(@Transient var dungeon: Dungeon, @Transient var rnd: Random, level: 
             }
             return finalEdges
         }
-
-    init {
-        this.level = level
-    }
 }

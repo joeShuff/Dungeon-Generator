@@ -1,6 +1,6 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 
 class Movement(var oldStart: Point, var newStart: Point) {
     fun increment() {

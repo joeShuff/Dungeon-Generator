@@ -1,7 +1,7 @@
 package com.joeshuff.dddungeongenerator.generator.features
 
-interface RoomFeature {
-    fun getPageForMoreInfo(): Int
-    fun getFeatureName(): String
-    fun getFeatureDescription(): String
+abstract class RoomFeature {
+    abstract fun getPageForMoreInfo(): Int
+    abstract fun getFeatureName(): String
+    abstract fun getFeatureDescription(): String
 }

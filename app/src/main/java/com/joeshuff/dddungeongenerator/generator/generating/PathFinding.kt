@@ -1,9 +1,9 @@
 package com.joeshuff.dddungeongenerator.generator.generating
 
-import android.graphics.Point
+import com.joeshuff.dddungeongenerator.db.models.Point
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.generator.floors.DungeonSection
-import java.util.*
+import com.joeshuff.dddungeongenerator.generator.models.Corridor
 import kotlin.math.abs
 
 class PathFinding(
@@ -11,11 +11,11 @@ class PathFinding(
         val rooms: List<Room>,
         val connectingPoints: List<MinSpanningTree.Edge>) {
 
-    fun findPaths(): List<List<Point>> {
-        val result: ArrayList<List<Point>> = arrayListOf()
+    fun findPaths(): List<Corridor> {
+        val result: ArrayList<Corridor> = arrayListOf()
 
         connectingPoints.forEach {
-            result.add(aStarPath(section, it.start, it.end))
+            result.add(Corridor(aStarPath(section, it.start, it.end)))
         }
 
         return result

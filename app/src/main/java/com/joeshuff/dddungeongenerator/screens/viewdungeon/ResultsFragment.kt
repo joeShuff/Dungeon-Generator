@@ -13,9 +13,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.joeshuff.dddungeongenerator.R
+import com.joeshuff.dddungeongenerator.db.copyFromRealm
+import com.joeshuff.dddungeongenerator.db.dungeonDao
 import com.joeshuff.dddungeongenerator.generator.dungeon.Dungeon
 import com.joeshuff.dddungeongenerator.generator.dungeon.Room
 import com.joeshuff.dddungeongenerator.util.dpToExact
@@ -25,6 +28,7 @@ import com.joeshuff.dddungeongenerator.util.screenHeight
 import com.warkiz.tickseekbar.OnSeekChangeListener
 import com.warkiz.tickseekbar.SeekParams
 import com.warkiz.tickseekbar.TickSeekBar
+import io.realm.Realm
 import kotlinx.android.synthetic.main.element_info_pair.view.*
 import kotlinx.android.synthetic.main.pager_information_page.view.*
 import kotlinx.android.synthetic.main.pager_map_page.*
@@ -34,18 +38,18 @@ class ResultsFragment: Fragment() {
 
     companion object {
         const val PAGE_ARG = "page_id"
+        const val DUNGEON_ARG = "dungeon_id"
 
         var context: Context? = null
-        var loadedDungeon: Dungeon? = null
 
-        fun getInstance(context: Context, pageId: Int, dungeon: Dungeon): ResultsFragment {
+        fun getInstance(context: Context, pageId: Int, dungeonId: Int): ResultsFragment {
             val frag = ResultsFragment()
 
             this.context = context
-            loadedDungeon = dungeon
 
             val bundle = Bundle()
             bundle.putInt(PAGE_ARG, pageId)
+            bundle.putInt(DUNGEON_ARG, dungeonId)
             frag.arguments = bundle
 
             return frag
@@ -62,10 +66,12 @@ class ResultsFragment: Fragment() {
     }
 
     var pageId: Int = 0
+    var dungeonId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageId = arguments?.getInt(PAGE_ARG, 0)?: 0
+        dungeonId = arguments?.getInt(DUNGEON_ARG, -1)?: -1
     }
 
     override fun onAttach(context: Context) {
@@ -80,44 +86,51 @@ class ResultsFragment: Fragment() {
 
         if (pageId == 1) {
             view = inflater.inflate(R.layout.pager_information_page, container, false)
-            loadInfoPage(view)
         } else if (pageId == 2) {
             view = inflater.inflate(R.layout.pager_map_page, container, false)
-            loadMapPage(view)
         }
 
         root = view
 
+        Realm.getDefaultInstance().dungeonDao().loadDungeonOnce(dungeonId, viewLifecycleOwner) {
+            it?.copyFromRealm()?.let {
+                when (pageId) {
+                    1 -> loadInfoPage(view, it)
+                    2 -> loadMapPage(view, it)
+                }
+            }?: run {
+                Toast.makeText(context, "Unable to find dungeon", Toast.LENGTH_LONG).show()
+            }
+        }
+
         return view
     }
 
-    private fun loadInfoPage(rootView: View) {
+    private fun loadInfoPage(rootView: View, dungeon: Dungeon) {
         context?.let { context ->
-            loadedDungeon?.let { dungeon ->
-                rootView.seedView.setOnClickListener { e: View? ->
-                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val clip = ClipData.newPlainText("Seed", dungeon.getSeed())
-                    clipboard.setPrimaryClip(clip)
-                    Toast.makeText(context, "Copied Seed", Toast.LENGTH_LONG).show()
-                }
+            rootView.seedView.setOnClickListener { e: View? ->
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("Seed", dungeon.getSeed())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(context, "Copied Seed", Toast.LENGTH_LONG).show()
+            }
 
-                with (rootView) {
-                    seedView.infoPair_key.text = "Seed"
-                    seedView.infoPair_value.text = dungeon.getSeed()
-                    environmentView.infoPair_key.text = "Environment"
-                    environmentView.infoPair_value.text = dungeon.selectedEnvironment?.description?: "None"
-                    creatorView.infoPair_key.text = "Creator"
-                    creatorView.infoPair_value.text = dungeon.dungeonCreator?.getDescription()?: "None"
+            with (rootView) {
+                seedView.infoPair_key.text = "Seed"
+                seedView.infoPair_value.text = dungeon.getSeed()
+                environmentView.infoPair_key.text = "Environment"
+                environmentView.infoPair_value.text = dungeon.selectedEnvironment?.description?: "None"
+                creatorView.infoPair_key.text = "Creator"
+                creatorView.infoPair_value.text = dungeon.dungeonCreator?.getDescription()?: "None"
 
-                    purposeView.infoPair_key.text = "Purpose" + (if (dungeon.dungeonPurpose != null) " - " + dungeon.dungeonPurpose?.title else "")
-                    purposeView.infoPair_value.text = dungeon.dungeonPurpose?.let { it.description }?: run { "N/A" }
+                purposeView.infoPair_key.text = "Purpose" + (if (dungeon.dungeonPurpose != null) " - " + dungeon.dungeonPurpose?.title else "")
+                purposeView.infoPair_value.text = dungeon.dungeonPurpose?.let { it.description }?: run { "N/A" }
 
-                    historyView.infoPair_key.text = "History"
-                    historyView.infoPair_value.text = dungeon.dungeonHistory?.let { it.desc }?: run { "N/A" }
+                historyView.infoPair_key.text = "History"
+                historyView.infoPair_value.text = dungeon.dungeonHistory?.let { it.desc }?: run { "N/A" }
 
-                    floorCountView.infoPair_key.text = "Floors"
-                    floorCountView.infoPair_value.text = "${dungeon.getDungeonFloors().size}"
-                }
+                floorCountView.infoPair_key.text = "Floors"
+                floorCountView.infoPair_value.text = "${dungeon.getDungeonFloors().size}"
             }
         }
     }
@@ -125,31 +138,29 @@ class ResultsFragment: Fragment() {
     private var selectedRoomId = -1
     private var selectedLevel = 0
     var seeker: TickSeekBar? = null
-    private fun loadMapPage(rootView: View) {
+    private fun loadMapPage(rootView: View, dungeon: Dungeon) {
         context?.let { context ->
-            loadedDungeon?.let { dungeon ->
-                fillMap(context, rootView, selectedLevel, dungeon)
+            fillMap(context, rootView, selectedLevel, dungeon)
 
-                rootView.floorSelection.min = dungeon.lowestDungeonFloor?.level?.toFloat()?: 0f
-                rootView.floorSelection.max = dungeon.highestDungeonFloor?.level?.toFloat()?: 0f
-                rootView.floorSelection.tickCount = dungeon.getDungeonFloors().size
+            rootView.floorSelection.min = dungeon.lowestDungeonFloor?.level?.toFloat()?: 0f
+            rootView.floorSelection.max = dungeon.highestDungeonFloor?.level?.toFloat()?: 0f
+            rootView.floorSelection.tickCount = dungeon.getDungeonFloors().size
 
-                if (dungeon.getDungeonFloors().size == 1) {
-                    rootView.floorSelection.makeGone()
-                    rootView.selectionTitle.text = "1 Floor"
-                }
+            if (dungeon.getDungeonFloors().size == 1) {
+                rootView.floorSelection.makeGone()
+                rootView.selectionTitle.text = "1 Floor"
+            }
 
-                rootView.floorSelection.setProgress(selectedLevel.toFloat())
+            rootView.floorSelection.setProgress(selectedLevel.toFloat())
 
-                rootView.floorSelection.onSeekChangeListener = object : OnSeekChangeListener {
-                    override fun onSeeking(seekParams: SeekParams) {}
-                    override fun onStartTrackingTouch(seekBar: TickSeekBar) {}
-                    override fun onStopTrackingTouch(seekBar: TickSeekBar) {
-                        selectedLevel = seekBar.progress
-                        seekBar.setProgress(selectedLevel.toFloat())
-                        selectedRoomId = -1
-                        fillMap(context, rootView, selectedLevel, dungeon)
-                    }
+            rootView.floorSelection.onSeekChangeListener = object : OnSeekChangeListener {
+                override fun onSeeking(seekParams: SeekParams) {}
+                override fun onStartTrackingTouch(seekBar: TickSeekBar) {}
+                override fun onStopTrackingTouch(seekBar: TickSeekBar) {
+                    selectedLevel = seekBar.progress
+                    seekBar.setProgress(selectedLevel.toFloat())
+                    selectedRoomId = -1
+                    fillMap(context, rootView, selectedLevel, dungeon)
                 }
             }
         }
@@ -178,18 +189,15 @@ class ResultsFragment: Fragment() {
             paint.color = ContextCompat.getColor(context, R.color.colorCorridor)
 
             dungeon.getDungeonFloorAtLevel(level)?.allCorridors?.forEach {
-                for (p in it) {
-
-                    val oneDp: Int = context.dpToExact(3f)
-                    val topLeft: Int = context.dpToExact((p.x - 1).toFloat())
-                    val topRight: Int = context.dpToExact((p.y - 1).toFloat())
+                for (section in it.sections) {
+                    val topLeft: Int = context.dpToExact((section.startX).toFloat())
+                    val topRight: Int = context.dpToExact((section.startY).toFloat())
 
                     canvas.drawRect(Rect(
                             topLeft,
                             topRight,
-                            topLeft + oneDp,
-                            topRight + oneDp), paint)
-
+                            topLeft + context.dpToExact(section.width.toFloat()),
+                            topRight + context.dpToExact(section.height.toFloat())), paint)
                 }
             }
 
@@ -229,12 +237,16 @@ class ResultsFragment: Fragment() {
         selectedLevel = floor
 
         context?.let { context ->
-            loadedDungeon?.let { dungeon ->
-                var room = dungeon.getDungeonFloorAtLevel(selectedLevel)?.allRooms?.firstOrNull { it.id == selectedRoomId }
+            Realm.getDefaultInstance().dungeonDao().loadDungeonOnce(dungeonId, viewLifecycleOwner) {
+                it?.let {dungeon ->
+                    val room = dungeon.getDungeonFloorAtLevel(selectedLevel)?.allRooms?.firstOrNull { it.id == selectedRoomId }
 
-                room?.let {
-                    roomSelected(it, context, dungeon)
-                    root?.scrollMapPage?.fullScroll(View.FOCUS_UP)
+                    room?.let {
+                        roomSelected(it, context, dungeon)
+                        root?.scrollMapPage?.fullScroll(View.FOCUS_UP)
+                    }
+                }?: run {
+                    Toast.makeText(context, "Unable to find dungeon", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -250,9 +262,8 @@ class ResultsFragment: Fragment() {
             fillMap(context, it, selectedLevel, dungeon)
 
             it.featureList.makeVisible()
-            it.featureList.setEmptyView(it.emptyFeatureView)
-            it.featureList.layoutManager = LinearLayoutManager(context)
-            it.featureList.adapter = FeatureListAdapter(context, r.getFeatureList())
+            it.featureList.setLayoutManager(LinearLayoutManager(context))
+            it.featureList.setAdapter(FeatureListAdapter(context, r.getUIFeatures()))
         }
     }
 
@@ -275,7 +286,7 @@ class ResultsFragment: Fragment() {
 
     class ResultFragmentPagerAdapter(val a: Context, fm: FragmentManager, val dungeon: Dungeon) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getItem(i: Int): Fragment {
-            return getInstance(a, i + 1, dungeon)
+            return getInstance(a, i + 1, dungeon.id)
         }
 
         override fun getPageTitle(position: Int): CharSequence? {

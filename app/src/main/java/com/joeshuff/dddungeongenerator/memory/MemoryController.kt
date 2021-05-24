@@ -4,6 +4,7 @@ import android.content.Context
 import android.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import io.reactivex.subjects.PublishSubject
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.*
@@ -12,10 +13,14 @@ import kotlin.collections.ArrayList
 object MemoryController {
     private const val MEMORY_KEY = "MEMORY_THING"
 
+    val memoryHistory = PublishSubject.create<List<MemoryGeneration>>()
+
     @Throws(JSONException::class)
     fun addToMemory(c: Context, memoryGeneration: MemoryGeneration): MemoryGeneration {
         val stored = getMemory(c)
         stored.add(memoryGeneration)
+
+        memoryHistory.onNext(stored)
 
         val array = JSONArray("[]")
         for (mem in stored) {
@@ -30,6 +35,8 @@ object MemoryController {
     fun removeFromMemory(c: Context, m: MemoryGeneration) {
         val stored = getMemory(c)
         stored.remove(m)
+
+        memoryHistory.onNext(stored)
 
         val array = JSONArray("[]")
         for (mem in stored) {

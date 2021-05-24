@@ -1,9 +1,10 @@
 package com.joeshuff.dddungeongenerator.generator.dungeon
 
 import com.joeshuff.dddungeongenerator.generator.monsters.MonsterClass
+import io.realm.RealmObject
 import java.util.*
 
-class Creator {
+open class Creator: RealmObject() {
     enum class CREATOR(description: String, modifier: Modifier, names: List<String>?) {
         BEHOLDER("Beholder", Modifier(), null),
         CULT("A Cult or Religious Group", Modifier(), null),
@@ -27,9 +28,15 @@ class Creator {
         }
     }
 
-    var creatorType: CREATOR? = null
+    private var creator: String? = null
+    var creatorType: CREATOR?
+        get() { return creator?.let { CREATOR.valueOf(it) }?: null }
+        set(new) { new?.let { creator = it.name } }
 
-    var cultType: CULT_TYPE? = null
+    private var cult: String? = null
+    var cultType: CULT_TYPE?
+        get() { return cult?.let { CULT_TYPE.valueOf(it) }?: null }
+        set(new) { new?.let { cult = it.name } }
 
     var extraDesc = ""
     var humanClass = ""
