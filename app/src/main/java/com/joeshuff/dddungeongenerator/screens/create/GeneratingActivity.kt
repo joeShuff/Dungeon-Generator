@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.perf.FirebasePerformance
 import com.google.firebase.perf.metrics.Trace
 import com.google.gson.Gson
+import com.joeshuff.chatalyser.db.RealmHelper
 import com.joeshuff.dddungeongenerator.R
 import com.joeshuff.dddungeongenerator.db.dungeonDao
 import com.joeshuff.dddungeongenerator.generator.DungeonProcessor
@@ -39,12 +40,22 @@ class GeneratingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_generating)
+
+        RealmHelper.build(this)
+
         myTrace = FirebasePerformance.getInstance().newTrace("generate_dungeon")
         startGenerating()
     }
 
     private fun startGenerating() {
         val foundInstructions = Gson().fromJson(intent.getStringExtra(GENERATION_INSTRUCTIONS), MemoryGeneration::class.java)
+
+        if (foundInstructions == null) {
+            Toast.makeText(this, "Error finding generation instructions", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
+
         var newDungeon = Dungeon(0, 0, 800, 800, foundInstructions.seed)
 
         newDungeon?.let {
