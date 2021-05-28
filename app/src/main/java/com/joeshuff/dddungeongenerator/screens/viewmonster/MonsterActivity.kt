@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.joeshuff.chatalyser.db.RealmHelper
 import com.joeshuff.dddungeongenerator.R
 import com.joeshuff.dddungeongenerator.generator.monsters.Monster
 import com.joeshuff.dddungeongenerator.util.FirebaseTracker
@@ -27,6 +28,8 @@ class MonsterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monster_display)
+
+        RealmHelper.build(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         try {
