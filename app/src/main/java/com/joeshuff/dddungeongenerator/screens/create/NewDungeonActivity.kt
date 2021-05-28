@@ -8,6 +8,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.joeshuff.chatalyser.db.RealmHelper
 import com.joeshuff.dddungeongenerator.R
 import com.joeshuff.dddungeongenerator.memory.MemoryController
 import com.joeshuff.dddungeongenerator.memory.MemoryGeneration
@@ -21,6 +22,8 @@ class NewDungeonActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
+
+        RealmHelper.build(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Configure Dungeon"

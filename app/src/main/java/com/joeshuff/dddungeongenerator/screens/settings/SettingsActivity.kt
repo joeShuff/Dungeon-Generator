@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.item_settings_srd.*
 import kotlinx.android.synthetic.main.item_settings_theme.*
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import com.joeshuff.chatalyser.db.RealmHelper
 import com.joeshuff.dddungeongenerator.BuildConfig
 import com.joeshuff.dddungeongenerator.R
 import com.joeshuff.dddungeongenerator.pdfviewing.PaperActivity
@@ -37,6 +38,8 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        RealmHelper.build(this)
 
         AppPreferences.init(applicationContext)
         AppCompatDelegate.setDefaultNightMode(AppPreferences.darkThemeMode)
